@@ -330,6 +330,66 @@ do -- wheel
 end
 
 ------------------------------------------------------------------------------
+section("Citation precision")
+------------------------------------------------------------------------------
+-- A tag-only source is honest; a tag-only source that has been read in full is
+-- just an un-upgraded citation. These two were upgraded when their texts
+-- arrived, so a bare tag is now a mistake and the suite says so.
+for _, tag in ipairs{ "BEL", "IDIO", "HUG" } do
+  local bare = {}
+  for _, e in ipairs(D.ENTRIES) do
+    for _, sec in ipairs(e.sec or {}) do
+      for _, it in ipairs(sec[2]) do
+        local c = it[3] or ""
+        -- present as a whole word, but not followed by a locator
+        if c:find("%f[%w]" .. tag .. "%f[%W]") and not c:find(tag .. "%s+[%w\']") then
+          bare[#bare + 1] = e.id .. ":" .. c
+        end
+      end
+    end
+  end
+  check(("every %s citation carries a locator"):format(tag), #bare == 0,
+        table.concat(bare, " "))
+end
+
+-- Every declared source must actually be used, or the Sources page lists a work
+-- nothing rests on.
+do
+  local used = {}
+  for _, e in ipairs(D.ENTRIES) do
+    for _, sec in ipairs(e.sec or {}) do
+      for _, it in ipairs(sec[2]) do
+        for tag in pairs(D.SOURCES) do
+          if (it[3] or ""):find("%f[%w]" .. tag .. "%f[%W]") then used[tag] = true end
+        end
+      end
+    end
+  end
+  local unused = {}
+  for tag in pairs(D.SOURCES) do
+    if not used[tag] then unused[#unused + 1] = tag end
+  end
+  check("every declared source is cited somewhere", #unused == 0,
+        table.concat(unused, ","))
+end
+
+-- HUG was split out of the MOD group when Hugill was read in full. If it ever
+-- vanishes from the Sources page order, its entries lose their attribution.
+do
+  local src = assert(io.open(HERE .. "/../Orchestration Helper.lua")):read("a")
+  local order = src:match("local order = (%b{})")
+  check("the Sources page lists every tag", order ~= nil)
+  local missing = {}
+  for tag in pairs(D.SOURCES) do
+    if not (order or ""):find('"' .. tag .. '"', 1, true) then
+      missing[#missing + 1] = tag
+    end
+  end
+  check("no source is missing from the Sources page order", #missing == 0,
+        table.concat(missing, ","))
+end
+
+------------------------------------------------------------------------------
 section("Index folding")
 ------------------------------------------------------------------------------
 local FAMILIES = { "Strings", "Woodwind", "Brass", "Percussion", "Plucked",

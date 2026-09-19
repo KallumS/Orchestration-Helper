@@ -14,13 +14,16 @@ Read `docs/SESSION-LOG.md` for why things are the way they are — decisions,
 rejected alternatives, and the bugs already found and fixed.
 Read `COLOUR.md` before touching a colour: the scheme is shared with another
 project, and its least obvious rule is the easiest to break.
+Read `MUSIC-THEORY.md` for the theory the data files are instances of — the
+principles, the disagreements between sources, and the wider harmony, counterpoint
+and form vocabulary those sources assume.
 
 ## Commands
 
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (165 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (171 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
@@ -92,10 +95,11 @@ open. `st.open` maps family name —> `true`; everything else follows from that.
 - **Ctrl+Right / Ctrl+Left** open and close every family. There is no free
   single-key shortcut — every printable character 32—126 goes into the search
   box — so the modifier is not decoration.
-- **The disclosure triangle is built from `gfx.rect`**, in `marker()`. `gfx` may
-  well have a triangle primitive, but the bundled API reference is not in the
-  repo, so it could not be verified; `gfx.rect` is used all over this script and
-  is therefore known to work. Do not swap it for an unverified call.
+- **The disclosure triangle uses `gfx.triangle`**, in `marker()`. The API
+  reference confirms it: "Draws a filled triangle, or any convex polygon." It was
+  first written as stacked `gfx.rect` calls because the reference had not been
+  seen and the call could not be verified; that caution is recorded in the session
+  log and is no longer needed.
 - A row is only hoverable when it is **wholly inside the viewport**
   (`y >= top and y + h <= bottom`). The body is drawn before the opaque top
   strip and footer, so without that gate a row scrolled underneath either would
@@ -165,7 +169,21 @@ ids must be unique **across both files**.
 ### REAPER compatibility constraints
 
 - **`gfx` only.** No ReaImGui, SWS or js_ReaScriptAPI, so a stock install runs
-  it. The bundled REAPER API reference contains no ImGui functions.
+  it. The API reference has 59 `gfx.` entries and **zero** matches for `ImGui`,
+  so this is a property of the API, not a preference.
+- **`gfx` functions available but unused**, worth knowing before writing a
+  workaround: `triangle` (filled convex polygon), `roundrect`, `arc`, `circle`,
+  `gradrect`, `muladdrect`, `blurto`, `setcursor`, `showmenu` (a real popup menu),
+  `loadimg`/`blit`, `getdropfile`, `clienttoscreen`.
+- **`drawstr` flags**, since the script passes them as bare numbers: `1` centre
+  horizontally, `2` right justify, `4` centre vertically, `8` bottom justify,
+  `256` ignore the right/bottom arguments (otherwise the text is clipped to them).
+  The common `drawstr(s, 256)` in this script means "no clipping".
+- **Ctrl on Windows is Command on macOS.** `gfx.mouse_cap` bit 4 is "Control
+  (Windows) or Command (macOS)"; bit 32 is the Windows key, or Control on macOS.
+  So the index's Ctrl+Left/Right are Cmd+Left/Right on a Mac. `gfx.getchar` also
+  returns Ctrl/Cmd+A..Z as 1..26, below the 32..126 range the search box accepts,
+  so they cannot reach the query by accident.
 - **No bitwise operators.** `gfx.mouse_cap` is tested arithmetically via
   `cap(bit)` so the script runs on every Lua version REAPER has shipped.
 - **No clipboard.** Not in the core API (`CF_SetClipboard` is SWS).
@@ -267,15 +285,23 @@ tool is for.
    - `SIN` — page numbers are *approximations* anchored to the volume's
      illustration list, because the Gutenberg transcription has no page breaks.
      Use `SIN ch.VIII` where no anchor exists.
-   - `OMT`, `IDIO`, `MOD`, `FILM` — gathered from search-result summaries rather
-     than full page reads, so cited by tag only. **These are the incomplete
-     sources**, and between them they carry 154 of the 1,360 items: `FILM` 77,
-     `MOD` 62, `IDIO` 14, `OMT` 1. If a full text for any of them ever arrives, do
-     what was done for `BEL`: re-verify every claim against it first, expect to
-     find one or two that the summary overstated, then upgrade the citations.
+   - `IDIO`, `HUG` — cited by **chapter or page title**. Neither source has page
+     numbers, but both name their pages, which is enough to find a claim. `IDIO`
+     began as tag-only; when the full text arrived every existing claim was
+     re-checked and **all fourteen were confirmed**, so the citations were
+     upgraded rather than rewritten — the opposite outcome to the `BEL` round, and
+     worth recording as the other possibility. `HUG` was split out of the `MOD`
+     group at the same time. The suite fails on a bare `BEL`, `IDIO` or `HUG`.
+   - `OMT`, `MOD`, `FILM` — gathered from search-result summaries rather than full
+     page reads, so cited by tag only. **These are the incomplete sources**, and
+     between them they carry 137 of the 1,472 items: `FILM` 77, `MOD` 59, `OMT` 1.
+     If a full text for any of them arrives, do what was done for `BEL` and
+     `IDIO`: re-verify every claim against it first, then upgrade. Note that a
+     full *Open Music Theory* was supplied and did **not** contain its
+     orchestration chapter, so `OMT` is still un-upgradable.
 
    `tests/audit-sources.lua` prints the coverage, which is the fastest way to see
-   where the evidence is thin. It separates `WP` from the four: Wikipedia *was*
+   where the evidence is thin. It separates `WP` from the rest: Wikipedia *was*
    read in full and simply has no pages, so its 48 tag-only citations are a
    property of the source, not a gap. Regenerate the table rather than trusting a
    remembered number — a first pass at this counted `SIN ch.VIII` as a source
@@ -297,9 +323,17 @@ tool is for.
   present-day material was gathered, and why it is cited by tag.
 - The reference documents that seeded the database were session uploads and are
   **not in the repo**: two public-domain treatises, the Wikipedia orchestration
-  article, the REAPER API reference, and later a zip of Alan Belkin's materials
-  (seven chapter pages from his site plus `bk-O-O.pdf`, the 65-page *Artistic
-  Orchestration*). See `docs/SESSION-LOG.md` for what each contained.
+  article, the REAPER API reference, a zip of Alan Belkin's materials (seven chapter
+  pages plus `bk-O-O.pdf`, the 65-page *Artistic Orchestration*), and later the
+  generated REAPER API function reference plus full-site zips of *The Idiomatic
+  Orchestra*, Hugill's *The Orchestra: A User's Manual* and *Open Music Theory*.
+  See `docs/SESSION-LOG.md` for what each contained. **None of them can be assumed
+  present.** If a claim needs re-verifying, ask for the source again rather than
+  guessing; that is how the one unresolved `MOD` citation on the String Section page
+  came to be left open.
+- **`WebSearch` works, `WebFetch` and `curl` do not** — but the useful lesson from the
+  later rounds is that a supplied full text beats both, and that the difference is
+  visible in the citations: a search summary can only ever earn a bare tag.
 - Extracting a PDF here needs a workaround: `poppler-utils` will not install
   (404 from the archive) and `pypdf` crashes on import because the system
   `cryptography` wheel panics under pyo3. Blocking it first works:

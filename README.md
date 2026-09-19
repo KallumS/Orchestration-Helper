@@ -76,9 +76,9 @@ runs.
 
 ## What is in it
 
-120 entries, 1,360 cited items, across two databases.
+122 entries, 1,472 cited items, across two databases.
 
-`orchestration_data.lua` — 70 entries:
+`orchestration_data.lua` — 72 entries:
 
 - **Sections** — strings, woodwind, brass, percussion, plucked strings, voices
   and chorus: rosters at full/medium/small size, present-day section sizes,
@@ -91,6 +91,15 @@ runs.
   Brass, all three groups combined, the blend bridges between groups, balance
   and relative strength, doubling principles, orchestral range and score order,
   and the modern orchestra's roster.
+- **Acoustics** — *Overtones, Formants and Penetration*: why one instrument cuts
+  through a tutti and another vanishes at the same dynamic, which is almost never a
+  matter of power. Which sounds carry formants and which blend, how register
+  inverts the intuition (a low oboe penetrates more than a high one), and why the
+  real risk to a quiet instrument is masking rather than volume.
+- **Listening** — *Where to Hear These Combinations*: for each doubling the
+  encyclopaedia calls standard, a place in the repertoire to hear it, with work,
+  movement and bar or rehearsal figure. Taken from Hugill's index of the
+  Philharmonia's recorded archive.
 - **Craft** — the working topics from Belkin's *Artistic Orchestration*:
   orchestration and form, the five-group scale of timbral contrast, planes of
   tone, sustained vs dry sound, orchestrating counterpoint, the tutti,
@@ -158,21 +167,28 @@ still holds and to supply modern section sizes; they are cited by tag.
 | `WP` | Wikipedia, *Orchestration* (CC BY-SA) — for the standard instrumentation shorthand. |
 | `BEL` | Alan Belkin, *Artistic Orchestration* (© Alan Belkin 2001, 2008) — the third volume of his free online series, published by the author at alanbelkinmusic.com. 65 pages, **cited by page**. Belkin's terms: "The material may be used free of charge provided that the author's name is included." |
 | `OMT` | *Open Music Theory* 2e (Gotham et al.), chapter "Core Principles of Orchestration" — open-access textbook. |
-| `IDIO` | *The Idiomatic Orchestra* — online orchestration manual; chapters on Unisono and Doubling, Parallel Doubling, Partial Doubling and Heterophony, Timbre and Sound Combinations. |
-| `MOD` | Present-day practice, where several references agree: Andrew Hugill's *The Orchestra: A User's Manual* (with the Philharmonia Orchestra), the Timbre and Orchestration Resource (ACTOR Project), Orchestration Online, and Wikipedia's *Orchestra*, *String section* and *Brass section*. |
+| `IDIO` | *The Idiomatic Orchestra* (theidiomaticorchestra.net) — online orchestration manual, read in full and **cited by chapter**. Source of the balance-ratio method and of the clearest account of what each kind of doubling actually does. |
+| `HUG` | Andrew Hugill, *The Orchestra: A User's Manual* (© Andrew Hugill 2015), written with the Philharmonia Orchestra. **Cited by page title.** Largely an index of the Philharmonia's recorded archive giving work, movement and bar or figure for a great many scorings, plus prose on each section. |
+| `MOD` | Present-day practice, where several references agree: the Timbre and Orchestration Resource (ACTOR Project), Orchestration Online, and Wikipedia's *Orchestra*, *String section* and *Brass section*. Hugill was part of this group until the full site was supplied; he is now cited separately as `HUG`. |
 | `FILM` | Film-music references consulted together for the film composer entries: score studies from Movie Music UK, the Timbre and Orchestration Resource, Sound on Sound, Soundfly/Flypaper, Classic FM, the Vienna Symphonic Library forum's orchestration threads, programme notes from the LA Phil, Hollywood Bowl and Wise Music Classical, and Wikipedia's articles on the individual scores and composers. |
 
 Berlioz, Lavignac, Gevaert, Stone and Forsyth are quoted **as Singleton quotes
 them**, and are named in the text wherever that is the case — they are not cited
 as if consulted directly.
 
-The `OMT`, `IDIO`, `MOD` and `FILM` items were gathered from search results
-rather than from the full text of each page, because this environment blocks
-direct page fetching. They are therefore cited by tag rather than by page, and
-are phrased no more precisely than that evidence supports. They account for 154
-of the 1,360 items — `FILM` 77, `MOD` 62, `IDIO` 14, `OMT` 1 — and they are the
-part of the database a full text would most improve. `lua5.4
-tests/audit-sources.lua` prints the current coverage per tag.
+The `OMT`, `MOD` and `FILM` items were gathered from search results rather than
+from the full text of each page, because this environment blocks direct page
+fetching. They are therefore cited by tag rather than by page, and are phrased no
+more precisely than that evidence supports. They account for 137 of the 1,472
+items — `FILM` 77, `MOD` 59, `OMT` 1 — and they are the part of the database a full
+text would most improve. `lua5.4 tests/audit-sources.lua` prints the current
+coverage per tag.
+
+`IDIO` was in that group until its full text arrived. Every one of its fourteen
+existing claims was re-checked against the real chapters and **all fourteen were
+confirmed**, so the citations were upgraded to name chapters rather than rewritten.
+`HUG` was split out of `MOD` in the same pass. Between them they now carry 131
+items, all located.
 
 `WP` is also cited by tag, but for a different reason: the article was read in
 full and simply has no pages to cite.
@@ -271,12 +287,12 @@ The script was built and tested against a headless stand-in for REAPER's `gfx`
 and `reaper` APIs, which allows the search ranking, layout, scrolling and mouse
 handling to be exercised without launching REAPER. The checks covered:
 
-- data integrity — 1,360 items all cited, every citation naming a declared
+- data integrity — 1,472 items all cited, every citation naming a declared
   source, every `BEL` citation carrying a page, every `related` and `instruments`
   id resolving across both files, no duplicate entry ids;
 - search ranking against 102 query/expected-result pairs, including aliases,
   prefixes, punctuation and typos (`Bernard Hermann`, `tromobne`, `bassson`);
-- every one of the 120 entries rendered at three window sizes;
+- every one of the 122 entries rendered at three window sizes;
 - interaction — arrow navigation, Enter, Esc, back, F1, header buttons, chip
   clicks, wheel and page scrolling, and the reverse links from an instrument to
   its composers;
@@ -288,7 +304,10 @@ handling to be exercised without launching REAPER. The checks covered:
 - the colour scheme's mechanical rules (see `COLOUR.md`): every grey cool, the
   accent used no more than four times, no second accent.
 
-165 checks; run them with `lua5.4 tests/run.lua`.
+- citation precision — no bare `BEL`, `IDIO` or `HUG` tag, every declared source
+  actually cited, and no source missing from the Sources page.
+
+171 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has
@@ -304,6 +323,8 @@ The script is licensed under the repository's LICENSE.
 The two principal treatises are in the public domain. The Wikipedia material is
 CC BY-SA. Alan Belkin's *Artistic Orchestration* is used on the author's own
 stated terms — free of charge with his name included — and he is named in the
-source list, in the affected entries, and here. Material drawn from the other
-present-day and film-music references is used as short factual statements with
-attribution.
+source list, in the affected entries, and here. Andrew Hugill's *The Orchestra: A
+User's Manual* reserves all rights, so it is used only as short factual statements
+and brief quotations with attribution, and he is named on the Sources page and in
+every entry that draws on him. Material drawn from *The Idiomatic Orchestra* and
+the other present-day and film-music references is used the same way.

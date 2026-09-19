@@ -56,6 +56,8 @@ function gfx.roundrect() end
 function gfx.line() end
 function gfx.lineto() end
 function gfx.circle() end
+function gfx.triangle() end
+function gfx.arc() end
 function gfx.set(r,g,b,a,m,d,a2) gfx.r,gfx.g,gfx.b=r,g,b; gfx.a=a or 1 end
 function gfx.update()
   frames = frames + 1

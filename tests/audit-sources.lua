@@ -46,7 +46,11 @@ for _, e in ipairs(entries) do
         if cite:find("%f[%w]" .. t .. "%f[%W]") then
           local st = stat[t]
           st.n = st.n + 1
-          if cite:find(t .. "%s+p%.") or cite:find(t .. "%s+ch%.") then
+          -- Located = the tag is followed by something that narrows it down: a
+          -- page, a chapter, or a page title. A web source with no pagination
+          -- can still be located by the title of the page carrying the claim,
+          -- which is how IDIO and HUG are cited.
+          if cite:find(t .. "%s+[%w']") then
             st.located = st.located + 1
           end
           if not st.entries[e.id] then
@@ -67,7 +71,7 @@ for _, t in ipairs(ordered) do
   local pct = st.n > 0 and math.floor(st.located / st.n * 100 + 0.5) or 0
   local how
   if st.n == 0 then how = "declared but unused"
-  elseif pct == 100 then how = "by page or chapter"
+  elseif pct == 100 then how = "located (page, chapter or title)"
   elseif PAGELESS[t] then how = "tag only - " .. PAGELESS[t]
   elseif pct == 0 then how = "TAG ONLY - no full text read"
   else how = "mixed" end

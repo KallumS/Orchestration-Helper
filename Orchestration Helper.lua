@@ -613,7 +613,7 @@ local function layout(w)
     gap(4)
     para("Every statement in this encyclopaedia is drawn from the works below and " ..
          "tagged with the page it came from.", F.BODY, C.dim, x, maxw)
-    local order = { "RK", "SIN", "WP", "BEL", "OMT", "IDIO", "MOD", "FILM" }
+    local order = { "RK", "SIN", "WP", "BEL", "HUG", "IDIO", "OMT", "MOD", "FILM" }
     for _, tag in ipairs(order) do
       local s = SOURCES[tag]
       if s then
@@ -727,24 +727,18 @@ local function hot(x, y, w, h, action)
 end
 
 -- The disclosure triangle on a fold row: right-pointing when closed, down when
--- open, drawn as a stack of rects. gfx.rect is the one fill primitive this
--- script already leans on everywhere, so the marker needs nothing new from the
--- API - and nothing that a given REAPER build might not have.
+-- open. gfx.triangle is confirmed present in the REAPER API reference
+-- ("Draws a filled triangle, or any convex polygon"), so it is used directly.
+-- An earlier version stacked gfx.rect because the reference had not been seen
+-- and the call could not be verified; that caution is no longer needed.
 -- (cx, cy) is the marker's centre; the colour is whatever is already set.
 local function marker(cx, cy, down)
   local long, short = S(9), S(6)
+  local hl, hs = long / 2, short / 2
   if down then
-    -- rows, widest at the top
-    for i = 0, short - 1 do
-      local wl = long - math.floor(i * (long - 1) / (short - 1) + 0.5)
-      gfx.rect(cx - math.floor(wl / 2), cy - math.floor(short / 2) + i, wl, 1, 1)
-    end
+    gfx.triangle(cx - hl, cy - hs, cx + hl, cy - hs, cx, cy + hs)
   else
-    -- columns, tallest at the left
-    for j = 0, short - 1 do
-      local hl = long - math.floor(j * (long - 1) / (short - 1) + 0.5)
-      gfx.rect(cx - math.floor(short / 2) + j, cy - math.floor(hl / 2), 1, hl, 1)
-    end
+    gfx.triangle(cx - hs, cy - hl, cx - hs, cy + hl, cx + hs, cy)
   end
 end
 
