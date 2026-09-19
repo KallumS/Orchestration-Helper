@@ -52,6 +52,8 @@ script still runs, and composers are simply absent.
 | wheel, `PgUp` / `PgDn`, `Ctrl`+`Home` / `Ctrl`+`End` | scroll |
 | `F1` | help |
 | click | any name, chip or *See also* link opens that entry |
+| click a family | on the index, opens and closes it |
+| `Ctrl`+`Right` / `Ctrl`+`Left` | on the index, open or close every family |
 
 Searching is forgiving. Aliases are indexed (`tbn`, `cor anglais`, `kettledrums`,
 `contrabass`, `french horn`, `tschaikowsky`), spelling is tolerated within two
@@ -61,7 +63,14 @@ still lands somewhere useful. Typing a family name — `brass`, `woodwind`,
 `film composers` — lands on that section and lists every member as a further
 match.
 
-Window size, position and dock state are remembered between runs.
+The index opens as the search box over the twelve families — Strings,
+Woodwind, Brass, Percussion, Plucked, Voices, Combining, Craft, Character,
+Reference, Composers, Film Composers — each showing how many entries it holds.
+Click one to open it: Strings gives Double Bass, Pizzicato, String Section,
+Viola, Violin and Violoncello. Whatever you leave open is still open next time.
+
+Window size, position, dock state and the open families are remembered between
+runs.
 
 ---
 
@@ -160,7 +169,13 @@ as if consulted directly.
 The `OMT`, `IDIO`, `MOD` and `FILM` items were gathered from search results
 rather than from the full text of each page, because this environment blocks
 direct page fetching. They are therefore cited by tag rather than by page, and
-are phrased no more precisely than that evidence supports.
+are phrased no more precisely than that evidence supports. They account for 154
+of the 1,360 items — `FILM` 77, `MOD` 62, `IDIO` 14, `OMT` 1 — and they are the
+part of the database a full text would most improve. `lua5.4
+tests/audit-sources.lua` prints the current coverage per tag.
+
+`WP` is also cited by tag, but for a different reason: the article was read in
+full and simply has no pages to cite.
 
 `BEL` was originally in that group. When the author's own PDF of *Artistic
 Orchestration* was supplied, every existing `BEL` claim was re-checked against
@@ -231,16 +246,26 @@ e{ id="herrmann", name="Bernard Herrmann", family="Film Composers",
   instrument's own page — write the association once, in the composer entry.
 
 The window lays itself out from the data, so new entries, sections and items need
-no code changes.
+no code changes. A new *family* needs one: add it to the `rank` table inside
+`layout()` or it sorts to the end of the index. It will start collapsed like the
+rest, and its entry count comes from the data.
 
 ---
 
 ## Development
 
 `CLAUDE.md` holds the architecture notes, the data schema and the editorial rules
-— read it before changing anything. `docs/SESSION-LOG.md` records how the project
+— read it before changing anything. `COLOUR.md` is the colour scheme, shared with
+another project and kept by hand. `docs/SESSION-LOG.md` records how the project
 was built: the sources and how they were mined, the decisions and the rejected
 alternatives, the bugs already found and fixed, and what is still unverified.
+
+Two audits answer questions that are easy to get wrong from memory:
+
+```bash
+lua5.4 tests/audit-aliases.lua    # search keys claimed by more than one entry
+lua5.4 tests/audit-sources.lua    # citation coverage per source tag
+```
 
 The script was built and tested against a headless stand-in for REAPER's `gfx`
 and `reaper` APIs, which allows the search ranking, layout, scrolling and mouse
@@ -257,7 +282,13 @@ handling to be exercised without launching REAPER. The checks covered:
   its composers;
 - extreme window sizes down to 60×400 and up to 3000×200.
 
-142 checks; run them with `lua5.4 tests/run.lua`.
+- the index folding — closed on a first run, click to open one family, click
+  again to close it, Ctrl+Right and Ctrl+Left for all of them, and the open set
+  surviving a restart;
+- the colour scheme's mechanical rules (see `COLOUR.md`): every grey cool, the
+  accent used no more than four times, no second accent.
+
+165 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has

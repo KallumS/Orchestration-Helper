@@ -330,6 +330,187 @@ do -- wheel
 end
 
 ------------------------------------------------------------------------------
+section("Index folding")
+------------------------------------------------------------------------------
+local FAMILIES = { "Strings", "Woodwind", "Brass", "Percussion", "Plucked",
+                   "Voices", "Combining", "Craft", "Character", "Reference",
+                   "Composers", "Film Composers" }
+
+-- The point of folding: the index opens as the search box over a short list of
+-- families, with no entry names showing at all.
+s = scenario(nil, 3)
+check("index opens with every family closed",
+      s:find("STRINGS", 1, true) and not s:find("Violoncello", 1, true))
+
+do
+  local missing = {}
+  for _, f in ipairs(FAMILIES) do
+    if not s:find(f:upper(), 1, true) then missing[#missing + 1] = f end
+  end
+  check("every family is listed on the closed index", #missing == 0,
+        table.concat(missing, ","))
+end
+
+-- Counts come from the data, so a family gaining an entry needs no edit here.
+do
+  local n = {}
+  for _, e in ipairs(D.ENTRIES) do   -- already the merged set
+    n[e.family] = (n[e.family] or 0) + 1
+  end
+  local bad = {}
+  for f, c in pairs(n) do
+    if not s:find(" | " .. c .. " | ", 1, true) then bad[#bad + 1] = f end
+  end
+  check("each family header carries its entry count", #bad == 0,
+        table.concat(bad, ","))
+end
+
+-- The closed index has to fit without scrolling, or it has not bought anything.
+check("the closed index needs no scrolling",
+      not s:find("Ctrl+Left closes them all", 1, true))
+
+-- Clicking a family band opens just that family.
+local function click_family(name, run2)
+  dofile(HARNESS)
+  local target = name:upper()
+  _H.onframe = function(f)
+    local p = _H.find(target)
+    if not p then return end
+    if f == 2 then _H.mouse(p.x + 10, p.y + 3, 0)
+    elseif f == 3 then _H.mouse(p.x + 10, p.y + 3, 1)
+    elseif f == 4 then _H.mouse(-100, -100, 0); _H.clear_drawn() end
+  end
+  local d1 = table.concat(_H.run(8), " | ")
+  if not run2 then return d1 end
+  _H.onframe = nil
+  _H.mouse(-100, -100, 0)
+  return d1, table.concat(_H.run(3), " | ")
+end
+
+local opened, reloaded = click_family("Strings", true)
+check("clicking a family opens it",
+      opened:find("Violoncello", 1, true) and opened:find("Double Bass", 1, true)
+        and opened:find("Pizzicato", 1, true) ~= nil)
+check("opening one family leaves the others closed",
+      not opened:find("Trombone", 1, true))
+check("what is left open survives a reload",
+      reloaded:find("Violoncello", 1, true) ~= nil)
+
+-- Clicking the same band again closes it.
+do
+  dofile(HARNESS)
+  _H.onframe = function(f)
+    local p = _H.find("STRINGS")
+    if not p then return end
+    if f == 3 then _H.mouse(p.x + 10, p.y + 3, 1)
+    elseif f == 4 then _H.mouse(p.x + 10, p.y + 3, 0)
+    elseif f == 6 then _H.mouse(p.x + 10, p.y + 3, 1)
+    elseif f == 7 then _H.mouse(-100, -100, 0); _H.clear_drawn() end
+  end
+  local d = table.concat(_H.run(10), " | ")
+  check("clicking an open family closes it again",
+        d:find("STRINGS", 1, true) and not d:find("Violoncello", 1, true))
+end
+
+-- Ctrl+Right / Ctrl+Left work the whole index at once.
+-- `tobottom` adds a Ctrl+End, which is needed to read the index's own summary
+-- line: that line is a body row, so with every family open it sits below the
+-- viewport and is never drawn. Entries near the top need the opposite, so the
+-- two checks below run the scenario twice rather than compromising on one.
+local function all_families(key, tobottom)
+  dofile(HARNESS)
+  _H.frame(); _H.frame()
+  _H.press(_H.K(key), 1)
+  local wipe = 4
+  if tobottom then _H.press(_H.K("end"), 1); wipe = 5 end
+  _H.onframe = function(f)
+    _H.mouse(-100, -100, 4)            -- Ctrl held
+    if f == wipe then _H.clear_drawn() end
+  end
+  return table.concat(_H.run(12), " | ")
+end
+
+check("Ctrl+Right opens every family",
+      all_families("rght", true):find("Ctrl+Left closes them all", 1, true) ~= nil)
+s = all_families("rght")
+check("Ctrl+Right shows entries from more than one family",
+      s:find("Violoncello", 1, true) and s:find("Trombone", 1, true) ~= nil)
+
+do -- open them all, then close them all, in one session
+  dofile(HARNESS)
+  _H.frame(); _H.frame()
+  _H.press(_H.K("rght"), 1)
+  _H.press(_H.K("left"), 1)
+  _H.onframe = function(f)
+    _H.mouse(-100, -100, 4)
+    if f == 6 then _H.clear_drawn() end
+  end
+  local d = table.concat(_H.run(11), " | ")
+  check("Ctrl+Left closes every family",
+        d:find("STRINGS", 1, true) and not d:find("Violoncello", 1, true)
+          and d:find("Ctrl+Right opens them all", 1, true) ~= nil)
+end
+
+-- Folding must not touch the search path: it is the primary way in.
+s = scenario(function() _H.type("violoncello") end, 12)
+check("search still reaches an entry inside a closed family",
+      s:find("PAIRINGS IN UNISON", 1, true) ~= nil)
+
+------------------------------------------------------------------------------
+section("Colour scheme")
+------------------------------------------------------------------------------
+-- The scheme is shared with Starting Blocks, and its least obvious property is
+-- the easiest to lose: every grey is cool, R < G < B. A neutral grey at the same
+-- lightness reads as correct in a diff and only looks flat on screen beside the
+-- yellow, so the bias is checked rather than trusted. See COLOUR.md.
+do
+  local src = assert(io.open(HERE .. "/../Orchestration Helper.lua")):read("a")
+  local body = src:match("local C = {(.-)\n}")
+  check("the colour table is where the suite expects it", body ~= nil)
+
+  local roles, warm, nroles = {}, {}, 0
+  for name, hex in (body or ""):gmatch("(%w+)%s*=%s*hex%(0x(%x+)%)") do
+    local v = tonumber(hex, 16)
+    local r, g, b = math.floor(v / 65536) % 256, math.floor(v / 256) % 256, v % 256
+    roles[name] = { r = r, g = g, b = b, hex = hex:upper() }
+    nroles = nroles + 1
+    -- the accent and the warning are the two saturated colours, and are exempt
+    if name ~= "accent" and name ~= "warn" and not (r < g and g < b) then
+      warm[#warm + 1] = name .. "=#" .. hex:upper()
+    end
+  end
+
+  check("every grey keeps R < G < B", #warm == 0, table.concat(warm, " "))
+  check("the ramp has enough steps to build a window from", nroles >= 15,
+        nroles .. " roles")
+
+  check("the accent is the shared yellow",
+        roles.accent and roles.accent.hex == "FFF200", roles.accent and roles.accent.hex)
+  check("the ground is the shared cool grey",
+        roles.bg and roles.bg.hex == "23272E", roles.bg and roles.bg.hex)
+  check("the warning is not a shade of the accent",
+        roles.warn and roles.warn.r > roles.warn.g and roles.warn.g > roles.warn.b,
+        roles.warn and roles.warn.hex)
+
+  -- Light controls force dark text. If the control fill is lighter than the
+  -- ground, every button needs the ink, not the body text colour.
+  local function lum(c) return 0.299 * c.r + 0.587 * c.g + 0.114 * c.b end
+  check("controls sit lighter than the ground",
+        roles.control and roles.bg and lum(roles.control) > lum(roles.bg) + 60)
+  check("the ink is dark enough to read on a control",
+        roles.ink and roles.control and lum(roles.control) - lum(roles.ink) > 100)
+
+  -- The accent is spent only on what is switched on. Item labels and section
+  -- headers were amber and blue before the scheme landed; they must stay off it.
+  local hits = 0
+  for _ in src:gmatch("C%.accent") do hits = hits + 1 end
+  check("the accent is used sparingly", hits <= 4, hits .. " uses")
+  check("item labels no longer take the accent",
+        src:find("para(label, F.LABEL, C.title", 1, true) ~= nil)
+  check("there is no second accent", src:find("C.accent2", 1, true) == nil)
+end
+
+------------------------------------------------------------------------------
 section("Punctuation and odd input")
 ------------------------------------------------------------------------------
 local crashed = {}

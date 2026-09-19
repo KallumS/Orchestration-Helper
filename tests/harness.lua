@@ -19,6 +19,7 @@ _H = {}
 
 local keyqueue = {}
 local drawn = {}        -- every drawstr that happened this frame
+local placed = {}       -- the same calls, with the pen position they used
 local frames = 0
 local MAXFRAMES = 0
 
@@ -42,6 +43,10 @@ end
 function gfx.measurechar(c) return (fontsz[curfont] or 14)*0.52, gfx.texth end
 function gfx.drawstr(s, flags, r, b)
   drawn[#drawn+1] = tostring(s)
+  -- Same call, with where the pen was. Tests that need to click on something
+  -- have no other way to find it: gfx.rect is a no-op here, so the only trace a
+  -- drawn row leaves is the text and this position.
+  placed[#placed+1] = { s = tostring(s), x = gfx.x, y = gfx.y, frame = frames }
   gfx.x = gfx.x + (gfx.measurestr(s))
 end
 function gfx.drawnumber(n,d) gfx.drawstr(tostring(n)) end
@@ -98,6 +103,7 @@ function _H.run(maxframes)
   MAXFRAMES = maxframes or 200
   frames = 0
   drawn = {}
+  placed = {}
   deferred = nil
   local chunk = assert(loadfile(SCRIPT))
   chunk()
@@ -111,8 +117,16 @@ function _H.run(maxframes)
   return drawn, frames
 end
 function _H.drawn() return drawn end
+function _H.placed() return placed end
+-- The last recorded position of an exact string, or nil. Frame-agnostic, so it
+-- reports where the thing ended up once the view settled.
+function _H.find(s)
+  for i = #placed, 1, -1 do
+    if placed[i].s == s then return placed[i] end
+  end
+end
 function _H.frameno() return frames end
-function _H.clear_drawn() drawn = {} end
+function _H.clear_drawn() drawn = {}; placed = {} end
 function _H.setsize(w,h) gfx.w, gfx.h = w, h end
 function _H.mouse(x,y,capbits) gfx.mouse_x=x; gfx.mouse_y=y; gfx.mouse_cap=capbits or 0 end
 function _H.wheel(v) gfx.mouse_wheel = v end
