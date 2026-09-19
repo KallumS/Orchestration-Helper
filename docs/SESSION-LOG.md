@@ -238,20 +238,24 @@ page — and what let a test click on something, since `gfx.rect` is a no-op her
 and a drawn row leaves no other trace. (The position record was added in the
 folding round; this section claimed it existed before it did.)
 
-`tests/run.lua`, 165 checks in eight sections:
+`tests/run.lua`, 171 checks in nine sections:
 
 - **Data integrity** — both databases merged; unique ids; required fields; every
-  one of 1,360 items cited; every citation naming a declared source; every
+  one of 1,472 items cited; every citation naming a declared source; every
   `BEL` citation carrying a page; every `related` and `instruments` id
   resolving.
 - **Search ranking** — 102 query/expectation pairs, covering aliases, prefixes,
   punctuation (`b-flat clarinet`, `'cello`) and typos (`tromobne`, `bassson`,
   `Bernard Hermann`).
-- **Rendering** — all 120 entries at 760×680, 470×380 and 1400×900, plus survival
+- **Rendering** — all 122 entries at 760×680, 470×380 and 1400×900, plus survival
   at 200×150, 120×120, 60×400 and 3000×200.
 - **Interaction** — arrows, Enter, Esc, Alt+Left, F1, header button clicks, chip
   clicks, wheel and page scrolling, the reverse links, no-result view, prose
   fallback.
+- **Citation precision** — no bare `BEL`, `IDIO` or `HUG` tag (all three sources
+  have been read in full, so a bare tag is now an un-upgraded citation rather than
+  an honest limit); every declared source actually cited somewhere; no source
+  missing from the Sources page order.
 - **Index folding** — closed on a first run and short enough not to scroll; every
   family listed with a count taken from the data; click to open one, click again
   to close it; Ctrl+Right and Ctrl+Left for all; the open set surviving a reload;
@@ -277,25 +281,26 @@ changed.
 
 | File | Lines | Purpose |
 | --- | --- | --- |
-| `Orchestration Helper.lua` | 1,228 | GUI, search, layout, input |
-| `orchestration_data.lua` | 3,869 | 70 entries: instruments, sections, cross-group topics, craft, character |
+| `Orchestration Helper.lua` | 1,222 | GUI, search, layout, input |
+| `orchestration_data.lua` | 4,353 | 72 entries: instruments, sections, cross-group topics, craft, character, acoustics, listening |
 | `orchestration_composers.lua` | 1,998 | 50 entries: composers |
-| `tests/run.lua` | 536 | the 165-check suite |
-| `tests/harness.lua` | 136 | headless `gfx`/`reaper` stand-in |
+| `tests/run.lua` | 596 | the 171-check suite |
+| `tests/harness.lua` | 138 | headless `gfx`/`reaper` stand-in |
 | `tests/audit-aliases.lua` | 55 | alias collision report |
-| `tests/audit-sources.lua` | 88 | citation coverage per source tag |
-| `README.md` | 309 | user documentation, bibliography |
-| `CLAUDE.md` | 311 | guidance for future Claude sessions |
+| `tests/audit-sources.lua` | 92 | citation coverage per source tag |
+| `README.md` | 330 | user documentation, bibliography |
+| `CLAUDE.md` | 345 | guidance for future Claude sessions |
 | `COLOUR.md` | 121 | the colour scheme, kept by hand |
-| `docs/SESSION-LOG.md` | 570 | this file |
+| `MUSIC-THEORY.md` | 667 | the theory the data files are instances of |
+| `docs/SESSION-LOG.md` | 759 | this file |
 
-**120 entries, 1,360 cited items, 8 source tags** (`RK`, `SIN`, `WP`, `BEL`,
-`OMT`, `IDIO`, `MOD`, `FILM`).
+**122 entries, 1,472 cited items, 9 source tags** (`RK`, `SIN`, `WP`, `BEL`, `HUG`,
+`IDIO`, `OMT`, `MOD`, `FILM`).
 
 By family: Strings 6, Woodwind 11, Brass 6, Percussion 13, Plucked 3, Voices 2,
-Combining 7, Craft 9, Character 11, Reference 3, Composers 36, Film Composers 13.
+Combining 7, Craft 10, Character 11, Reference 4, Composers 36, Film Composers 13.
 
-By kind: 33 instruments, 49 composers, 19 topics, 8 sections, 10 moods,
+By kind: 33 instruments, 49 composers, 21 topics, 8 sections, 10 moods,
 1 technique.
 
 Commits on `claude/sharp-hawking-kh7a7a`:
@@ -307,7 +312,10 @@ Commits on `claude/sharp-hawking-kh7a7a`:
   citations.
 - `65ab837` — documentation verified against the repo; the broken alias one-liner
   replaced by `tests/audit-aliases.lua`, §6 rewritten, stale figures corrected.
-- this round — collapsible index, the shared colour scheme, `tests/audit-sources.lua`.
+- `3d5a9db` — collapsible index, the shared colour scheme, `COLOUR.md`,
+  `tests/audit-sources.lua`.
+- this round — `IDIO` and `HUG` upgraded to located citations, the balance-ratio
+  and spectrum material, *Where to Hear These Combinations*, `MUSIC-THEORY.md`.
 
 ---
 
@@ -496,6 +504,151 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 165 checks.**
 
 ---
 
+## 6c. Later addition: three full texts, and the REAPER API reference
+
+The user supplied five files: the ReaScript overview and the generated REAPER API
+function reference, and zips of *The Idiomatic Orchestra*, Hugill's *The Orchestra:
+A User's Manual* and *Open Music Theory*. Three of the four sources the previous
+round had named as incomplete.
+
+### The API reference settled two open questions
+
+- **`gfx.triangle` exists**: "Draws a filled triangle, or any convex polygon." The
+  disclosure marker had been built from stacked `gfx.rect` calls precisely because
+  the reference was not in the repo and the call could not be verified. It now uses
+  `gfx.triangle`. The caution was right at the time and is recorded here rather than
+  deleted, because the reasoning still applies to the next unverified call.
+- **Zero `ImGui` matches, 59 `gfx.` entries.** The no-ReaImGui constraint is a
+  property of the API, not a preference, and can now be stated as a count.
+
+Three facts worth having that were not previously known:
+
+- `gfx.mouse_cap` bit 4 is "Control (Windows) or **Command** (macOS)", so the index's
+  Ctrl+Left/Right are Cmd+Left/Right on a Mac. Bit 32 is the Windows key, or Control
+  on macOS.
+- `gfx.getchar` returns Ctrl/Cmd+A..Z as **1..26**, safely below the 32–126 range the
+  search box accepts, so a modified key cannot reach the query by accident.
+- `drawstr` flags: 1 centre horizontally, 2 right justify, 4 centre vertically, 8
+  bottom justify, **256 ignore right/bottom**. The script's ubiquitous
+  `drawstr(s, 256)` means "do not clip", which had been assumed rather than checked.
+
+Also available and unused, worth knowing before writing a workaround: `roundrect`,
+`arc`, `gradrect`, `muladdrect`, `blurto`, `setcursor`, `showmenu` (a real popup
+menu), `loadimg`/`blit`, `getdropfile`.
+
+### The Idiomatic Orchestra: all fourteen claims confirmed
+
+The opposite outcome to the Belkin round, and worth recording as the other
+possibility. Every one of the fourteen existing `IDIO` claims was re-checked against
+the real chapters and **all fourteen held** — several word for word. So the citations
+were upgraded to name chapters rather than rewritten, and `IDIO` went from 14 items
+to 77, the chapters carrying far more than the summaries had shown.
+
+The substantial additions, all new to the app:
+
+- **The balance ratio.** Rimsky-Korsakov's experience as four countable numbers:
+  string group 2, woodwind 1, horn or saxophone 2, other brass 4. Four clarinets to
+  match one trumpet. With the rules of use — forte only, divisi notes count 2, omit
+  timpani — and, importantly, its limits: in a *Heldenleben* tutti it correctly ranks
+  a trombone melody (16) over a woodwind flurry (6–7), but elsewhere a countermelody
+  scoring 2 emerges over a subject scoring 12, because the subject is a near-immobile
+  ostinato.
+- **Final-chord weighting, measured.** Brahms 2 = 9/8/35 (17/15/67 per cent); the 1st
+  and 4th similar. Two instructive departures: Strauss *adds* four horns during a
+  diminuendo and moves brass onto the root; Mahler's 6th weights the third, because
+  the piece is about the minor third winning.
+- **The four kinds of doubling do different things.** Perfect unison fuses colour and
+  adds density but volume is "only partly affected"; octave doubling "will always
+  result in an increase in volume"; parallel doubling adds more of both again. This
+  distinction was the single most useful thing in the text, and the app had it only
+  in part.
+- **Mixture.** Building an instrument that does not exist, by scoring a note's own
+  overtones softly enough to pass for overtones. The Bolero horn/piccolos/celesta
+  case, including the two details that make it work: overtones are fixed intervals
+  independent of tonality, so Ravel notates the 2nd overtone of a C major melody in G
+  major; and individual dynamics keep the added parts below audibility as themselves.
+- **Formants and spectra** — a new entry, *Overtones, Formants and Penetration*.
+  Which sounds carry high formants (the "hiss" that penetrates) and which are weak in
+  overtones (and so blend, and can supply artificial ones). The counter-intuitive
+  one: a low oboe is far more penetrating than a high one.
+- **Chord acoustics.** Rimsky-Korsakov's spacing rule already had the *what*; this
+  supplies the *why* (a low note's strongest overtones land in the middle of the
+  hearing range, where the ear resolves pitch best) and generalises it beyond tonal
+  music. Plus: dissonance softens with register spread, and a minor second is "far
+  less harsh" on two low flutes than on two low oboes.
+
+### Hugill: split out of MOD as its own tag
+
+Read in full, so `HUG` was created and the `MOD` umbrella narrowed to what remains
+unread. Hugill's site is mostly an **index of the Philharmonia's recorded archive** —
+composer, work, recording, bar or figure, and a one-line description of the scoring —
+rather than prescriptive prose. That suggested a use the app had not had:
+
+- **A new *Where to Hear These Combinations* entry.** For each doubling the
+  encyclopaedia calls standard, somewhere in the repertoire to hear it. Violas +
+  clarinets in Mahler 5; pizzicato strings + bassoon in the same movement; trumpet +
+  flute in octaves at Bolero Fig. 5, which is the artificial oboe; horn + celesta +
+  two piccolos at Fig. 8, which is the mixture. This turns a recommendation into
+  something checkable, which this app needs more than most: the Idiomatic Orchestra
+  warns that the literature's "endless tables of well-sounding combinations" are "an
+  ambitious attempt at systematization that only too rarely has proved to be useful
+  in practice" — and this app is such a table. That warning is quoted in the entry.
+
+His prose also supplied the woodwind lineups (double, triple, quadruple, with triple
+"the standard lineup for most symphony orchestras"), the brass lineup, section sizes,
+the four-horn part convention, the bumper horn, and the practical warning about
+leaving players time to change instruments and beaters.
+
+**One wording bug found.** The `orchestra` entry read "2 of each with one auxiliary
+player per family (so 3 flutes with piccolo…)", where the parenthesis reads as 3
+flutes *plus* a piccolo — Hugill's *quadruple* lineup — while the leading clause
+describes his *triple*. Rewritten as his three named lineups.
+
+### Open Music Theory: no orchestration chapter
+
+The download is 97 chapters of harmony, counterpoint, form, post-tonal theory and
+pop/rock analysis, and does **not** include "Core Principles of Orchestration" — the
+one chapter `OMT` is cited for. So the single `OMT` citation could not be upgraded,
+and that source remains the one genuinely stuck at tag-only. Reported rather than
+worked around.
+
+The material was not wasted: it is the backbone of Part two of `MUSIC-THEORY.md`,
+which is the vocabulary the orchestration sources assume without defining.
+
+One filename was misleading:
+`IMSLP…Koechlin_Charles_Traite_de_l_orchestration_Vol_2.html` is a misnamed save of
+Hugill's Woodwind Section page, not Koechlin. Koechlin is still unread, and both
+Belkin and the Idiomatic Orchestra lean on him — the latter noting that the *Traité*
+"has never been translated".
+
+### MUSIC-THEORY.md
+
+The user asked for everything learned about the theory in one file. Part one is
+orchestration, organised by principle rather than by instrument, with the
+disagreements between sources named. Part two is the wider theory from Open Music
+Theory. It ends with a gaps section, including one thing this round could not
+resolve: an item under the String Section's "Belkin's practical notes" heading quotes
+"strings generally balance themselves regardless of voicing" but is tagged `MOD`.
+Either the words are Belkin's and it needs a page, or they are not and the heading is
+wrong; settling it needs the Belkin PDF, which is not in the repo.
+
+### Citation discipline, now enforced
+
+Three new checks, because two sources had just been upgraded and a bare tag is now a
+mistake rather than an honest limit: no bare `BEL`, `IDIO` or `HUG`; every declared
+source actually cited somewhere; no source missing from the Sources page order. The
+first was verified to fail by temporarily breaking a citation, rather than trusted
+because it passed.
+
+The audit script needed fixing too. It counted a citation as located only when it
+matched `p.` or `ch.`, which made every title-based `IDIO`/`HUG` citation look bare.
+It now accepts a page, a chapter or a title.
+
+After this round: **122 entries, 1,472 cited items, 9 source tags, 171 checks**, and
+dependence on never-read sources down from 154 items to 137.
+
+---
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
@@ -517,13 +670,30 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 165 checks.**
 - **Belkin's musical examples are not represented.** The craft and character
   entries carry his principles and his repertoire pointers, but his own notated
   examples — the ones with audio on his site — could not be extracted from the
-  PDF. Anyone working from these entries should read the book alongside them.
+  PDF. The same applies to the Idiomatic Orchestra, whose ~140 numbered figures and
+  audio clips are the evidence for much of what it says; the app carries the prose
+  conclusions, not the examples.
+- **Three sources are still tag-only.** `MOD` (59 items), `FILM` (77) and `OMT` (1)
+  rest on search-result summaries. `OMT` is the awkward one: a full *Open Music
+  Theory* was supplied and turned out not to contain its orchestration chapter, so
+  that citation cannot be upgraded from the material in hand. Run
+  `lua5.4 tests/audit-sources.lua` for the live position.
+- **Koechlin is unread.** Both Belkin and the Idiomatic Orchestra lean on the
+  *Traité de l'orchestration*, and everything credited to Koechlin here comes
+  through one of them. The Idiomatic Orchestra notes it has never been translated.
+- **One citation is unresolved.** The String Section entry has an item under
+  "Belkin's practical notes" quoting "strings generally balance themselves regardless
+  of voicing", tagged `MOD`. Either the words are Belkin's and it needs a page, or
+  they are not and the heading is misleading. Resolving it needs the Belkin PDF,
+  which was a session upload and is not in the repo.
 - Possible additions, in rough order of value: instrument ranges as notated
   pitches (the sources give them as engraved tables the plain-text transcription
   drops); extended-technique entries (sul ponticello, harmonics, col legno,
   flutter tongue), which are currently scattered through instrument pages rather
-  than collected, and which Belkin's contrast scale would organise well; a
-  favourites or history list; the omitted composers, if sources can be reached.
+  than collected, and which Belkin's contrast scale and the new spectrum entry
+  would organise well; more of Hugill's repertoire index, which has far more
+  scorings than the *Where to Hear These Combinations* entry uses; a favourites or
+  history list; the omitted composers, if sources can be reached.
 
 ---
 
@@ -568,3 +738,22 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 165 checks.**
   treated any run of capitals as a tag and reported a source called `VIII`, from
   `SIN ch.VIII`. The alias one-liner in §6 failed the same way. When auditing
   data, enumerate the real keys first and match against those.
+- **An unverified API call is worth a workaround, and the workaround is worth
+  undoing.** The fold marker was built from stacked `gfx.rect` because
+  `gfx.triangle` could not be confirmed without the reference. When the reference
+  arrived it confirmed the call, and the marker was simplified. Both decisions were
+  right; neither should be read as the other having been wrong.
+- **Re-verification can confirm rather than correct.** The Belkin round found one
+  claim unsupported and set the expectation that a summary-derived claim is probably
+  overstated. The Idiomatic Orchestra round checked fourteen and confirmed all
+  fourteen. Expect either outcome, and do the check either way.
+- **A supplied source may not contain what it is cited for.** The full *Open Music
+  Theory* did not include its orchestration chapter — the only chapter `OMT` is
+  cited for. Check that the material answers the specific citation before assuming
+  a gap is closed.
+- **Filenames are not evidence.** A file named
+  `...Koechlin_Charles_Traite_de_l_orchestration_Vol_2.html` was a misnamed save of
+  Hugill's Woodwind Section page. Open it before believing it.
+- **An audit is code and can be wrong in the same way twice.** `audit-sources.lua`
+  tested for `p.` or `ch.` and so reported every title-based citation as bare, right
+  after being written to stop exactly that kind of mistaken count.

@@ -515,6 +515,15 @@ e{ id="percussion", name="Percussion Section", family="Percussion", kind="sectio
         .. "syncopations, or disconnected sforzandi. The triangle, side drum and "
         .. "tambourine can manage various rhythmic figures.","RK p.117"},
     }},
+    {"Writing for the players, not just the instruments", {
+      {"Leave time to move","\"A common mistake is to allow insufficient time for "
+        .. "players to change instrument or pick up new beaters.\" Pay attention to the "
+        .. "physical requirements of the section - the choreography of both players and "
+        .. "beaters.","HUG Percussion Section"},
+      {"Count the players, not the instruments","Any number of percussion instruments "
+        .. "may appear in a score, but they are covered by a fixed number of "
+        .. "percussionists, and the timpanist is not one of them.","HUG Percussion Section"},
+    }},
     {"Economy", {
       {"Use it seldom","\"The percussion is seldom employed, and practically never "
         .. "all together, but in single instruments or in two's and three's.\" In "
@@ -898,6 +907,208 @@ e{ id="blend", name="Blend Bridges Between Groups", family="Combining", kind="to
   related={"strings_wind","wind_brass","strings_brass","balance","three_groups"},
 }
 
+e{ id="spectrum", name="Overtones, Formants and Penetration", family="Craft", kind="topic",
+  aliases={"overtones","overtone","formants","formant","spectrum","spectra",
+           "penetration","penetrating","harmonics of a sound","timbre acoustics",
+           "why is it loud","cuts through","brightness","hiss"},
+  summary="Why one instrument cuts through a tutti and another vanishes, when both are "
+       .. "marked forte. The answer is usually not power but the shape of the sound's "
+       .. "overtone spectrum - and it changes from register to register on the same "
+       .. "instrument, sometimes from note to note.",
+  facts={
+    {"The rule of thumb","Strong, high overtones penetrate. Few overtones blend, and "
+        .. "can be masked by the overtones of instruments below."},
+    {"Why it matters","Knowledge of volume and timbre across an instrument's registers "
+        .. "is \"a fundamental requirement for any instrumentation\"."},
+  },
+  sec={
+    {"Sounds that cut through", {
+      {"Where it comes from","Formants - powerful high-pitched peaks or clusters in "
+        .. "the spectrum. They are audible as a kind of \"hiss\" in the sound, and they "
+        .. "are what makes a tone intense and penetrating.","IDIO ch.12"},
+      {"The list","Oboe; sharply muted brass, especially loud; stopped horn; the "
+        .. "clarinet's low chalumeau register; the violin's G string; the 'cello's A "
+        .. "string; low contrabassoon, and to some extent low bassoon.","IDIO ch.12"},
+      {"Sul ponticello","Bowing at the bridge - or near the soundboard on the harp - "
+        .. "produces high, powerful formants which the player can modulate by bow "
+        .. "placement and pressure, to the point where the fundamental disappears "
+        .. "entirely.","IDIO ch.12"},
+    }},
+    {"Sounds that blend", {
+      {"Where it comes from","Few or weak overtones. Nothing high and sharp to "
+        .. "announce the instrument, so it merges into whatever it is doubling.",
+        "IDIO ch.12"},
+      {"The list","Flute; string harmonics; the clarinet's weak middle-register "
+        .. "\"filling in\" notes (written G, G-sharp, A and A-sharp above the treble "
+        .. "staff's second line); alternative woodwind fingerings; overblowing on a "
+        .. "different fundamental; the celesta. Sul tasto weakens or removes overtones "
+        .. "as well.","IDIO ch.12"},
+      {"What to use them for","Exactly this quality makes them the right choice for "
+        .. "mixture - see Doubling. They can supply an artificial overtone without "
+        .. "being heard as an added part.","IDIO ch.12"},
+    }},
+    {"Register turns the rule around", {
+      {"Flute","Very soft and of limited penetration at the bottom, because it has so "
+        .. "few overtones there; easily penetrating at the top.","IDIO Dynamics and Balance"},
+      {"Piccolo","A high-pitched piccolo solo \"will often be easily audible even in a "
+        .. "full orchestral tutti\".","IDIO Dynamics and Balance"},
+      {"Oboe, the other way round","\"A low oboe is far more penetrating than the same "
+        .. "instrument in its highest register.\" The intuition that high means "
+        .. "piercing is simply wrong here.","IDIO Dynamics and Balance"},
+      {"Adjacent notes can differ","On some instruments \"even adjacent notes may "
+        .. "involve considerable differences\" in volume and timbre.","IDIO Dynamics and Balance"},
+    }},
+    {"Protecting a weak instrument", {
+      {"The real risk is masking, not volume","The flute's few overtones mean that "
+        .. "overtones from lower instruments can drown it in its middle register, and "
+        .. "the bottom register is at greater risk still.","IDIO ch.12"},
+      {"The fix is a clear register","\"As long as one makes sure that they are not "
+        .. "drowned out by other instruments in the same register or by overtones from "
+        .. "lower instruments, even very low flutes will most often be audible.\" Leave "
+        .. "the register empty rather than marking the part louder.","IDIO ch.12"},
+    }},
+    {"Bolero as the textbook", {
+      {"What Ravel is doing","The order of solos in the first half is a step-by-step "
+        .. "increase in intensity by spectrum: a flute at the bottom of its range with "
+        .. "few overtones, a clarinet in the neutral middle, a high bassoon, a high "
+        .. "E-flat clarinet. The oboe - intense, overtone-rich - is deliberately held "
+        .. "back, and the oboe d'amore used instead where that colour is wanted.",
+        "IDIO Parallel Doubling"},
+      {"When the oboe finally arrives","Bar 167, almost exactly halfway, and not as a "
+        .. "soloist: it appears inside a timbral mixture, in parallel fifths with oboe "
+        .. "d'amore, English horn and clarinets.","IDIO Parallel Doubling"},
+    }},
+  },
+  related={"blend","balance","doubling","flute","oboe","clarinet","range"},
+}
+
+e{ id="listening", name="Where to Hear These Combinations", family="Reference", kind="topic",
+  aliases={"listening","hear it","examples","score examples","repertoire",
+           "where to hear","recordings","heard in","find it in a score",
+           "which piece","real examples","listen"},
+  summary="The doublings in this encyclopaedia described as standard are standard because "
+       .. "they are everywhere in the repertoire. These are places to hear them, taken "
+       .. "from Andrew Hugill's index of the Philharmonia Orchestra's recorded archive, "
+       .. "which gives work, movement and bar or rehearsal figure. Follow with the score "
+       .. "open if you can; a recording tells you what it sounds like, the score tells "
+       .. "you why.",
+  facts={
+    {"Locators","MI, MII = movement; b or bb = bar; Fig. or a letter = rehearsal mark"},
+    {"Why these pieces","Hugill indexes what the Philharmonia had recorded, so the list "
+        .. "runs from Beethoven to Lindberg rather than being a canon"},
+  },
+  sec={
+    {"Woodwind in unison and octaves", {
+      {"Cor anglais + bassoon in unison","Saint-Saens, Symphony 3, MI 11 before I - "
+        .. "answered by three flutes.","HUG Woodwind Section: Standard Combinations"},
+      {"Flutes + oboe in unison","Debussy, Nocturnes 2 'Fetes', Fig. 1.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Clarinet + bassoon in octaves","Tchaikovsky, Symphony 5, MI.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Oboes + clarinets in octaves","Ravel, Bolero, Fig. 9 - the pairing modern "
+        .. "teaching often warns against, in the most studied orchestration there is.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Cor anglais + oboe + bassoon in octaves","Debussy, La Mer, III Fig. 46.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Flute + clarinet + bassoon in octaves","Saint-Saens, Symphony 3, MII 3 before R.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Clarinets + high bassoon in octaves","Stravinsky, Petrushka, Fig. 223-225.",
+        "HUG Woodwind Section: Standard Combinations"},
+      {"Two high clarinets in unison","Stravinsky, Petrushka, Fig. 188-190 - the "
+        .. "stridently penetrating effect.","HUG Woodwind Section: Standard Combinations"},
+    }},
+    {"Wind with brass", {
+      {"Horn + bassoons","Stravinsky, Petrushka, Fig. 132-134 - the bridge doubling.",
+        "HUG Section Combinations in twos"},
+      {"Horn with woodwind, filling a countermelody","Mahler, Symphony 4, MI b63-65. "
+        .. "\"Horns frequently combine with woodwind in this way.\"",
+        "HUG Section Combinations in twos"},
+      {"Solo horn with flutes and oboes in close harmony","Holst, The Planets: Venus, "
+        .. "opening.","HUG Section Combinations in twos"},
+      {"Trumpet + flute in octaves","Ravel, Bolero, Fig. 5 - the artificial oboe "
+        .. "described under Doubling.","HUG Section Combinations in twos"},
+      {"Trumpet + cor anglais in unison","Debussy, La Mer, I three bars before Fig. 1.",
+        "HUG Section Combinations in twos"},
+      {"Horn + celesta + two piccolos in octaves","Ravel, Bolero, Fig. 8 - the organ "
+        .. "mixture, and the clearest case of an invented instrument in the repertoire.",
+        "HUG Section Combinations in twos"},
+    }},
+    {"Wind with strings", {
+      {"Violas + clarinets","Mahler, Symphony 5, M3 b.39-47 - the standard blend pair.",
+        "HUG Section Combinations in twos"},
+      {"Pizzicato strings + bassoon","Mahler, Symphony 5, M3 b.308-328.",
+        "HUG Section Combinations in twos"},
+      {"'Cellos + basses + bassoons in octaves","Holst, The Planets: Mars, 4 after VI.",
+        "HUG Section Combinations in twos"},
+      {"Violas + horn + bassoon in unison","Elgar, Symphony 1, Fig. 137.",
+        "HUG Section Combinations in threes"},
+      {"Violas + flutes + clarinets + bassoons in octaves","Elgar, Symphony 1, opening.",
+        "HUG Section Combinations in twos"},
+      {"Oboes + clarinet + violins in unison, 'cellos an octave below","Mahler, "
+        .. "Symphony 5, MI b96-104.","HUG Section Combinations in twos"},
+      {"Bass clarinet + bassoon + muted strings","Elgar, Symphony 1, IV.",
+        "HUG Section Combinations in twos"},
+      {"Violins I with upper woodwind in octaves","Ravel, Bolero, Fig. 12.",
+        "HUG Section Combinations in twos"},
+    }},
+    {"Horns with strings", {
+      {"Violas + 'cellos + 8 horns in unison","Holst, The Planets: Jupiter, opening - "
+        .. "the big-tune version of the horn/'cello blend.","HUG Section Combinations in twos"},
+      {"Horn + 1st violin in unison","Stravinsky, Petrushka, Fig. 176-178.",
+        "HUG Section Combinations in twos"},
+      {"Violins I and II in unison over four horns","Holst, The Planets: Venus, 5 "
+        .. "before II - the horn quartet as background harmony.",
+        "HUG Section Combinations in twos"},
+      {"Two muted horns with second violins","Debussy, Prelude a l'apres-midi d'un "
+        .. "faune, bb. 106-107.","HUG Section Combinations in twos"},
+    }},
+    {"Brass on its own", {
+      {"Trombone trio, joined by trumpet trio","Holst, The Planets: Saturn, 3 after I, "
+        .. "over low pizzicato strings - three-part trombones, the standard use.",
+        "HUG Brass Section: solos and groups"},
+      {"Muted trumpets in octaves","Stravinsky, The Rite of Spring, Fig. 132.",
+        "HUG Brass Section: solos and groups"},
+      {"Open horns alternating with stopped","Mahler, Symphony 5, M3 b.296-307.",
+        "HUG Brass Section: solos and groups"},
+      {"Classic natural-horn writing","Beethoven, Symphony 7, MIV bb. 231-248 - the "
+        .. "harmonic series and the high register.","HUG Brass Section: solos and groups"},
+    }},
+    {"Strings on their own", {
+      {"Violas + 'cellos in unison","Beethoven, Symphony 7, MII bb. 27-34.",
+        "HUG String Section"},
+      {"Violins + violas in octaves","Tchaikovsky, Symphony 5, MII.","HUG String Section"},
+      {"Strings in octaves","Sibelius, Symphony 5, Molto moderato 2 after M.",
+        "HUG String Section"},
+      {"All strings in close harmony","Saint-Saens, Symphony 3, MI letter M.",
+        "HUG String Section"},
+      {"'Cellos high, joined by violas","Debussy, La Mer, II Fig. 26.","HUG String Section"},
+    }},
+    {"Whole-orchestra scoring", {
+      {"Typical romantic tutti","Mahler, Symphony 4, MI b264-266 - violins carrying the "
+        .. "melody with a prominent horn countermelody.","HUG Section Combinations in threes"},
+      {"Horns softened by doubled strings","Sibelius, Symphony 5, Allegro molto 14 after "
+        .. "D - melody on flute, oboes, clarinets and 'cellos in octaves, the famous "
+        .. "horn theme lent a shimmer by the strings.","HUG Section Combinations in threes"},
+      {"Piccolo colouring the top of a chord","Holst, The Planets: Mars, 6 after VII, in "
+        .. "a build to tutti.","HUG Tuttis"},
+      {"Trombones doubled by bassoons and strings","Elgar, Symphony 1, Fig. 45, with "
+        .. "horns doubled by cor anglais.","HUG Section Combinations in threes"},
+      {"A tutti that is not a climax","Lindberg, Cantigas, bb. 475-490 - instrumental "
+        .. "groups in layers, \"clearly distinct rather than climactic\".","HUG Tuttis"},
+    }},
+    {"How to use this list", {
+      {"Check a recommendation before you trust it","A combination this encyclopaedia "
+        .. "calls standard should be findable in the repertoire. If you cannot hear why "
+        .. "it is recommended, the fault may be in the recommendation.","HUG Tuttis"},
+      {"A tutti is not everyone playing","\"A full orchestral tutti does not necessarily "
+        .. "mean every single instrument is playing. However, the great majority of "
+        .. "instruments will join in. To make a controlled climax using a tutti is a "
+        .. "great skill in orchestration.\"","HUG Tuttis"},
+    }},
+  },
+  related={"doubling","blend","balance","spectrum","composers","three_groups"},
+}
+
 e{ id="balance", name="Balance and Relative Strength", family="Combining", kind="topic",
   aliases={"balance","relative strength","loudness","power","how loud",
            "instrument strength","weight","balancing"},
@@ -950,6 +1161,49 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "dynamic grading - marking the woodwind one degree louder than the brass.","RK p.94"},
     }},
 
+    {"Counting a chord - the balance ratio", {
+      {"The whole system, in four numbers","One string group (e.g. all 1st violins) = "
+        .. "2  ~  one woodwind instrument = 1  ~  one horn, or one saxophone = 2  ~  "
+        .. "one other brass instrument = 4. Add up each note of a chord and compare. "
+        .. "This is Rimsky-Korsakov's experience reduced to something you can count "
+        .. "with, and it is the only tool of its kind in the literature.",
+        "IDIO Dynamics and Balance"},
+      {"The number that surprises people","It takes four clarinets to match one "
+        .. "trumpet. Counter-intuitive, and \"largely confirmed by practical "
+        .. "experience, although they admittedly are beyond scientific proof\".",
+        "IDIO Dynamics and Balance"},
+      {"Use it in forte","Forte is the reliable basis, because instrumental power "
+        .. "varies far more in piano - muted brass or a string group can play "
+        .. "extremely softly, while very soft is awkward for a low oboe, a very high "
+        .. "clarinet or an unmuted high trumpet.","IDIO Dynamics and Balance"},
+      {"Counting divisi and double stops","Each divisi note counts 2, the same as a "
+        .. "whole group. For double stops, count each sustained note.","IDIO Chords"},
+      {"What to leave out","Timpani: their dynamic range is effectively unlimited so "
+        .. "no ratio fits, and in classical and romantic scoring they mark the root "
+        .. "anyway, which only reinforces it. Harp and piano chords are also left out "
+        .. "unless they exist to create a deliberately unusual balance.","IDIO Chords"},
+      {"Where it does not reach","Short chords, where balance matters less; and "
+        .. "ranking one segment against another, because the ear does not weigh "
+        .. "segments by power alone. In a Heldenleben tutti the busy woodwind flurry "
+        .. "scores only 6-7 while the trombone melody scores 16 - and elsewhere a "
+        .. "1st-violin countermelody scoring 2 still emerges over a main subject "
+        .. "scoring 12, because the subject is a near-immobile ostinato.","IDIO Chords"},
+    }},
+    {"What a balanced final chord looks like", {
+      {"The root takes most of it","Measured as fifth/third/root, the last chord of "
+        .. "Brahms's 2nd symphony is 9/8/35 - that is 17/15/67 per cent, so two "
+        .. "thirds of the sound power is on the root. His 1st gives 22/22/57 and his "
+        .. "4th gives 8/23/70. Root predominance is the norm across the classical and "
+        .. "romantic repertoire.","IDIO Chords"},
+      {"Reinforce rather than thin out","Ending Ein Heldenleben, Strauss diminuendos "
+        .. "to piano but does not remove instruments: he adds four horns and moves a "
+        .. "trumpet and three trombones off the fifth and third onto the root. The "
+        .. "chord gets quieter and more focused at once.","IDIO Chords"},
+      {"Weighting the third on purpose","Mahler's 6th - \"a battle between minor and "
+        .. "major\" - ends 13/24/19, weighting the third rather than the root, so the "
+        .. "minor third is unmistakably the victor. Break the rule when the piece is "
+        .. "about the thing you are breaking it for.","IDIO Chords"},
+    }},
     {"Loudness is not the same as thickness", {
       {"Koechlin's distinction","\"By 'volume' he means the thickness of a given sound. "
         .. "For example, at any dynamic level, a horn will always sound thicker, or "
@@ -957,6 +1211,15 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "fundamentals than thin sounds.\"","BEL p.34"},
       {"Two ways to get a fat sound","As a chosen timbre - horn, tuba - or as the "
         .. "result of unison doubling, which \"adds more volume than loudness\".","BEL p.34-35"},
+      {"Sixteen violins are not sixteen times one","Doubling the sound pressure does "
+        .. "not double what the ear hears. A large string group reads as a different "
+        .. "kind of sound rather than a louder one - \"full, rich, more mellow and far "
+        .. "more dense\". This is why a single soloist can be heard over thirty-two of "
+        .. "them at all.","IDIO Dynamics and Balance"},
+      {"Balance is not only power","\"A melodic line (or the highest part) always "
+        .. "attracts attention - activity and movement capture more attention than, "
+        .. "for example, sustained notes.\" Contrast of sonority or register shifts "
+        .. "perceived dynamics as much as the dynamic marks do.","IDIO Dynamics and Balance"},
       {"Successive balance","\"This is a problem mainly when passing from very thick "
         .. "sounds to very thin ones: The thin sound can seem disagreeable by comparison "
         .. "with the previous richness... after a loud, full brass passage, an oboe will "
@@ -973,8 +1236,24 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "balance is not just a function of the choice of instruments, but also of what "
         .. "they are doing.\"","BEL p.36"},
     }},
+    {"Use sparingly", {
+      {"Two solo violins in perfect unison","Doubling all the 1st and 2nd violins in "
+        .. "unison gives greater density and is standard; but two solo violins in "
+        .. "perfect unison \"often sound poor, if not to say 'impoverished'\". The "
+        .. "effect that works with a section does not scale down to a pair.",
+        "IDIO Dynamics and Balance"},
+      {"Solo strings against solo brass","In a sinfonietta-sized ensemble this needs "
+        .. "meticulous care. String instruments have been essentially unchanged since "
+        .. "the end of the 1700s, while brass instruments have changed substantially "
+        .. "and are considerably more powerful today - so a classical-era balance does "
+        .. "not transfer to a modern chamber orchestra.","IDIO Dynamics and Balance"},
+      {"Measuring it in decibels","\"Practically useless\" for music: manufacture, "
+        .. "playing style, hall acoustics, seating and the players' own instinctive "
+        .. "adjustment all change constantly. Use the ratios and your ears, not a "
+        .. "meter.","IDIO Dynamics and Balance"},
+    }},
   },
-  related={"blend","three_groups","brass","woodwind","strings"},
+  related={"blend","three_groups","brass","woodwind","strings","range"},
 }
 
 e{ id="range", name="Orchestral Range and Score Order", family="Reference", kind="topic",
@@ -1021,6 +1300,35 @@ e{ id="range", name="Orchestral Range and Score Order", family="Reference", kind
       {"In widely-spaced writing","Only the soprano and alto may be doubled in "
         .. "octaves; doubling the tenor produces close writing, and doubling the bass "
         .. "creates heaviness.","RK p.64"},
+      {"Why that spacing works","The strongest overtones of a very low note land in "
+        .. "the middle of the hearing range, where the ear resolves pitch most "
+        .. "precisely. Wide intervals low down keep those overtones from colliding "
+        .. "dissonantly with the notes actually written in that register - which is "
+        .. "why the low register is dominated by the octave, then the fifth, and why "
+        .. "the third with its dissonant overtones appears there only in deliberately "
+        .. "unusual chords.","IDIO Chords"},
+      {"It is not only a tonal rule","\"All chords, tonal or atonal, triadic or not, "
+        .. "tend to be structured in such a way that the largest intervals are placed "
+        .. "in the bass register.\" The weight of a balanced orchestral chord usually "
+        .. "sits in that central area, whatever the harmonic language.","IDIO Chords"},
+    }},
+    {"How harsh a dissonance sounds", {
+      {"Spread it and it softens","\"The further apart two notes are placed from each "
+        .. "other in terms of register, the less intense or obtrusive the dissonance "
+        .. "between them will be perceived.\" Register does as much work as the "
+        .. "interval itself.","IDIO Chords"},
+      {"The instrument decides the bite","Powerful high overtones make a piercing "
+        .. "dissonance. A minor second \"seems far less harsh when played by two low "
+        .. "flutes than by two low oboes\" - the same interval, a different result.",
+        "IDIO Chords"},
+      {"Where the ear hears intonation most clearly","Pitch is resolved most precisely "
+        .. "in the centre of the hearing range and less so at the extremes. The "
+        .. "violin's high register sits where the ear is more forgiving; the 'cello's "
+        .. "high register sits right in the middle, so slight intonation trouble there "
+        .. "is immediately noticeable.","IDIO Chords"},
+      {"Mind the diminuendo too","A low oboe has very little room for diminuendo, "
+        .. "while a string instrument or a low clarinet has almost no limit. If a "
+        .. "chord is marked to fade, check that every instrument in it can.","IDIO Chords"},
     }},
     {"Instrumentation shorthand", {
       {"The formula","Flute . Oboe . Clarinet . Bassoon - Horn . Trumpet . Trombone . "
@@ -1082,16 +1390,37 @@ D.SOURCES.OMT = {
 D.SOURCES.IDIO = {
   tag="IDIO", short="The Idiomatic Orchestra",
   full="'The Idiomatic Orchestra' (theidiomaticorchestra.net), an online "
-    .. "orchestration manual; chapters on Unisono and Doubling, Parallel Doubling, "
-    .. "Partial Doubling and Heterophony, Timbre and Sound Combinations.",
+    .. "orchestration manual. Cited by chapter or page title: the pages have no "
+    .. "numbering, but each claim can be found in the named chapter. It began "
+    .. "here as a tag-only source gathered from search summaries; when the full "
+    .. "text was supplied every existing claim was re-checked against it and all "
+    .. "were confirmed, so the citations were upgraded rather than rewritten. Its "
+    .. "particular contribution is the balance-ratio method, which it takes from "
+    .. "Rimsky-Korsakov and states in a usable form, and a careful separation of "
+    .. "sound power from sound density - a distinction it credits to Koechlin's "
+    .. "'Traite de l'Orchestration', which it notes has never been translated.",
+}
+D.SOURCES.HUG = {
+  tag="HUG", short="Hugill, The Orchestra: A User's Manual",
+  full="Andrew Hugill, 'The Orchestra: A User's Manual' (c) Andrew Hugill 2015, "
+    .. "written with the Philharmonia Orchestra. Cited by page title. Split out "
+    .. "of the MOD group when the full site was supplied: it is mostly an index "
+    .. "of the Philharmonia's recorded archive, giving composer, work, recording "
+    .. "and bar or figure number for a great many scorings, plus prose on each "
+    .. "section. Claims previously cited to MOD that this text supports have been "
+    .. "re-cited here. All rights reserved by the author; used as short factual "
+    .. "statements with attribution.",
 }
 D.SOURCES.MOD = {
   tag="MOD", short="Present-day practice (several sources)",
   full="Consensus of present-day orchestration references consulted together: "
-    .. "Andrew Hugill, 'The Orchestra: A User's Manual' (with the Philharmonia "
-    .. "Orchestra); the Timbre and Orchestration Resource (ACTOR Project); "
-    .. "Orchestration Online; Wikipedia, 'Orchestra', 'String section', 'Brass "
-    .. "section'. Used for present-day section sizes and standard practice.",
+    .. "the Timbre and Orchestration Resource (ACTOR Project); Orchestration "
+    .. "Online; Wikipedia, 'Orchestra', 'String section', 'Brass section'; and "
+    .. "film-score and programme notes where no better source exists. Used for "
+    .. "present-day section sizes and standard practice. Cited by tag only: "
+    .. "these were gathered from search-result summaries rather than full page "
+    .. "reads. Hugill was originally part of this group and is now cited "
+    .. "separately as HUG, having been read in full.",
 }
 
 e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="section",
@@ -1111,8 +1440,17 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
     {"Present-day string sizes", {
       {"Common professional layout","14 first violins / 12 seconds / 10 violas / 8 "
         .. "'cellos / 6 basses - written \"14/12/10/8/6\".","MOD"},
+      {"Typical professional section","16 firsts / 14 seconds / 12 violas / 10 "
+        .. "'cellos / 8 basses - the Philharmonia's usual strength, and the same "
+        .. "proportions Rimsky-Korsakov gives for a full orchestra. Numbers vary with "
+        .. "the piece, the venue and the conductor.","HUG String Section; cf. RK p.6"},
       {"Full-scale (c.100 players)","16-18 firsts / 16 seconds / 12 violas / 12 "
-        .. "'cellos / 8 basses.","MOD"},
+        .. "'cellos / 8 basses. Strauss \"and many others\" generally required 16-18 "
+        .. "first violins and 16 seconds for a full-scale symphony orchestra.",
+        "IDIO Dynamics and Balance"},
+      {"How much variation there really is","Standard classical works are performed "
+        .. "today with anywhere from about 20 to more than 60 string players, and "
+        .. "composers rarely specify a number in the score.","IDIO Dynamics and Balance"},
       {"Rule of thumb","Subtract about 2 for each next-lower string section to keep "
         .. "the proportions balanced.","MOD"},
       {"Why bigger than 1922","Modern halls are larger and the wind more powerful, so "
@@ -1120,12 +1458,18 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
         .. "the trend Rimsky-Korsakov complained about.","MOD; cf. RK p.6 & p.48"},
     }},
     {"Present-day wind and brass", {
-      {"Woodwind","Typically 2 of each with one auxiliary player per family (so 3 "
-        .. "flutes with piccolo, 3 oboes with English horn, 3 clarinets with bass "
-        .. "clarinet, 3 bassoons with contrabassoon). Full-scale orchestras carry 4 "
-        .. "of each.","MOD"},
+      {"Double woodwind","2 flutes, 2 oboes, 2 clarinets, 2 bassoons. No auxiliary "
+        .. "instruments.","HUG Woodwind Section"},
+      {"Triple woodwind","2 flutes + piccolo, 2 oboes + English horn, 2 clarinets + "
+        .. "bass clarinet, 2 bassoons + contrabassoon - so three players per family, "
+        .. "the third taking the auxiliary. \"This is the standard lineup for most "
+        .. "symphony orchestras.\"","HUG Woodwind Section"},
+      {"Quadruple woodwind","3 flutes + piccolo, 3 oboes + English horn, 3 clarinets "
+        .. "+ bass clarinet, 3 bassoons + contrabassoon - four players per family. "
+        .. "Saxophones may be added to any of the three.","HUG Woodwind Section"},
       {"Brass","4 horns, 3 trumpets, 3 trombones (the third a bass trombone), 1 tuba "
-        .. "- \"the most common orchestral combination\".","MOD"},
+        .. "- \"probably the most common orchestral combination\", with numerous "
+        .. "variations and occasional massive expansions.","HUG Brass Section; cf. RK p.21"},
       {"Percussion","Timpani plus 2-4 percussionists, and one or two harps.","MOD"},
     }},
     {"Seating (Singleton's 1917 description, still recognisable)", {
@@ -1165,7 +1509,8 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
 
 e{ id="doubling", name="Doubling: General Principles", family="Combining", kind="topic",
   aliases={"doubling","doublings","how to double","unison doubling","octave doubling",
-           "when to double","coupling"},
+           "when to double","coupling","mixture","parallel doubling","partial doubling",
+           "artificial overtone","perfect unison"},
   summary="The general rules that govern every specific pairing in this book - when "
        .. "to double at all, what doubling costs you, and how to keep planes of tone "
        .. "distinct.",
@@ -1207,26 +1552,96 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "register; for a different colour on each note, use wider spacing.","OMT"},
     }},
     {"Unison vs octave", {
-      {"Perfect unison","Fuses tone colour and increases the density of the sound.","IDIO"},
+      {"Perfect unison","Fuses tone colour and increases the density of the sound - but \"volume (amplitude) is only partly affected\". If you want it louder, this is not the doubling that does it.","IDIO Perfect Unison"},
       {"Two of the same instrument","Gains power and weight, keeps its individuality, "
         .. "but loses expressive capacity. Two identical instruments in unison may "
         .. "have intonation trouble; three or more turn into a small chorus - three "
         .. "oboes are not twice as loud as one, but the quality changes.","RK p.48; BEL p.7"},
+      {"Octaves","\"Octave doubling will always result in an increase in volume, and "
+        .. "is by far the most common type of doubling.\" This is the one to reach for "
+        .. "when you want more sound, and the one that also clarifies the relation "
+        .. "between melody and accompaniment by spreading it across registers.",
+        "IDIO Octaves"},
       {"Octaves are easier to hear as two things","Octave doublings, and unison "
         .. "doublings between timbrally diverse instruments, fuse less readily than "
-        .. "unisons of similar instruments.","MOD"},
+        .. "unisons of similar instruments.","MOD; cf. IDIO Perfect Unison"},
       {"Within-family first","Orchestral practice favours doubling within a family; "
         .. "'cello and double bass are the closest-allied pair in the whole orchestra, "
         .. "playing the same pitch class in the great majority of sonorities where "
-        .. "both sound.","MOD"},
+        .. "both sound - they played from identical parts as a matter of course well "
+        .. "into the 19th century.","MOD; IDIO Unisono and Doubling"},
+      {"A line too wide for one instrument","When a unison line runs through more "
+        .. "octaves than any one player can cover, instruments change lanes - jumping "
+        .. "an octave to carry on. Stagger those shifts: they must not all happen at "
+        .. "once, but \"smoothly and carefully graduated\".","IDIO Octaves"},
+    }},
+    {"Parallel doubling - other intervals", {
+      {"What it does","Doubling at intervals other than the octave - most often the "
+        .. "third, fifth or sixth, adjusted to fit the current key or scale. \"Even "
+        .. "more than octave doubling, parallel doubling results in increased volume "
+        .. "and density.\" It is the heaviest of the three, so spend it deliberately.",
+        "IDIO Parallel Doubling"},
+      {"It still reads as one line","Identity survives a good deal of divergence. In "
+        .. "a Messiaen example most instruments descend a major second while the 2nd "
+        .. "violins rise an augmented fourth, and the passage is still heard as a "
+        .. "single line - because the rhythm, articulation and contour agree. Shared "
+        .. "rhythm holds a doubling together more strongly than shared intervals.",
+        "IDIO Parallel Doubling"},
+      {"Where it shades into polyphony","\"Borderline situations between extended "
+        .. "parallel doubling and polyphony are not rare.\" Judge it by weighing "
+        .. "independent melodic movement against rhythmic unison: the first splits a "
+        .. "texture into segments, the second ties it into one.","IDIO Parallel Doubling"},
+      {"Growing habit since 1900","Interest in parallel doublings beyond the octave, "
+        .. "third and sixth is noticeably greater in music from the early 20th century "
+        .. "onward - Bolero saturates nearly the whole texture with them once it "
+        .. "reaches forte.","IDIO Parallel Doubling"},
+    }},
+    {"Mixture - building an instrument that does not exist", {
+      {"The idea","Doubling does not only blend colours; it can synthesise one. Add "
+        .. "instruments on a note's own overtones, soft enough that the ear takes them "
+        .. "for overtones rather than notes, and the result is a timbre no player "
+        .. "possesses - \"invented instruments, so to say\". The organ mixture stop is "
+        .. "the model.","IDIO Parallel Doubling"},
+      {"The worked example","In Bolero, a horn melody is joined by two piccolos on "
+        .. "its 2nd and 4th overtones and a celesta on its 1st and 3rd. Because "
+        .. "overtones are fixed intervals independent of tonality, Ravel notates the "
+        .. "2nd overtone of a C major melody in G major and the 4th in E major, and "
+        .. "marks individual dynamics so the added parts stay below the threshold of "
+        .. "being heard as themselves.","IDIO Parallel Doubling"},
+      {"The cheap version","A muted trumpet with a flute an octave above: the flute "
+        .. "supplies an artificial first overtone and the pair passes for a gentle "
+        .. "oboe. Ravel uses it in Bolero to postpone the real oboe. Note that this "
+        .. "needs a straight mute, which enhances high overtones; a cup or velvet mute "
+        .. "reduces them and gives a closed, less oboe-like sound.","IDIO Parallel Doubling"},
+      {"What to double with","Instruments whose own spectra are weak in overtones, so "
+        .. "they disappear into the sound they are colouring: flute, string harmonics, "
+        .. "celesta, the clarinet's weak middle-register notes.","IDIO ch.12"},
     }},
     {"Partial doubling", {
       {"Don't double everything","Complete doubling produces a heavy, massive sound. "
         .. "Partial doubling - woodwind partly doubling the high strings while horns "
-        .. "partly double the lower ones - keeps weight without clogging.","IDIO"},
+        .. "partly double the lower ones - keeps weight without clogging.","IDIO Partial Doubling"},
       {"Modify as you double","A bassoon and flute may double the first violins' "
         .. "melody with tiny modifications, dropping embellishments or notes in a "
-        .. "strained register so the melodic line keeps its elegance.","IDIO"},
+        .. "strained register so the melodic line keeps its elegance.","IDIO Partial Doubling"},
+      {"Let the less agile part simplify","Where two instruments do not share the same "
+        .. "agility - 'cellos and basses being the standard case - the slower one plays "
+        .. "a simpler version of the line. This is not a compromise; it is how the "
+        .. "pairing has always worked.","IDIO Partial Doubling"},
+      {"Split a passage to make it playable","Large intervals, high and fast, invite "
+        .. "intonation trouble. Berlioz distributes such a theme between the violins "
+        .. "so no one desk has to leap - orchestration solving a technical problem "
+        .. "rather than a colouristic one. Ravel does the same for the triple-tonguing "
+        .. "in Bolero, modifying it for the woodwind while the horns play it straight.",
+        "IDIO Partial Doubling"},
+      {"Dividing a group costs density, not volume","Splitting a string group into two "
+        .. "equal parts \"does not noticeably influence the volume of each half, but "
+        .. "can reduce the density of sound to a certain degree\". Divide freely for "
+        .. "texture; do not expect each half to sound half as loud.","IDIO Partial Doubling"},
+      {"Orchestrated gesture","Rapid runs in the most agile instruments - strings, "
+        .. "flute, clarinet, piano, harp - written differently for each to mark an "
+        .. "overall sweep rather than a line. Doubling them exactly \"would sound "
+        .. "unnecessarily weighty or overly defined\".","IDIO Partial Doubling"},
       {"Transference","When a phrase outruns one instrument's range, hand it on: make "
         .. "the last note of each part coincide with the first note of the next.","RK p.107"},
     }},
@@ -1237,7 +1652,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
       {"Standard blended pairs","Low clarinet + viola; horn + 'cello (or all horns "
         .. "with all low strings); oboes + trumpets at soft dynamics; bassoons + "
         .. "string pizzicato; horn + bassoon in the middle register for a slimmer, "
-        .. "more focused horn sound.","IDIO"},
+        .. "more focused horn sound.","IDIO ch.12"},
     }},
 
     {"Doubling without grayness", {
@@ -1390,7 +1805,7 @@ e{ id="viola", name="Viola", family="Strings", kind="instrument",
       {"+ Oboe or English horn","One of the best-matched string/wind pairs.","RK p.58"},
       {"+ Clarinet","Especially the clarinet's low register: the viola's timbre is "
         .. "comparable to the lowest compass of the clarinet, making this one of the "
-        .. "standard blended doublings.","RK p.58 & p.35-36; IDIO"},
+        .. "standard blended doublings.","RK p.58 & p.35-36; IDIO ch.12"},
       {"+ Bassoon","The viola also resembles the bassoon's middle register; "
         .. "Tchaikovsky's Marche Slave uses bassoon with violas \"very effectively\".","RK p.58 & p.35-36; SIN p.97"},
       {"+ Horn","The best-matched string/brass pair in the alto-tenor range; muted "
@@ -1462,7 +1877,7 @@ e{ id="cello", name="Violoncello", family="Strings", kind="instrument",
       {"+ Clarinet or Bass clarinet","As above, for a darker colour.","RK p.58"},
       {"+ Horns","\"Frequently employed, produces a beautifully blended, soft quality "
         .. "of tone\" - the one string/brass combination Rimsky-Korsakov singles out, "
-        .. "and a standard blended pair in modern practice too.","RK p.61; IDIO"},
+        .. "and a standard blended pair in modern practice too.","RK p.61; IDIO ch.12"},
       {"+ Trombones / Tuba (with D. basses)","For heavy, massive effects.","RK p.61"},
       {"+ 2 Fag + 3 Trombones + Tuba (with D. basses)","The standard bass grouping of "
         .. "all three groups.","RK p.61"},
@@ -1570,7 +1985,7 @@ e{ id="pizzicato", name="Pizzicato", family="Strings", kind="technique",
       {"+ Percussion","Excellent - \"the two blend perfectly, and the consequent "
         .. "increase in resonance yields an admirable effect\".","RK p.34"},
       {"+ Harp","The natural partner; together they form the plucked group.","RK p.26"},
-      {"+ Bassoons","A standard blended pair in modern practice.","IDIO"},
+      {"+ Bassoons","One of the standard blended pairs - close enough in colour that the combination reads as a single sound.","IDIO ch.12"},
       {"+ same woodwind in octaves","Two of the same woodwind in octaves - normally "
         .. "not recommended - becomes safe when pizzicato (or arco) strings double both "
         .. "members, especially in the middle compass.","RK p.50"},
@@ -1646,6 +2061,24 @@ e{ id="flute", name="Flute", family="Woodwind", kind="instrument",
       {"Low flute thirds between trumpet octaves","In soft passages, thirds in the low "
         .. "flutes - sometimes with clarinets - \"produce a beautiful mysterious "
         .. "effect\" between trumpets an octave apart.","RK p.91"},
+    }},
+    {"As an artificial overtone", {
+      {"Why it works","The flute's first overtone - the octave - is powerfully "
+        .. "present, which gives it a near-sine tone and makes it the ideal instrument "
+        .. "for supplying an overtone another instrument lacks.","IDIO ch.12"},
+      {"Two octaves above the fundamental","Doubling a clarinet or bassoon two octaves "
+        .. "up - the third overtone - goes back to the classical period and Mozart, and "
+        .. "\"nearly became a trademark for Sibelius\". Despite the high register the "
+        .. "flute \"increases the fullness of sound without becoming overly prominent in "
+        .. "itself\".","IDIO ch.12"},
+      {"An octave above a muted trumpet","The flute supplies the trumpet's artificial "
+        .. "first overtone and the pair reads as a gentle oboe. Needs a straight mute: a "
+        .. "cup or velvet mute removes the high overtones the effect depends on.",
+        "IDIO Parallel Doubling"},
+      {"Guard its register","Having few overtones of its own, the flute is masked by "
+        .. "the overtones of lower instruments in its middle register, and more easily "
+        .. "still at the bottom. Keep the register clear rather than marking it louder.",
+        "IDIO ch.12"},
     }},
     {"Character and use", {
       {"Singleton","\"The nightingale, the thrush, the lark, the oriole, the "
@@ -1793,7 +2226,7 @@ e{ id="oboe", name="Oboe", family="Woodwind", kind="instrument",
       {"+ Violins","One of the best-matched string/wind pairs.","RK p.58"},
       {"+ Violas (or with English horn)","Rimsky-Korsakov's own Violas + Ob + Eng horn.","RK p.58-59"},
       {"+ Trumpet","One of the frequent trumpet doublings; at soft dynamics oboes and "
-        .. "trumpets are a standard blended pair.","RK p.56; IDIO"},
+        .. "trumpets are a standard blended pair.","RK p.56; IDIO ch.12"},
       {"+ stopped or muted Horns / Trumpets","Stopped brass approaches the oboe and "
         .. "English horn in quality, so \"the combination of these instruments produces "
         .. "a magnificent tone\".","RK p.89"},
@@ -1828,6 +2261,20 @@ e{ id="oboe", name="Oboe", family="Woodwind", kind="instrument",
       {"Breathing","The player must take the lips off the reed to exhale, so long "
         .. "sustained passages need pauses - the difficulty is refilling the lungs, not "
         .. "the air supply.","SIN p.88"},
+    }},
+    {"Register - against the intuition", {
+      {"Low is the penetrating end","\"A low oboe is far more penetrating than the same "
+        .. "instrument in its highest register.\" If you want the oboe to cut through, "
+        .. "the bottom of its range does it, not the top.","IDIO Dynamics and Balance"},
+      {"Why","Formants - strong high-pitched peaks in its spectrum - which also make it "
+        .. "one of the sharpest sounds in the orchestra. See Overtones, Formants and "
+        .. "Penetration.","IDIO ch.12"},
+      {"Little room to fade","A low oboe \"has very limited room for diminuendo\", "
+        .. "unlike a string instrument or a low clarinet, which have almost none. Check "
+        .. "any chord you have marked to die away.","IDIO Chords"},
+      {"The soft alternative","Where the oboe's intensity is too much, the oboe d'amore "
+        .. "has fewer high, penetrating overtones - Ravel's choice in Bolero precisely "
+        .. "to avoid the oboe's intense solo sound.","IDIO Parallel Doubling"},
     }},
     {"Use sparingly", {
       {"+ Bassoon","\"Very seldom found except in certain orchestral tutti\", where it "
@@ -1940,7 +2387,7 @@ e{ id="clarinet", name="Clarinet", family="Woodwind", kind="instrument",
         .. "clarinet.","RK p.58"},
       {"+ Violas","Especially the clarinet's low register - the viola's timbre is "
         .. "comparable to the clarinet's lowest compass, making this a standard blended "
-        .. "doubling in modern practice too.","RK p.58 & p.35-36; IDIO"},
+        .. "doubling in modern practice too.","RK p.58 & p.35-36; IDIO ch.12"},
       {"+ 'Cellos","With bass clarinet as the darker alternative.","RK p.58"},
       {"+ Trumpet","\"The trumpet is the instrument most frequently doubled\", and "
         .. "Trumpet + Cl heads Rimsky-Korsakov's list; also Trumpet + Cl + Ob + Fl.","RK p.56"},
@@ -1983,6 +2430,17 @@ e{ id="clarinet", name="Clarinet", family="Woodwind", kind="instrument",
         .. "that there is of the terrible in the quality of tone of these low sounds\".","RK p.17; SIN p.100"},
       {"With a voice","Listed among the solo instruments that accompany a cantabile "
         .. "aria beautifully.","RK p.124"},
+    }},
+    {"High clarinets in unison", {
+      {"The effect","Two or more clarinets in the high or highest register in perfect "
+        .. "unison give a \"very characteristic, stridently penetrating sound\" - a "
+        .. "reminder that etymologically clarinet means \"little trumpet\". Mahler, "
+        .. "Stravinsky and Debussy all use it, and it is \"very impressive when used "
+        .. "with clear intent\".","IDIO ch.12"},
+      {"The opposite end of the same instrument","The weak middle-register \"filling "
+        .. "in\" notes have so few overtones that they blend into anything - which is "
+        .. "what makes them useful for mixture. Same instrument, opposite job.",
+        "IDIO ch.12"},
     }},
     {"Use sparingly", {
       {"Octave leaps","\"On account of its construction the clarinet is not well "
@@ -2103,13 +2561,13 @@ e{ id="bassoon", name="Bassoon", family="Woodwind", kind="instrument",
       {"+ D. basses","With contrabassoon and bass clarinet, the bass reinforcement.","RK p.58"},
       {"+ Horn","Horn + Fag - the bridge doubling. \"The middle notes resemble those of "
         .. "the bassoon and the two instruments blend well together.\" In the middle "
-        .. "register this gives a slimmer, more focused horn sound.","RK p.57 & p.24; IDIO"},
+        .. "register this gives a slimmer, more focused horn sound.","RK p.57 & p.24; IDIO ch.12"},
       {"+ Trombone or Tuba","Trombone + Fag and Tuba + Fag; the bassoon is also the "
         .. "usual instrument for doubling a brass bass in octaves, in place of the "
         .. "too-resonant trombone or tuba.","RK p.57 & p.82"},
       {"+ 2 Fag + 3 Trombones + Tuba + 'Cellos/D. basses","The standard bass grouping "
         .. "of all three orchestral groups.","RK p.61"},
-      {"+ string pizzicato","A standard blended pair in modern practice.","IDIO"},
+      {"+ string pizzicato","One of the standard blended pairs - close enough in colour that the combination reads as a single sound.","IDIO ch.12"},
       {"+ 'Cellos + D. basses (thickened)","One bassoon added to the string bass only "
         .. "thickens it; the bassoon timbre is lost.","RK p.34"},
     }},
@@ -2233,11 +2691,11 @@ e{ id="horn", name="Horn", family="Brass", kind="instrument",
         .. "weight. Also 4 Horns + 2 Trumpets, and 6 Horns in Mlada.","RK p.55"},
       {"+ 'Cellos","\"Frequently employed, produces a beautifully blended, soft quality "
         .. "of tone\" - the one string/brass combination Rimsky-Korsakov singles out for "
-        .. "praise, and a standard blended pair today.","RK p.61; IDIO"},
+        .. "praise, and a standard blended pair today.","RK p.61; IDIO ch.12"},
       {"+ Violas","The best-matched string/brass pair by register; muted violas with "
         .. "horn is a favourite effect.","RK p.61"},
       {"+ Bassoon","The bridge doubling - the two blend well, and in the middle "
-        .. "register this gives a slimmer, more focused horn sound.","RK p.57 & p.24; IDIO"},
+        .. "register this gives a slimmer, more focused horn sound.","RK p.57 & p.24; IDIO ch.12"},
       {"+ Clarinet","Horn + Cl is the commonest horn/woodwind doubling; also 2-3 Horns "
         .. "with the same number of clarinets as a chord block, or 2 Horns + 2 Fag + 2 Cl.","RK p.57 & p.88"},
       {"+ Clarinet (or Eng. horn) + Violas or 'Cellos","The standard alto-tenor grouping "
@@ -2262,10 +2720,28 @@ e{ id="horn", name="Horn", family="Brass", kind="instrument",
       {"2 Cl / 'Cellos + 2 Horns","A mixed string/wind/brass octave doubling.","RK p.60"},
       {"2 Ob + Eng horn / 3 stopped Horns","Reeds above stopped brass.","RK p.93"},
     }},
+    {"Writing the parts", {
+      {"High and low alternate","Horns 1 and 3 take the high parts, 2 and 4 the low, "
+        .. "with 1 the highest and 4 the lowest. Write to that convention and the "
+        .. "section can read it without negotiation.","HUG Brass Section; cf. RK p.24"},
+      {"The bumper","\"A fifth horn may well be used even when only four are required "
+        .. "by the score, to cover the less important passages in the Horn 1 part, "
+        .. "allowing the principal to concentrate on important solos.\" You do not "
+        .. "write for this player; the section arranges it. But it explains why a "
+        .. "demanding first-horn part is less unreasonable than it looks.",
+        "HUG Brass Section"},
+      {"Weaker than the rest of the brass","Horns \"generally have a weaker sound than "
+        .. "the other brass\", which is why they are so often grouped with the woodwind "
+        .. "rather than against it.","HUG Brass Section; cf. RK p.33"},
+    }},
     {"In harmony", {
       {"The horn quartet","4 Horns give \"every facility for four-part harmony, "
         .. "perfectly balanced in tone, without doubling the bass in octaves\" - the "
         .. "single most reliable brass chord in the orchestra.","RK p.82"},
+      {"As background harmony","\"A quartet of horns will be very effective and "
+        .. "unobtrusive when carrying the harmonic background to a passage\" - the "
+        .. "quality that makes it the default choice for sustained inner harmony.",
+        "HUG Brass Section"},
       {"2 Horns + Tuba + 3 Trombones","2 horns and tuba take the bass in octaves, the "
         .. "trombones the three upper parts: \"beautiful full resonance\".","RK p.83"},
       {"As the 4th part","With 3 trumpets, give the fourth part to one trombone or two "
@@ -2337,7 +2813,7 @@ e{ id="trumpet", name="Trumpet", family="Brass", kind="instrument",
         .. "Instances are numerous, especially in forte, and the wind gives a finer "
         .. "legato than the brass alone.","RK p.56-57"},
       {"+ Oboe","As above; at soft dynamics oboes and trumpets are a standard blended "
-        .. "pair in modern practice.","RK p.56; IDIO"},
+        .. "pair in modern practice.","RK p.56; IDIO ch.12"},
       {"+ Flute","As above.","RK p.56"},
       {"2 or 3 Trumpets + 2 or 3 Fl / Ob / Cl","Chord blocks in unison: 2 Trumpets + 2 "
         .. "Fl, 3 Trumpets + 3 Cl, and so on.","RK p.88"},
@@ -2600,6 +3076,14 @@ e{ id="timpani", name="Timpani (Kettledrums)", family="Percussion", kind="instru
         .. "joined to a brief chord of all the other instruments\".","SIN p.80"},
       {"Under a voice","One of the few percussion uses in accompaniment: a figure or "
         .. "tremolo on the kettledrums.","RK p.124"},
+    }},
+    {"Its place in the section", {
+      {"The one constant","Timpani are \"the only percussion instrument present in "
+        .. "nearly all orchestral music\", and are played by a specialist who will not "
+        .. "normally play any other percussion.","HUG Percussion Section"},
+      {"Left out of balance sums","Their dynamic range is effectively unlimited, so no "
+        .. "balance ratio fits them; and in classical and romantic scoring they mark the "
+        .. "root, which simply reinforces it.","IDIO Chords"},
     }},
     {"Character and use", {
       {"Its ringing quality","Along with glockenspiel, bells and xylophone, the timpani's "
