@@ -12,14 +12,17 @@ script renders them.
 Read `README.md` for the user-facing description and the source bibliography.
 Read `docs/SESSION-LOG.md` for why things are the way they are — decisions,
 rejected alternatives, and the bugs already found and fixed.
+Read `COLOUR.md` before touching a colour: the scheme is shared with another
+project, and its least obvious rule is the easiest to break.
 
 ## Commands
 
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (142 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (165 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
+lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
 luac5.4 -p orchestration_data.lua
 ```
@@ -40,11 +43,18 @@ print(table.concat(drawn, " | "))
 `tests/harness.lua` is a headless stand-in for the `gfx` and `reaper` APIs.
 Helpers it provides: `_H.type`, `_H.press`, `_H.keys`, `_H.raw`, `_H.frame`,
 `_H.run`, `_H.drawn`, `_H.clear_drawn`, `_H.frameno`, `_H.setsize`,
-`_H.mouse(x,y,capbits)`, `_H.wheel`, `_H.K`, `_H.datapath`, `_H.composerspath`.
+`_H.mouse(x,y,capbits)`, `_H.wheel`, `_H.K`, `_H.datapath`, `_H.composerspath`,
+`_H.placed`, `_H.find`.
 `_H.onframe` is not provided but *called if you assign it* — a per-frame hook, the
 way to inject a click or resize partway through a run. A `false` in the key queue
 is a frame boundary, which is what `_H.type` and `_H.press` append; without it
 every queued key is consumed in a single frame.
+
+`_H.find("STRINGS")` returns the pen position of the last `drawstr` of exactly
+that string, which is how a test clicks something: `gfx.rect` is a no-op in the
+harness, so a drawn row leaves no trace but its text and that position. Park the
+pointer off the window afterwards (`_H.mouse(-100, -100, 0)`) or the next frame
+keeps the hover state.
 
 **The harness approximates font metrics** (character count × size factor). It
 verifies structure and behaviour, never appearance. Nothing in this repo has been
@@ -65,6 +75,31 @@ entries, sections or items requires **no code changes**. Only these need code:
   will not appear on the Sources page
 - a section title containing the substring `"sparingly"` is coloured as a warning
   (`header()` checks for it) — a semantic dependency on the string
+
+### The index folds
+
+The index emits one `fold` row per family and the family's chips only when it is
+open. `st.open` maps family name —> `true`; everything else follows from that.
+
+- **Closed is the default.** A first run shows the search box over twelve family
+  bands, nothing else. That is the point of the feature, and `tests/run.lua`
+  checks it, along with the fact that the closed index fits without scrolling.
+- **The open set is persisted** as a tab-separated list of family *names* under
+  `ExtState` key `open`, not as a bitmask over the `rank` order. A family added
+  later therefore starts closed rather than inheriting a neighbour's saved bit.
+- **The whole band is the click target**, not the words: the `fold` row is
+  `maxw` wide and registers one hotspot across it.
+- **Ctrl+Right / Ctrl+Left** open and close every family. There is no free
+  single-key shortcut — every printable character 32—126 goes into the search
+  box — so the modifier is not decoration.
+- **The disclosure triangle is built from `gfx.rect`**, in `marker()`. `gfx` may
+  well have a triangle primitive, but the bundled API reference is not in the
+  repo, so it could not be verified; `gfx.rect` is used all over this script and
+  is therefore known to work. Do not swap it for an unverified call.
+- A row is only hoverable when it is **wholly inside the viewport**
+  (`y >= top and y + h <= bottom`). The body is drawn before the opaque top
+  strip and footer, so without that gate a row scrolled underneath either would
+  light up under a pointer nowhere near it.
 
 ### Frame pipeline (order matters)
 
@@ -138,6 +173,27 @@ ids must be unique **across both files**.
   the string rather than hard-coding magic numbers.
 - Hotspots are rebuilt into `st.hot` every frame and iterated **backwards** on
   click, so the topmost (last-drawn) target wins.
+- **No widget library, so every state is drawn by hand.** `inrect()` is tested at
+  draw time and the fill chosen there; `button()` reads `cap(1)` itself for the
+  held state. There is no style stack to push.
+
+### Colour
+
+`C` is keyed by role, not by shade, and built with `hex(0xRRGGBB)`. The scheme is
+shared with another project and documented in `COLOUR.md`; read it before
+changing a value. The two rules that break quietly:
+
+- **R < G < B in every grey.** A neutral grey at the same lightness looks correct
+  in a diff and only reads as flat on screen beside the yellow. The suite checks
+  the bias, exempting `accent` and `warn`.
+- **The accent is spent only on what is switched on** — the current view's
+  button, the selected match chip, the caret. Three uses, and the suite fails if
+  it grows past four or if a second accent appears. Item labels and section
+  headers were amber and blue before the scheme landed; they come off the ramp
+  now, so hierarchy rests on weight, size and lightness.
+- **Light controls force dark text.** `control` is far lighter than the ground, so
+  every header button takes `ink` — the unchosen ones too. Same for the selected
+  match chip, which is filled with the accent.
 
 ## Data schema
 
@@ -197,17 +253,37 @@ tool is for.
    worked example.
 4. **Cite at the precision the evidence supports.** This is per-source, and it
    changes when better evidence arrives.
-   - `RK`, `WP`, `BEL` — cited **by page**. `BEL` began as tag-only and was
+   - `RK`, `BEL` — cited **by page**. `BEL` began as tag-only and was
      upgraded when the author's own 65-page PDF of *Artistic Orchestration* was
      supplied; every existing BEL claim was re-verified against it, one was found
      unsupported and rewritten, and the suite now **fails on a bare `BEL`**
      without a page.
+   - `WP` — a web article with no pagination, so cited by tag. Its 48 citations
+     carry no page (45 bare `WP`, 3 paired with another tag), and that is
+     correct, not a gap; this file claimed `WP` was cited by page until they were
+     counted. It supplies the instrumentation shorthand and the bibliography, and
+     is the least authoritative source here — prefer `RK` or `BEL` wherever both
+     cover a claim.
    - `SIN` — page numbers are *approximations* anchored to the volume's
      illustration list, because the Gutenberg transcription has no page breaks.
      Use `SIN ch.VIII` where no anchor exists.
    - `OMT`, `IDIO`, `MOD`, `FILM` — gathered from search-result summaries rather
-     than full page reads, so cited by tag only. If a full text for any of these
-     ever arrives, do what was done for `BEL`: re-verify each claim, then upgrade.
+     than full page reads, so cited by tag only. **These are the incomplete
+     sources**, and between them they carry 154 of the 1,360 items: `FILM` 77,
+     `MOD` 62, `IDIO` 14, `OMT` 1. If a full text for any of them ever arrives, do
+     what was done for `BEL`: re-verify every claim against it first, expect to
+     find one or two that the summary overstated, then upgrade the citations.
+
+   `tests/audit-sources.lua` prints the coverage, which is the fastest way to see
+   where the evidence is thin. It separates `WP` from the four: Wikipedia *was*
+   read in full and simply has no pages, so its 48 tag-only citations are a
+   property of the source, not a gap. Regenerate the table rather than trusting a
+   remembered number — a first pass at this counted `SIN ch.VIII` as a source
+   called `VIII` and reported `SIN` one item high.
+
+   ```bash
+   lua5.4 tests/audit-sources.lua
+   ```
 5. **Quote intermediaries honestly.** Berlioz, Lavignac, Gevaert, Stone and
    Forsyth appear *as Singleton quotes them*, and are named as such in the text.
 6. **Leave gaps rather than guess.** Composers with no citable orchestration

@@ -230,12 +230,15 @@ survives a 60px-wide window.
 ## 5. Testing
 
 `tests/harness.lua` is a headless stand-in for the `gfx` and `reaper` APIs — about
-120 lines, stubbing drawing, fonts, key queue, mouse, ext-state and the defer
-loop. It records every `drawstr` with its position, so a "page" can be
-reconstructed as text and inspected. That reconstruction was how layout was
-verified: sorting the recorded draws by `y` then `x` prints the composed page.
+136 lines, stubbing drawing, fonts, key queue, mouse, ext-state and the defer
+loop. It records every `drawstr` twice: as a bare string in `drawn`, and with its
+pen position in `placed`. The positions are what let a "page" be reconstructed as
+text and inspected — sorting the recorded draws by `y` then `x` prints the composed
+page — and what let a test click on something, since `gfx.rect` is a no-op here
+and a drawn row leaves no other trace. (The position record was added in the
+folding round; this section claimed it existed before it did.)
 
-`tests/run.lua`, 142 checks in six sections:
+`tests/run.lua`, 165 checks in eight sections:
 
 - **Data integrity** — both databases merged; unique ids; required fields; every
   one of 1,360 items cited; every citation naming a declared source; every
@@ -249,6 +252,14 @@ verified: sorting the recorded draws by `y` then `x` prints the composed page.
 - **Interaction** — arrows, Enter, Esc, Alt+Left, F1, header button clicks, chip
   clicks, wheel and page scrolling, the reverse links, no-result view, prose
   fallback.
+- **Index folding** — closed on a first run and short enough not to scroll; every
+  family listed with a count taken from the data; click to open one, click again
+  to close it; Ctrl+Right and Ctrl+Left for all; the open set surviving a reload;
+  and search still reaching an entry inside a closed family.
+- **Colour scheme** — `C` parsed out of the script source: R < G < B in every grey,
+  `accent` and `bg` matching the shared values, `warn` not a shade of the accent,
+  `control` lighter than `bg` with `ink` readable on it, the accent used no more
+  than four times, no `C.accent2`.
 - **Punctuation** — 17 pattern-metacharacter queries (`%`, `.*`, `^horn$`, `\`)
   must not break search or the no-result view.
 
@@ -266,15 +277,17 @@ changed.
 
 | File | Lines | Purpose |
 | --- | --- | --- |
-| `Orchestration Helper.lua` | 1,075 | GUI, search, layout, input |
+| `Orchestration Helper.lua` | 1,228 | GUI, search, layout, input |
 | `orchestration_data.lua` | 3,869 | 70 entries: instruments, sections, cross-group topics, craft, character |
 | `orchestration_composers.lua` | 1,998 | 50 entries: composers |
-| `tests/run.lua` | 355 | the 142-check suite |
-| `tests/harness.lua` | 122 | headless `gfx`/`reaper` stand-in |
+| `tests/run.lua` | 536 | the 165-check suite |
+| `tests/harness.lua` | 136 | headless `gfx`/`reaper` stand-in |
 | `tests/audit-aliases.lua` | 55 | alias collision report |
-| `README.md` | 278 | user documentation, bibliography |
-| `CLAUDE.md` | 234 | guidance for future Claude sessions |
-| `docs/SESSION-LOG.md` | 400 | this file |
+| `tests/audit-sources.lua` | 88 | citation coverage per source tag |
+| `README.md` | 309 | user documentation, bibliography |
+| `CLAUDE.md` | 311 | guidance for future Claude sessions |
+| `COLOUR.md` | 121 | the colour scheme, kept by hand |
+| `docs/SESSION-LOG.md` | 570 | this file |
 
 **120 entries, 1,360 cited items, 8 source tags** (`RK`, `SIN`, `WP`, `BEL`,
 `OMT`, `IDIO`, `MOD`, `FILM`).
@@ -292,6 +305,9 @@ Commits on `claude/sharp-hawking-kh7a7a`:
 - `b295b2c` — CLAUDE.md and this session log.
 - `cdeb280` — Belkin: craft topics, character glossary, `BEL` upgraded to page
   citations.
+- `65ab837` — documentation verified against the repo; the broken alias one-liner
+  replaced by `tests/audit-aliases.lua`, §6 rewritten, stale figures corrected.
+- this round — collapsible index, the shared colour scheme, `tests/audit-sources.lua`.
 
 ---
 
@@ -378,13 +394,123 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 142 checks.**
 
 ---
 
+## 6b. Later addition: a collapsible index and the shared colour scheme
+
+Three requests in one round: whether any sources are incomplete, whether the
+index families could be made collapsible, and a colour scheme to match the
+user's other projects (`COLOUR.md` from *Starting Blocks* was supplied).
+
+### Which sources are incomplete
+
+Answered by counting rather than from memory, which needed a script:
+`tests/audit-sources.lua`. It reports items per tag, how many carry a page or
+chapter, and how many entries use it.
+
+| tag | items | located | verdict |
+| --- | ---: | ---: | --- |
+| `RK` | 737 | 100% | complete, by page |
+| `SIN` | 251 | 100% | complete, pages approximate (no page breaks in the transcription) |
+| `BEL` | 243 | 100% | complete, by page |
+| `WP` | 48 | 0% | read in full; the article has no pages to cite |
+| `FILM` | 77 | 0% | **search summaries only** |
+| `MOD` | 62 | 0% | **search summaries only** |
+| `IDIO` | 14 | 0% | **search summaries only** |
+| `OMT` | 1 | 0% | **search summaries only** |
+
+So 154 of 1,360 items (11%) rest on a source never read in full. `WP` is
+deliberately separated: being tag-only is a property of a web article, not a gap
+in the reading. Writing that distinction into the audit caught an error in
+`CLAUDE.md`, which had listed `WP` among the sources cited *by page* since the
+file was written.
+
+A first version of the audit matched any run of capitals as a tag, so it counted
+`SIN ch.VIII` as a source called `VIII` and reported `SIN` one item high. It now
+matches only tags declared in a `SOURCES` table — the same class of bug as the
+alias one-liner in §6, and the same lesson.
+
+### Collapsible index
+
+Possible with no new REAPER capability, because the two-stage layout already does
+the work: `layout()` emits rows with absolute `y`, so a fold is just *don't emit
+the chips*. The decisions worth keeping:
+
+- **Closed by default**, which is what makes the change worth having: the window
+  opens as the search box over twelve family bands instead of 120 chips.
+- **The open set is persisted by family name**, tab-separated, under `ExtState`
+  key `open`. A bitmask over the `rank` order was rejected: adding a family later
+  would shift the bits and a new family would inherit a neighbour's saved state.
+  By name, it simply starts closed.
+- **Ctrl+Right / Ctrl+Left** for all-open and all-closed. No unmodified key was
+  available: every printable character 32—126 goes into the search box.
+- **The disclosure triangle is drawn from `gfx.rect`**, in `marker()`. `gfx` may
+  have a triangle primitive, but the API reference is not in the repo and this
+  was not the round to find out — `gfx.rect` is used throughout and is known to
+  work. The first draft called `gfx.triangle` and was replaced before it ran.
+- **Hover is gated on full visibility.** A `fold` row tests
+  `y >= top and y + h <= bottom` before testing the pointer. Without it a band
+  scrolled under the opaque top strip lights up under a pointer nowhere near it
+  — the same hazard the frame-pipeline ordering exists to avoid, reappearing in
+  a new row type.
+
+The harness could not test a click on something whose position it did not record:
+`gfx.rect` is a no-op there, so a drawn row left no trace but its text. Added
+`_H.placed()` and `_H.find(s)`, which return the pen position of a `drawstr`.
+`drawn` keeps its old shape, so no existing test changed.
+
+### The colour scheme
+
+Taken from *Starting Blocks*: a cool grey ramp, one yellow for whatever is
+switched on, dark ink on light controls. `C` was rewritten keyed by role and
+built from `hex(0xRRGGBB)` so it can be read against `COLOUR.md` directly.
+
+The judgement call was the accent. The old palette had **two** decorative
+accents — amber item labels, blue section headers — and the scheme allows none:
+the accent marks state, not structure. Both came off the ramp, so hierarchy on an
+entry page now rests on weight, size and lightness. The accent is spent on three
+things only: the current view's button, the selected match chip, and the caret.
+
+The index chips were *not* made light-grey controls, even though the scheme's
+control fill is light and this app's chips are clickable. 120 light pills would
+dominate a reading surface; they are treated as frames off the ramp instead,
+which is what the source file's own rule 3 asks for — “if a second thing wants
+the accent, it probably wants the ramp instead”.
+
+Two consequences found by looking at the result rather than by reasoning:
+
+- Section headers at `#BFC5CE` were **dimmer than the item labels beneath them**
+  at `#F2F4F7`. Left as is, on the grounds that caps, a smaller size and a solid
+  rule already mark a divider, so it need not also win on brightness.
+- The rule under each header was drawn at **28% alpha of the header colour**,
+  which was fine for a saturated blue and invisible for a grey. It now takes
+  `C.line` at full alpha, which is the scheme's own separator.
+
+The mechanical parts are checked rather than trusted: R < G < B in every grey,
+`accent` and `bg` matching the shared values exactly, `warn` not a shade of the
+accent, `control` lighter than `bg` with `ink` readable on it, and `C.accent`
+appearing no more than four times with no `C.accent2` at all.
+
+What is still unverified is everything that matters most: **the scheme has been
+applied but never seen.** Nothing here has run inside REAPER.
+
+After this round: **120 entries, 1,360 cited items, 8 source tags, 165 checks.**
+
+---
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
   font choice and colour have not been seen. This is the one thing that needs a
   human with REAPER open. Expect to adjust `S()` paddings and the font sizes in
   `initfonts()`.
-- **No dark/light theme switch.** One dark theme, matching REAPER's default.
+- **No dark/light theme switch.** One dark theme, shared with *Starting Blocks*
+  (`COLOUR.md`). A light variant would need a second ramp and a rethink of the
+  dark-ink-on-light-controls rule, which inverts.
+- **The colour scheme has been applied but never seen.** The harness verifies the
+  mechanical rules — cool greys, one accent, readable ink — and nothing about
+  appearance. The hierarchy on an entry page now rests on weight and lightness
+  alone, with no hue to help it, so that is the first thing to look at in REAPER.
+- **Folding does not animate.** `gfx` has no timer-driven redraw worth building
+  on for this, so a family snaps open. Not worth fixing.
 - **HiDPI is written but untested.** `gfx.ext_retina` is read and `SCALE`
   recomputed when it changes; behaviour on a real Retina display is unverified.
 - **No PR opened.** The branch is pushed; the user did not ask for a pull request.
@@ -428,3 +554,17 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 142 checks.**
   report a false negative. Two probe results were misread as data problems before
   this was noticed. Cap the output of any dump — accumulating 70 frames of a long
   page prints thousands of lines.
+- **Do not reach for an API call you cannot verify.** The disclosure triangle
+  was first written as `gfx.triangle`. The REAPER reference is not in the repo,
+  so there was no way to confirm it exists on every build; it was rebuilt from
+  `gfx.rect`, which this script already depends on everywhere. Costs a few lines
+  and removes the risk entirely.
+- **A documentation claim about a count is a claim to check.** This round found
+  two that were wrong: `CLAUDE.md` listed `WP` among the sources cited by page
+  (it has no pages), and §5 of this file said the harness recorded draw
+  positions (it did not, until this round added them). Both had been read many
+  times without being noticed, because prose about numbers reads as true.
+- **Match on declared names, not on shape.** The source audit's first version
+  treated any run of capitals as a tag and reported a source called `VIII`, from
+  `SIN ch.VIII`. The alias one-liner in §6 failed the same way. When auditing
+  data, enumerate the real keys first and match against those.

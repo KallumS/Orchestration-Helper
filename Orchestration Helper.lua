@@ -218,19 +218,46 @@ end
 -- THEME
 ------------------------------------------------------------------------------
 
+-- The shared scheme, carried over from Starting Blocks: a dark cool-grey ground,
+-- a light grey for controls raised off it, and one yellow for whatever is
+-- switched on. See COLOUR.md for the full ramp and the reasoning.
+--
+-- Two rules from that file that are easy to lose here:
+--
+--   R < G < B holds in every grey. A neutral grey at the same lightness looks
+--   correct in a diff and only reads as flat once it is on screen beside the
+--   yellow. The suite checks the bias so it cannot be lost by accident.
+--
+--   The accent is spent only on the state that is *on* - the header button for
+--   the current view, and the selected match chip. Nothing decorative takes it,
+--   which is what makes it read at a glance. Item labels and section headers
+--   used to be amber and blue; they now come off the ramp instead, so hierarchy
+--   on an entry page rests on weight and lightness rather than hue.
+local function hex(v)
+  return { math.floor(v / 65536) % 256 / 255,
+           math.floor(v / 256) % 256 / 255,
+           v % 256 / 255 }
+end
+
 local C = {
-  bg      = { 0.106, 0.114, 0.129 },
-  panel   = { 0.133, 0.145, 0.165 },
-  panel2  = { 0.165, 0.180, 0.204 },
-  line    = { 0.208, 0.224, 0.251 },
-  text    = { 0.847, 0.863, 0.886 },
-  dim     = { 0.545, 0.576, 0.612 },
-  faint   = { 0.400, 0.427, 0.459 },
-  title   = { 0.949, 0.957, 0.965 },
-  accent  = { 0.878, 0.659, 0.416 },   -- amber: item labels
-  accent2 = { 0.498, 0.698, 0.851 },   -- blue: section headers
-  warn    = { 0.851, 0.545, 0.498 },   -- muted red: "use sparingly"
-  sel     = { 0.196, 0.263, 0.333 },
+  bg          = hex(0x23272E),   -- ground: the window behind everything
+  panel       = hex(0x1B1F25),   -- header bar, footer, popups
+  sunken      = hex(0x1A1D23),   -- chip rest, scrollbar track
+  frame_hover = hex(0x22262D),   -- chip and fold hover
+  panel2      = hex(0x2A2F37),   -- frame active
+  line        = hex(0x3A404A),   -- separators and rules
+  ink         = hex(0x14171C),   -- text on any light control
+  text        = hex(0xDDE1E7),   -- body text
+  head        = hex(0xBFC5CE),   -- section headers
+  dim         = hex(0x8A919C),   -- dim text, citations
+  faint       = hex(0x6D7581),   -- the quietest text
+  title       = hex(0xF2F4F7),   -- titles, item labels, hovered text
+  control     = hex(0xA9AFBA),   -- button fill
+  control_h   = hex(0xC0C6CF),   -- button hover
+  control_a   = hex(0x8F96A2),   -- button held
+  grab        = hex(0x585F6B),   -- scrollbar grab
+  accent      = hex(0xFFF200),   -- whatever is switched on
+  warn        = hex(0xD2483F),   -- "use sparingly"; never a shade of the accent
 }
 
 local function setcol(c, a)
@@ -282,6 +309,7 @@ local st = {
   rows     = {},
   hot      = {},
   blink    = 0,
+  open     = {},         -- index view: family name -> true when expanded
 }
 
 local function go(view, entry, remember)
@@ -308,6 +336,42 @@ local function back()
     st.query, st.caret, st.sugg, st.sel = "", 0, {}, 1
     go("index", nil, false)
   end
+end
+
+-- Which index families are expanded. Stored as a tab-separated list of family
+-- names, so a family added later simply starts closed rather than inheriting
+-- some neighbour's saved bit.
+local function save_open()
+  local names = {}
+  for f, on in pairs(st.open) do
+    if on then names[#names + 1] = f end
+  end
+  table.sort(names)
+  reaper.SetExtState(EXT, "open", table.concat(names, "\t"), true)
+end
+
+local function load_open()
+  st.open = {}
+  local saved = reaper.GetExtState(EXT, "open") or ""
+  for f in saved:gmatch("[^\t]+") do st.open[f] = true end
+end
+
+local function toggle_family(f)
+  st.open[f] = not st.open[f] or nil
+  st.dirty = true
+  save_open()
+end
+
+-- Every family at once. `on` false closes them all, which is the first-run
+-- state: the window opens as the search box over a short list of families.
+local function set_all_families(on)
+  st.open = {}
+  if on then
+    for _, en in ipairs(ENTRIES) do st.open[en.family or "Other"] = true end
+  end
+  st.scroll = 0
+  st.dirty = true
+  save_open()
 end
 
 local function requery()
@@ -404,9 +468,23 @@ end
 local function header(s, maxw, x)
   gap(14)
   gfx.setfont(F.HEAD)
-  local col = s:lower():find("sparingly") and C.warn or C.accent2
+  local warn = s:lower():find("sparingly") ~= nil
+  local col = warn and C.warn or C.head
   row{ t = "text", s = s:upper(), f = F.HEAD, c = col, x = x, h = gfx.texth + S(4) }
-  row{ t = "hrule", h = S(7), x = x, w = maxw, c = col }
+  -- The separator comes off the ramp, not from the header's own colour: a grey
+  -- at 28% alpha over the ground is invisible. A warning keeps its red so the
+  -- whole band still reads as one.
+  row{ t = "hrule", h = S(7), x = x, w = maxw,
+       c = warn and C.warn or C.line, a = warn and 0.7 or 1 }
+end
+
+-- A family header on the index that opens and closes. One row, drawn as a full
+-- width band so the whole strip is the click target, not just the words.
+local function fold(name, n, on, maxw, x)
+  gap(8)
+  gfx.setfont(F.HEAD)
+  row{ t = "fold", name = name, n = n, on = on,
+       x = x, w = maxw, h = gfx.texth + S(14) }
 end
 
 -- Build the row list for whatever the current view is.
@@ -427,7 +505,8 @@ local function layout(w)
          "nothing is ever fetched from the internet.",
          F.BODY, C.dim, x, maxw)
     gap(6)
-    para("Press F1 for the keys, or click a name below.", F.SMALL, C.faint, x, maxw)
+    para("Or click a family below to open it. Press F1 for the keys.",
+         F.SMALL, C.faint, x, maxw)
 
     local fams, order = {}, {}
     for _, en in ipairs(ENTRIES) do
@@ -443,18 +522,28 @@ local function layout(w)
     table.sort(order, function(a, b)
       return (rank[a] or 50) < (rank[b] or 50)
     end)
+    local nopen = 0
     for _, f in ipairs(order) do
-      header(f, maxw, x)
-      local list = {}
-      table.sort(fams[f], function(a, b) return a.name < b.name end)
-      for _, en in ipairs(fams[f]) do
-        list[#list + 1] = { label = en.name, id = en.id }
+      local on = st.open[f] and true or false
+      if on then nopen = nopen + 1 end
+      fold(f, #fams[f], on, maxw, x)
+      if on then
+        local list = {}
+        table.sort(fams[f], function(a, b) return a.name < b.name end)
+        for _, en in ipairs(fams[f]) do
+          list[#list + 1] = { label = en.name, id = en.id }
+        end
+        gap(2)
+        chips(list, x, maxw)
+        gap(4)
       end
-      chips(list, x, maxw)
     end
     gap(10)
     rule(6)
-    para(("%d entries. Sources: click SOURCES in the header."):format(#ENTRIES),
+    para(("%d entries in %d families. %s  ·  Sources: click SOURCES in the header.")
+         :format(#ENTRIES, #order,
+                 nopen == #order and "Ctrl+Left closes them all"
+                                 or "Ctrl+Right opens them all"),
          F.SMALL, C.faint, x, maxw)
     gap(16)
 
@@ -481,11 +570,14 @@ local function layout(w)
       { "wheel, PgUp / PgDn", "scroll" },
       { "F1", "this page" },
       { "click", "any name or chip opens that entry" },
+      { "click a family", "on the index, opens and closes it; what you leave " ..
+        "open is remembered" },
+      { "Ctrl + Right / Left", "on the index, open or close every family" },
     }
     for _, k in ipairs(keys) do
       gfx.setfont(F.LABEL)
       local kw = S(150)
-      row{ t = "text", s = k[1], f = F.LABEL, c = C.accent, x = x, h = gfx.texth + S(3) }
+      row{ t = "text", s = k[1], f = F.LABEL, c = C.title, x = x, h = gfx.texth + S(3) }
       para(k[2], F.BODY, C.text, x + kw, maxw - kw)
       gap(2)
     end
@@ -573,7 +665,7 @@ local function layout(w)
           gfx.setfont(F.SMALL)
           citew = textw(cite) + S(14)
         end
-        para(label, F.LABEL, C.accent, x, maxw - citew, cite)
+        para(label, F.LABEL, C.title, x, maxw - citew, cite)  -- bold; detail below is lighter weight and indented
         if detail and detail ~= "" then
           para(detail, F.BODY, C.text, x + S(14), maxw - S(14))
         end
@@ -634,6 +726,28 @@ local function hot(x, y, w, h, action)
   st.hot[#st.hot + 1] = { x = x, y = y, w = w, h = h, action = action }
 end
 
+-- The disclosure triangle on a fold row: right-pointing when closed, down when
+-- open, drawn as a stack of rects. gfx.rect is the one fill primitive this
+-- script already leans on everywhere, so the marker needs nothing new from the
+-- API - and nothing that a given REAPER build might not have.
+-- (cx, cy) is the marker's centre; the colour is whatever is already set.
+local function marker(cx, cy, down)
+  local long, short = S(9), S(6)
+  if down then
+    -- rows, widest at the top
+    for i = 0, short - 1 do
+      local wl = long - math.floor(i * (long - 1) / (short - 1) + 0.5)
+      gfx.rect(cx - math.floor(wl / 2), cy - math.floor(short / 2) + i, wl, 1, 1)
+    end
+  else
+    -- columns, tallest at the left
+    for j = 0, short - 1 do
+      local hl = long - math.floor(j * (long - 1) / (short - 1) + 0.5)
+      gfx.rect(cx - math.floor(short / 2) + j, cy - math.floor(hl / 2), 1, hl, 1)
+    end
+  end
+end
+
 -- Work out the whole top strip - header bar, search box, match chips - and
 -- return its geometry. Nothing is drawn yet: the body needs to know how tall
 -- this is, and the body is drawn first so that the strip can paint over it.
@@ -687,11 +801,20 @@ local function top_geometry()
   return g
 end
 
+-- Header buttons are the one place this window has real controls, so they take
+-- the scheme's control greys - which sit lighter than the ground, and therefore
+-- force dark text on every one of them, not just the chosen one. `on` marks the
+-- current view, and that is what the accent is for.
 local function button(label, bx, by, bw, bh, on, action)
   local over = inrect(bx, by, bw, bh)
-  setcol(over and C.panel2 or C.panel)
+  local down = over and cap(1)
+  if on then
+    setcol(C.accent)
+  else
+    setcol(down and C.control_a or (over and C.control_h or C.control))
+  end
   gfx.rect(bx, by, bw, bh, 1)
-  setcol(on and C.accent or (over and C.text or C.dim))
+  setcol(C.ink)
   gfx.setfont(F.SMALL)
   gfx.x, gfx.y = bx, by + math.floor((bh - gfx.texth) / 2)
   gfx.drawstr(label, 1, bx + bw, by + bh)
@@ -738,7 +861,7 @@ local function draw_top(g)
 
   -- search box
   local sx, sy, sw, sh = g.search_x, g.search_y, g.search_w, g.search_h
-  setcol(C.panel2)
+  setcol(inrect(sx, sy, sw, sh) and C.panel2 or C.sunken)
   gfx.rect(sx, sy, sw, sh, 1)
   setcol(C.line)
   gfx.rect(sx, sy, sw, sh, 0)
@@ -778,13 +901,12 @@ local function draw_top(g)
   gfx.setfont(F.SMALL)
   for _, c in ipairs(g.chips) do
     local sel = (c.i == st.sel)
-    setcol(sel and C.sel or C.panel)
+    local over = inrect(c.x, c.y, c.w, c.h)
+    -- the chosen match is the state that is on, so it alone takes the accent -
+    -- filled, which means dark ink on it
+    setcol(sel and C.accent or (over and C.frame_hover or C.sunken))
     gfx.rect(c.x, c.y, c.w, c.h, 1)
-    if sel then
-      setcol(C.accent)
-      gfx.rect(c.x, c.y, c.w, c.h, 0)
-    end
-    setcol(sel and C.title or C.dim)
+    setcol(sel and C.ink or (over and C.title or C.text))
     gfx.x, gfx.y = c.x, c.y + math.floor((c.h - gfx.texth) / 2)
     gfx.drawstr(c.label, 1, c.x + c.w, c.y + c.h)
     hot(c.x, c.y, c.w, c.h, function()
@@ -844,19 +966,43 @@ local function draw_body(top, bottom)
           gfx.drawstr(r.val, 256)
         end
       elseif r.t == "hrule" then
-        setcol(r.c, 0.28)
+        setcol(r.c, r.a or 1)
         gfx.rect(r.x, y + S(2), r.w, 1, 1)
       elseif r.t == "rule" then
         setcol(C.line)
         gfx.rect(S(20), y + math.floor(rh / 2), w - S(40), 1, 1)
+      elseif r.t == "fold" then
+        local visible = (y >= top and y + rh <= bottom)
+        local over = visible and inrect(r.x, y, r.w, rh)
+        if over then
+          setcol(C.frame_hover)
+          gfx.rect(r.x, y, r.w, rh, 1)
+        end
+        setcol(r.on and C.title or C.dim)
+        marker(r.x + S(5), y + math.floor(rh / 2), r.on)
+        gfx.setfont(F.HEAD)
+        setcol(over and C.title or C.head)
+        gfx.x, gfx.y = r.x + S(18), y + math.floor((rh - gfx.texth) / 2)
+        gfx.drawstr(r.name:upper(), 256)
+        gfx.setfont(F.SMALL)
+        setcol(C.faint)
+        local cn = tostring(r.n)
+        gfx.x = r.x + r.w - textw(cn)
+        gfx.y = y + math.floor((rh - gfx.texth) / 2)
+        gfx.drawstr(cn, 256)
+        setcol(C.line)
+        gfx.rect(r.x, y + rh - 1, r.w, 1, 1)
+        if visible then
+          hot(r.x, y, r.w, rh, function() toggle_family(r.name) end)
+        end
       elseif r.t == "chips" then
         gfx.setfont(F.SMALL)
         for _, c in ipairs(r.items) do
           local visible = (y >= top and y + c.h <= bottom)
           local over = visible and inrect(c.x, y, c.w, c.h)
-          setcol(over and C.sel or C.panel)
+          setcol(over and C.frame_hover or C.sunken)
           gfx.rect(c.x, y, c.w, c.h, 1)
-          setcol(over and C.title or C.accent2)
+          setcol(over and C.title or C.text)
           gfx.x, gfx.y = c.x, y + math.floor((c.h - gfx.texth) / 2)
           gfx.drawstr(c.label, 1, c.x + c.w, y + c.h)
           if visible then
@@ -869,12 +1015,12 @@ local function draw_body(top, bottom)
 
   if st.maxscroll > 0 then
     local tx = w - S(6)
-    setcol(C.panel)
+    setcol(C.sunken)
     gfx.rect(tx, top, S(4), viewh, 1)
     local knobh = math.max(S(30),
       math.floor(viewh * (viewh / (st.content_h + S(10)))))
     local knoby = top + math.floor((viewh - knobh) * (st.scroll / st.maxscroll))
-    setcol(C.faint)
+    setcol(C.grab)
     gfx.rect(tx, knoby, S(4), knobh, 1)
   end
 end
@@ -888,8 +1034,11 @@ local function draw_footer(g)
   setcol(C.faint)
   gfx.setfont(F.SMALL)
   gfx.x, gfx.y = S(20), y + S(4)
-  gfx.drawstr("Up/Down matches   Enter open   Esc clear   Alt+Left back   " ..
-              "F1 help   -   works offline", 256)
+  gfx.drawstr(st.view == "index"
+    and "Click a family to open it   Ctrl+Right all   Ctrl+Left none   " ..
+        "F1 help   -   works offline"
+     or "Up/Down matches   Enter open   Esc clear   Alt+Left back   " ..
+        "F1 help   -   works offline", 256)
 end
 
 ------------------------------------------------------------------------------
@@ -977,9 +1126,11 @@ local function handle_keys()
       end
     elseif c == KEY.left then
       if alt then back()
+      elseif ctrl and st.view == "index" then set_all_families(false)
       elseif st.caret > 0 then st.caret = st.caret - 1 end
     elseif c == KEY.right then
-      if st.caret < #st.query then st.caret = st.caret + 1 end
+      if ctrl and st.view == "index" then set_all_families(true)
+      elseif st.caret < #st.query then st.caret = st.caret + 1 end
     elseif c == KEY.home then
       if ctrl then st.scroll = 0 else st.caret = 0 end
     elseif c == KEY.fin then
@@ -1023,6 +1174,8 @@ local win_h = math.max(360, num(reaper.GetExtState(EXT, "h"), 680))
 local win_x = num(reaper.GetExtState(EXT, "x"), 150)
 local win_y = num(reaper.GetExtState(EXT, "y"), 110)
 local win_d = num(reaper.GetExtState(EXT, "dock"), 0)
+
+load_open()
 
 gfx.ext_retina = 1
 gfx.init("Orchestration Helper", win_w, win_h, win_d, win_x, win_y)
