@@ -219,6 +219,11 @@ no code changes.
 
 ## Development
 
+`CLAUDE.md` holds the architecture notes, the data schema and the editorial rules
+— read it before changing anything. `docs/SESSION-LOG.md` records how the project
+was built: the sources and how they were mined, the decisions and the rejected
+alternatives, the bugs already found and fixed, and what is still unverified.
+
 The script was built and tested against a headless stand-in for REAPER's `gfx`
 and `reaper` APIs, which allows the search ranking, layout, scrolling and mouse
 handling to be exercised without launching REAPER. The checks covered:
@@ -226,7 +231,7 @@ handling to be exercised without launching REAPER. The checks covered:
 - data integrity — 1,116 items all cited, every citation naming a declared
   source, every `related` and `instruments` id resolving across both files, no
   duplicate entry ids;
-- search ranking against 72 query/expected-result pairs, including aliases,
+- search ranking against 73 query/expected-result pairs, including aliases,
   prefixes, punctuation and typos (`Bernard Hermann`, `tromobne`, `bassson`);
 - every one of the 100 entries rendered at three window sizes;
 - interaction — arrow navigation, Enter, Esc, back, F1, header buttons, chip
