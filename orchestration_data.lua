@@ -143,6 +143,25 @@ e{ id="strings", name="String Section", family="Strings", kind="section",
       {"Solo double bass","\"Practically unknown\"; the solo viola is also seldom "
         .. "found. Violin and 'cello solos are the usual ones.","RK p.104"},
     }},
+
+    {"Belkin's practical notes", {
+      {"Compare it with the choir","\"Like the vocal choir, the string family offers "
+        .. "excellent homogeneity of timbre, and can play anything from the simplest "
+        .. "monophonic line to the richest polyphony. Virtually anything that is "
+        .. "suitable for choir will also sound well in strings\" - with a much wider "
+        .. "range, greater mobility, more varied articulation, and chords.","BEL p.6"},
+      {"Cross the parts freely","\"Unlike choral writing, string writing normally "
+        .. "abounds in crossing. This allows the lower instruments to play the main line "
+        .. "from time to time, and, most importantly, gives all the individual sections "
+        .. "in the family freedom to move... Given the easy blend within the family, "
+        .. "such crossing creates no special problems.\"","BEL p.6"},
+      {"Pizzicato is percussion, not strings","\"They are best thought of as percussion "
+        .. "sounds. While produced by string instruments, they have no timbral affinity "
+        .. "with bowed strings.\" Treat plucked strings as pitched percussion when "
+        .. "judging blend and contrast.","BEL p.7 & p.25"},
+      {"They balance themselves","Unlike the woodwind, \"strings generally balance "
+        .. "themselves regardless of voicing\".","MOD"},
+    }},
   },
   related={"violin","viola","cello","doublebass","pizzicato","woodwind","brass"},
 }
@@ -272,6 +291,37 @@ e{ id="woodwind", name="Woodwind Section", family="Woodwind", kind="section",
         .. "timbres lose their characteristics when associated with others.\" Give "
         .. "phrases needing diverse expression to solo instruments.","RK p.48"},
     }},
+
+    {"Belkin's practical notes", {
+      {"Each woodwind is three instruments","\"A good policy is to consider each "
+        .. "woodwind as being three instruments in one: a high, a middle, and a low "
+        .. "timbre. Combinations that work well in one register can be quite odd in "
+        .. "another.\"","BEL p.7"},
+      {"Each type is its own choir","\"Each type of woodwind is, in effect, a member of "
+        .. "a separate choir: For example, clarinets are available from contrabass to "
+        .. "piccolo.\" The double reeds - oboe, English horn, bassoon - can be treated "
+        .. "as one family.","BEL p.7"},
+      {"Chords are the hard part","\"The main problem in writing for woodwinds occurs "
+        .. "when they are used in chords, due to their disparity of timbres.\" No "
+        .. "woodwind chord \"blends in the way a string or a brass chord would\"; "
+        .. "Rimsky-Korsakov's overlapping and enclosure \"work by making it difficult to "
+        .. "decipher who is doing what, in effect fooling the ear\".","BEL p.7-8"},
+      {"A different timbre per note is crude","\"The common beginner's mistake, of "
+        .. "writing a chord with each note in a different timbre - e.g. four timbres for "
+        .. "a four note chord - is very crude.\" Stacked arrangements are the worst; "
+        .. "overlapping ones blend best.","BEL p.7-8"},
+      {"The oboe decides the blend","\"When writing for massed woodwinds, the oboe is "
+        .. "the instrument most likely to hurt the overall blend. It will definitively "
+        .. "color any combination, for better or for worse.\" The same chord scored with "
+        .. "oboes is \"considerably more pungent\".","BEL p.8"},
+      {"With strings, the job is thickness","\"When used in the same plane of tone with "
+        .. "strings, the main function of woodwinds is to add volume ('thickness').\" An "
+        .. "octave above the strings they can instead add luminosity.","BEL p.8-9"},
+      {"With brass, the job is the top of the chord","\"When used in chords, in the same "
+        .. "plane of tone with the brass, the winds' main function is to complete the top "
+        .. "of the harmony above, since doubling at the unison is virtually "
+        .. "imperceptible.\"","BEL p.10"},
+    }},
   },
   related={"flute","oboe","clarinet","bassoon","piccolo","englishhorn","bassclarinet",
            "contrabassoon","strings","brass","blend"},
@@ -383,6 +433,40 @@ e{ id="brass", name="Brass Section", family="Brass", kind="section",
         .. "or ff - a mezzo-forte re-entry \"produces a colourless and common-place "
         .. "effect\".","RK p.118"},
     }},
+
+    {"Belkin's practical notes", {
+      {"More homogeneous than the woodwind","\"Brass are more homogeneous than "
+        .. "woodwind, but less agile. They can play melodic, rhythmic, contrapuntal, and "
+        .. "harmonic roles equally well. They also reproduce choral writing better than "
+        .. "woodwind; in much early music, brass, especially trombones, simply double "
+        .. "the voices.\"","BEL p.10-11"},
+      {"Horns are alto instruments","\"Beginners often place them much too low or let "
+        .. "them wander too high.\" The best arrangement in harmony: \"three or four "
+        .. "horns, in close position, in the range of the alto voice\", sometimes with "
+        .. "the fourth doubling the first an octave lower.","BEL p.11"},
+      {"High and low horn specialists","Horns 1 and 3 are the high players, 2 and 4 the "
+        .. "low, seated alternately. \"Thus, the 'high' horns are uncomfortable on the "
+        .. "bottom notes, and the 'low' horns are uncomfortable on the top notes.\"","BEL p.11"},
+      {"Low horns for pedals only","\"The horns' lowest notes are best reserved for slow "
+        .. "moving pedal passages; they are not suitable for mobile bass lines, which "
+        .. "they tend to render ponderous.\"","BEL p.11"},
+      {"Write in the spirit of the natural instrument","Piston's advice, which Belkin "
+        .. "endorses: prefer open intervals like fifths and octaves, and generally "
+        .. "diatonic lines. \"Although horns are now of course chromatic instruments, "
+        .. "extreme agility is not in their nature\" - and the same is true of "
+        .. "trumpets, though both manage rapid repeated notes.","BEL p.11-12"},
+      {"Trumpets need close spacing, trombones do not","\"Trumpets sound oddly empty in "
+        .. "wide spacing; trombones, on the other hand, sound full in both open and "
+        .. "closed positions.\"","BEL p.12"},
+      {"Trombones are lighter than horns in the baritone register","\"A useful fact to "
+        .. "remember when using brass to accompany solo instruments, or the human "
+        .. "voice.\"","BEL p.12"},
+      {"Muted brass is a separate family","\"So different is their timbre from open "
+        .. "brass. When soft, muted brass are quite close to double reeds in sound; when "
+        .. "loud, their strident sound puts them in a class of their own.\" This is the "
+        .. "modern statement of Rimsky-Korsakov's oboe/English-horn "
+        .. "affinity.","BEL p.13; cf. RK p.36"},
+    }},
   },
   related={"horn","trumpet","trombone","tuba","cornet","woodwind","strings","blend"},
 }
@@ -447,6 +531,33 @@ e{ id="percussion", name="Percussion Section", family="Percussion", kind="sectio
     {"Bowing that imitates percussion", {
       {"Col legno","Strings played with the wood of the bow produce a sound similar "
         .. "to the xylophone, gaining in quality as the number of players increases.","RK p.32"},
+    }},
+
+    {"The five functions percussion can serve", {
+      {"Accent","\"Adding percussion sharpens the accents, adding impact and power.\" "
+        .. "Countless classical final chords add timpani for exactly this.","BEL p.13-14"},
+      {"Melody","A marimba line \"emerges easily over the mysterious chord played by "
+        .. "divided strings\". Shostakovich's Fifteenth gives the timpani a passacaglia "
+        .. "theme while pitched percussion dances around it.","BEL p.14-15"},
+      {"Rhythm","Bartok's Concerto for Orchestra opens its second movement with the "
+        .. "snare drum, snares off, presenting a theme.","BEL p.15"},
+      {"Resonance","\"Without the quiet cymbal roll, the flute line would sound patchy "
+        .. "and empty.\" Note that rolls can be \"composed in overlapping waves\" rather "
+        .. "than left continuous.","BEL p.15"},
+      {"Transition between dynamics","A diminuendo timpani roll \"provides a smooth "
+        .. "transition between the loud tutti which precedes it, and the very quiet "
+        .. "passage which follows\" - Bruckner's Ninth, first movement.","BEL p.16"},
+    }},
+    {"Classify by material, not by name", {
+      {"Metal is wet","\"Normally 'wet', with substantial reverberation, and therefore "
+        .. "not well suited to quick, precise rhythms. On the other hand, they can "
+        .. "supply background ambiance very well.\"","BEL p.13"},
+      {"Wood is dry","\"Best used where clarity and definition are important.\"","BEL p.13"},
+      {"Membranes are in between","\"When low, they can reverberate quite long; as they "
+        .. "get higher, their sound resembles that of the wooden percussion.\"","BEL p.13"},
+      {"Match the register","\"When percussion is combined with other families in the "
+        .. "same plane of tone, it should correspond in register to the music around "
+        .. "it\" - the same rule Rimsky-Korsakov gives.","BEL p.16; cf. RK p.117"},
     }},
   },
   related={"timpani","triangle","cymbals","bassdrum","sidedrum","tambourine",
@@ -788,8 +899,8 @@ e{ id="blend", name="Blend Bridges Between Groups", family="Combining", kind="to
 }
 
 e{ id="balance", name="Balance and Relative Strength", family="Combining", kind="topic",
-  aliases={"balance","relative strength","dynamics","loudness","power","how loud",
-           "instrument strength","weight"},
+  aliases={"balance","relative strength","loudness","power","how loud",
+           "instrument strength","weight","balancing"},
   summary="The numbers you need to make a doubling actually balance. All of these are "
        .. "Rimsky-Korsakov's forte ratios unless noted; in piano, all wind - wood and "
        .. "brass alike - are of fairly equal weight.",
@@ -837,6 +948,30 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "and strongest\".","RK p.77"},
       {"Last resort","Where balance cannot be secured by distribution, secure it by "
         .. "dynamic grading - marking the woodwind one degree louder than the brass.","RK p.94"},
+    }},
+
+    {"Loudness is not the same as thickness", {
+      {"Koechlin's distinction","\"By 'volume' he means the thickness of a given sound. "
+        .. "For example, at any dynamic level, a horn will always sound thicker, or "
+        .. "'fatter', than a violin. Acoustically, thick sounds tend to have stronger "
+        .. "fundamentals than thin sounds.\"","BEL p.34"},
+      {"Two ways to get a fat sound","As a chosen timbre - horn, tuba - or as the "
+        .. "result of unison doubling, which \"adds more volume than loudness\".","BEL p.34-35"},
+      {"Successive balance","\"This is a problem mainly when passing from very thick "
+        .. "sounds to very thin ones: The thin sound can seem disagreeable by comparison "
+        .. "with the previous richness... after a loud, full brass passage, an oboe will "
+        .. "sound thinner than usual, by contrast.\"","BEL p.35-36"},
+    }},
+    {"What the ear picks out, all else being equal", {
+      {"The top line","\"The top line normally attracts the most attention.\"","BEL p.36"},
+      {"Whatever is moving","\"The ear normally follows activity: If, say, in the string "
+        .. "choir, all the parts except the viola are static, the movement in the viola "
+        .. "will stand out.\"","BEL p.36"},
+      {"Activity can also obscure","Koechlin again: strings are ideal for accompanying a "
+        .. "voice, \"but if they are playing vigorous counterpoint they will cover the "
+        .. "voice much more easily than if they have long held notes. In other words, "
+        .. "balance is not just a function of the choice of instruments, but also of what "
+        .. "they are doing.\"","BEL p.36"},
     }},
   },
   related={"blend","three_groups","brass","woodwind","strings"},
@@ -897,6 +1032,32 @@ e{ id="range", name="Orchestral Range and Score Order", family="Reference", kind
         .. "bassoons (2nd doubling contra, 3rd on contra only), timpani + 2 "
         .. "percussion.","WP"},
     }},
+
+    {"Belkin on register planning", {
+      {"Why register matters most","\"Register planning is essential to good "
+        .. "orchestration, since a change of register is obvious even to a "
+        .. "non-musician.\"","BEL p.28"},
+      {"Follow the overtone series for a blended mass","\"Wider in the lower range and "
+        .. "more compact getting higher, with no large gaps in the middle - such gaps "
+        .. "tend to divide the sound mass into separate planes.\" Where you *want* "
+        .. "differentiation, as in some counterpoint, the gaps become useful.","BEL p.28"},
+      {"Leave part of the range empty sometimes","\"It is advisable not to fill the "
+        .. "entire audible range all the time: Occasional passages in the higher or the "
+        .. "lower range alone provide valuable contrast and relief for the ear.\"","BEL p.28"},
+      {"Fewer instruments are needed at the extremes","\"Even in a large tutti, one "
+        .. "piccolo in its highest register will penetrate without difficulty.\" "
+        .. "Extremes fatigue the ear, so do not stay there.","BEL p.29"},
+      {"Hollow textures work softly","\"Textures with large gaps can occasionally be "
+        .. "quite effective, although the ear tires of this effect rather quickly. This "
+        .. "sonority also works better in softer dynamics: Loud passages with holes in "
+        .. "the middle tend to sound feeble.\"","BEL p.30"},
+      {"Registral progressions as direction","Widening out from the middle in both "
+        .. "directions, or piling up high or low material, are \"powerful sources of "
+        .. "musical direction\", especially into and out of climaxes.","BEL p.31"},
+      {"Strain within the range reads as intensity","Trumpets and horns not high in "
+        .. "absolute terms but high *for them* create \"an effect of intensity and "
+        .. "strain\".","BEL p.30"},
+    }},
   },
   related={"woodwind","brass","strings","percussion","orchestra"},
 }
@@ -904,9 +1065,14 @@ e{ id="range", name="Orchestral Range and Score Order", family="Reference", kind
 -- Additional sources: present-day practice. These corroborate and update the
 -- historical treatises. See README.md for how they were consulted.
 D.SOURCES.BEL = {
-  tag="BEL", short="Belkin, Theory of Orchestration / Artistic Orchestration",
-  full="Alan Belkin, 'Theory of Orchestration' (2015) and 'Artistic Orchestration' "
-    .. "(2001), published free by the author at alanbelkinmusic.com.",
+  tag="BEL", short="Belkin, Artistic Orchestration",
+  full="Alan Belkin, 'Artistic Orchestration' (c) Alan Belkin 2001, 2008 - the "
+    .. "third volume of his free online series on musical technique, published by "
+    .. "the author at alanbelkinmusic.com. 65 pages; cited by page from the "
+    .. "author's PDF. Belkin states: \"The material may be used free of charge "
+    .. "provided that the author's name is included.\" His own debts, which he "
+    .. "names, are chiefly to Koechlin's 'Traite de l'Orchestration', and to "
+    .. "Rimsky-Korsakov, Piston and Adler.",
 }
 D.SOURCES.OMT = {
   tag="OMT", short="Open Music Theory, 'Core Principles of Orchestration'",
@@ -1007,7 +1173,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
     {"When to double", {
       {"The elementary rule","\"Do not double at the unison, unless there is a "
         .. "definite need for more volume, or unless the particular color is exactly "
-        .. "what is needed for the musical character.\"","BEL"},
+        .. "what is needed for the musical character.\"","BEL p.35"},
       {"What you lose","Combining timbres adds resonance, sweetness and power but "
         .. "\"possesses the disadvantage of restricting the variety of colour and "
         .. "expression. Individual timbres lose their characteristics when associated "
@@ -1015,7 +1181,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "instruments.","RK p.48"},
       {"A solo line stays solo","\"A line whose character requires a solo sound will "
         .. "be less effective when doubled.\" An instrument \"enjoys greater "
-        .. "independence and freedom when used as a solo than when it is doubled.\"","BEL; RK p.48"},
+        .. "independence and freedom when used as a solo than when it is doubled.\"","BEL p.7; RK p.48"},
       {"Where doubling belongs","Doubling and mixed timbres are naturally more "
         .. "frequent in loud than in soft passages, and where the expression is broad "
         .. "rather than intimate.","RK p.48"},
@@ -1025,13 +1191,17 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "crossing of parts.","RK p.36"},
     }},
     {"Planes of tone", {
-      {"The single most important idea","A plane of tone is one instrument, or a "
-        .. "blended group of instruments, sharing one rhythmic outline. Think in "
-        .. "planes, then decide what each contains.","BEL"},
-      {"Blend within a plane","Achieved by similarity of colour and rhythm, close "
-        .. "spacing with no gaps, and balance - all elements fairly equal in force.","BEL"},
-      {"Separate the planes","Between planes, clear differentiation is essential: "
-        .. "contrast of register, timbre and/or rhythm.","BEL"},
+      {"What a plane of tone is","\"By 'plane of tone' (D. F. Tovey's term) we "
+        .. "refer to one instrument, or a blended group of instruments, not "
+        .. "necessarily from the same family, sharing one rhythmic outline. A plane "
+        .. "may consist of one line or a textural mass.\" Decide the role of each "
+        .. "plane first: \"otherwise, confusion will result.\"","BEL p.39-40"},
+      {"Blend within a plane","\"Within a plane of tone, blend is achieved by "
+        .. "similarity of timbre and rhythm, close spacing (no large gaps), and "
+        .. "balance (all elements fairly equal in force).\"","BEL p.40"},
+      {"Separate the planes","\"Between planes of tone, clear differentiation is "
+        .. "essential. This is achieved by contrast of register, timbre, and/or "
+        .. "rhythm.\"","BEL p.40"},
       {"Interlock to blend, space to separate","For a blended sound use integrated "
         .. "\"interlocking\" voicing balanced to each instrument's strength in that "
         .. "register; for a different colour on each note, use wider spacing.","OMT"},
@@ -1041,7 +1211,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
       {"Two of the same instrument","Gains power and weight, keeps its individuality, "
         .. "but loses expressive capacity. Two identical instruments in unison may "
         .. "have intonation trouble; three or more turn into a small chorus - three "
-        .. "oboes are not twice as loud as one, but the quality changes.","RK p.48; BEL; MOD"},
+        .. "oboes are not twice as loud as one, but the quality changes.","RK p.48; BEL p.7"},
       {"Octaves are easier to hear as two things","Octave doublings, and unison "
         .. "doublings between timbrally diverse instruments, fuse less readily than "
         .. "unisons of similar instruments.","MOD"},
@@ -1068,6 +1238,37 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "with all low strings); oboes + trumpets at soft dynamics; bassoons + "
         .. "string pizzicato; horn + bassoon in the middle register for a slimmer, "
         .. "more focused horn sound.","IDIO"},
+    }},
+
+    {"Doubling without grayness", {
+      {"The problem with literal doubling","\"Too frequent literal doubling leads to "
+        .. "heaviness and a rather gray sound.\" Grayness - too much unison doubling - is "
+        .. "one of Belkin's named symptoms of poor orchestration.","BEL p.37 & p.18"},
+      {"Double at intervals other than the unison","\"Doubling at the octave allows for "
+        .. "greater transparency of color, and also fills the musical space in more "
+        .. "interesting and varied ways. Occasional doubling at other intervals, "
+        .. "especially in the higher octaves, can also create interesting synthetic "
+        .. "timbres (like mutation stops on the organ).\" Bolero doubles a horn at the "
+        .. "twelfth and two octaves plus a third.","BEL p.37-38"},
+      {"Heterophony","\"Rather than literal doubling, each doubled part can be an "
+        .. "ornamental variation on the same basic contour. This keeps the overall design "
+        .. "clear, but allows for individuality.\" Mozart's Figaro overture stays light in "
+        .. "a tutti this way.","BEL p.38"},
+      {"Let doubling become counterpoint","\"An instrument can begin a phrase as a "
+        .. "doubling, and at some musically meaningful point - a change of motive, a "
+        .. "climax, a cadence - become more contrapuntal, or vice versa.\"","BEL p.38"},
+      {"Piece-meal doubling","Doubling that moves between several lines in turn, "
+        .. "\"creating new lines, which do not, however, add significant polyphony to the "
+        .. "texture\". Mahler's Ninth: the first horn is an inner counterpoint, then "
+        .. "doubles the 'cello, then the first trombone.","BEL p.38"},
+      {"Partial doubling","Double only the highlights - the beginning, the end, or a few "
+        .. "motives. \"The doubling can then drop out, or become background resonance, "
+        .. "settling down on a held note. The opposite (a held note becomes a doubling) is "
+        .. "also possible.\"","BEL p.38"},
+      {"Why it is worth the trouble","\"By individualizing doublings in these ways - "
+        .. "creating a sort of pseudo-counterpoint rather than simply duplicating lines "
+        .. "mechanically - the overall effect gains in subtlety and nuance. The players' "
+        .. "parts are also more individual and interesting to play.\"","BEL p.39"},
     }},
   },
   related={"blend","balance","strings_wind","wind_brass","three_groups","strings_brass"},
@@ -1636,6 +1837,20 @@ e{ id="oboe", name="Oboe", family="Woodwind", kind="instrument",
         .. "colour \"should be specially observed in writing for the oboe\".","RK p.72"},
       {"Oboe in the high register within a chord","Enclosing parts can leave the oboe "
         .. "\"too piercing\" - check the register of every isolated chord.","RK p.73"},
+    }},
+
+    {"In a woodwind chord", {
+      {"It decides the blend","\"When writing for massed woodwinds, the oboe is the "
+        .. "instrument most likely to hurt the overall blend. It will definitively color "
+        .. "any combination, for better or for worse.\" The same chord scored with oboes "
+        .. "is \"considerably more pungent\" - which may be exactly what you "
+        .. "want.","BEL p.8"},
+      {"Watch a dissonant interval in the oboe","In Belkin's comparison of woodwind "
+        .. "chord layouts, the worst are those where \"the oboe's dissonant 4th sticks "
+        .. "out\".","BEL p.8"},
+      {"After heavy brass it will sound thin","A consequence of successive balance: "
+        .. "\"after a loud, full brass passage, an oboe will sound thinner than usual, by "
+        .. "contrast\".","BEL p.36"},
     }},
   },
   related={"woodwind","englishhorn","flute","clarinet","bassoon","trumpet","violin"},
@@ -2762,6 +2977,727 @@ e{ id="piano", name="Piano in the Orchestra", family="Plucked", kind="instrument
 }
 
 -- ============================================================================
+-- CRAFT (Belkin's Artistic Orchestration)
+-- ============================================================================
+
+e{ id="contrast", name="Scale of Timbral Contrast", family="Craft", kind="topic",
+  aliases={"contrast","timbral contrast","how much contrast","degree of contrast",
+           "scale of contrast","changing instrument","switching instruments"},
+  summary="How big a change the ear actually hears when a line passes from one "
+       .. "instrument to another. \"The degree of timbral change must correspond to the "
+       .. "degree of formal contrast required: A major section break requires more "
+       .. "orchestral contrast than a new motive within a phrase.\" Beginners "
+       .. "habitually misjudge this.",
+  facts={
+    {"The governing principle","\"Timbres which blend well in chords present little "
+       .. "or no contrast when heard in succession; timbres which do not blend in "
+       .. "chords make for stronger contrasts\""},
+    {"Caveat","Perceived contrast depends on register, articulation and texture too, "
+       .. "not timbre alone"},
+  },
+  sec={
+    {"Group 1 - imperceptible or very mild", {
+      {"Same instrument, different register","e.g. low flute to high flute, excepting "
+        .. "the most extreme registers.","BEL p.24"},
+      {"Between adjacent members of the string family","",  "BEL p.24"},
+      {"Between trumpets and trombones","",  "BEL p.24"},
+    }},
+    {"Group 2 - mild to moderate", {
+      {"Within the same woodwind sub-family","e.g. flute to alto flute, oboe to "
+        .. "English horn.","BEL p.24"},
+      {"Within one instrument or sub-family, but into an extreme register","",  "BEL p.24"},
+      {"Between diverse woodwinds in registers that blend well","e.g. clarinets to "
+        .. "bassoons in the middle register, flutes to oboes higher up.","BEL p.24"},
+      {"Between woodwind and brass that would blend simultaneously","e.g. bassoons to "
+        .. "horns.","BEL p.24"},
+      {"Horn to trumpet, or horn to trombone","",  "BEL p.24"},
+    }},
+    {"Group 3 - more marked", {
+      {"Between diverse woodwinds that would not blend in chords","e.g. low oboe to "
+        .. "low flute. \"Very often these cases involve the oboe.\"","BEL p.24"},
+      {"Between woodwind and brass that do not blend simultaneously","",  "BEL p.24"},
+      {"Between woodwind and strings","",  "BEL p.24"},
+      {"Between brass and strings","",  "BEL p.24"},
+    }},
+    {"Group 4 - contrast outweighs the similarity", {
+      {"A completely different nature of sound","e.g. strings arco exchanging with "
+        .. "strings pizzicato.","BEL p.24"},
+    }},
+    {"Group 5 - extreme", {
+      {"Only one aspect of the phrase survives the exchange","e.g. flute against "
+        .. "snare drum: only the rhythm can be imitated.","BEL p.25"},
+    }},
+    {"Adjusting the scale", {
+      {"A constant background reduces it","\"In a passage with more than one plane of "
+        .. "tone, contrast will be lessened if the background plane remains constant\" "
+        .. "- a flute phrase answered by oboe over the same string accompaniment reads "
+        .. "as less of a change.","BEL p.25"},
+      {"Mixed timbres share their elements","Oboe+flute in unison is closer to "
+        .. "oboe+clarinet in unison than oboe alone is to clarinet alone. And "
+        .. "\"extensive use of mixed timbres makes larger formal contrasts harder to "
+        .. "effect, since the colors, not being pure, are less distinct\".","BEL p.25"},
+      {"Pizzicato counts as percussion","Treat plucked strings as a kind of pitched "
+        .. "percussion when judging contrast; percussion itself divides into "
+        .. "sub-families by material - woods, metals, skins, pitched and "
+        .. "unpitched.","BEL p.25 & p.7"},
+      {"Very loud to very soft needs help","\"After a fortissimo tutti, the ear "
+        .. "requires a moment to adapt to very quiet music; otherwise the first few "
+        .. "quiet notes can pass unnoticed.\" Hold one or two instruments over from "
+        .. "the loud passage for a few beats.","BEL p.25"},
+    }},
+  },
+  related={"form","blend","doubling","planes","balance"},
+}
+
+e{ id="form", name="Orchestration and Form", family="Craft", kind="topic",
+  aliases={"form","structure","orchestration and form","where to change",
+           "rate of change","climax","climaxes","cadence","accents","phrasing"},
+  summary="The subject Belkin wrote his book to cover, because the other treatises do "
+       .. "not: orchestration as a structural device rather than a colouring one. "
+       .. "\"A change of sound creates a formal articulation.\"",
+  sec={
+    {"Where a change of timbre belongs", {
+      {"Between phrases and sections","\"The normal place for timbre to change is "
+        .. "between phrases, sections, etc.\"","BEL p.19"},
+      {"Inside a phrase, only at meaningful moments","\"Motivic changes, climactic "
+        .. "moments, and cadences. Changes at other places sound arbitrary.\" Belkin "
+        .. "notes that arbitrary mid-phrase changes are \"common in student "
+        .. "work\".","BEL p.19"},
+      {"Accents","Usually need a new sound added momentarily, or a change of playing "
+        .. "technique - double stops in the strings, a percussive attack. \"The change "
+        .. "must of course be proportional to degree of accent required\", and normally "
+        .. "in the same register as the main line.","BEL p.19 & p.25"},
+      {"Cadences","\"Structural articulations can often be enhanced by some change in "
+        .. "the orchestration.\"","BEL p.19"},
+    }},
+    {"Rate of orchestral change", {
+      {"It works like harmonic rhythm","\"Like harmonic rhythm - the rate of harmonic "
+        .. "change - the rate of orchestral change has an important impact on the "
+        .. "music's pacing.\" Speeding it up and slowing it down creates tension and "
+        .. "relaxation.","BEL p.21"},
+      {"Not all changes weigh the same","\"Adding a unison flute doubling to a line in "
+        .. "the violins does not have the same impact as adding three trumpets playing "
+        .. "chords.\"","BEL p.21"},
+      {"A worked case","Mahler's Fourth, second movement: subtle changes for eight "
+        .. "bars, then stopped horns and the theme moved to woodwind create the "
+        .. "intensity. The nervous character of that movement comes from frequent "
+        .. "prominent timbre changes - and the calm of the third movement comes from "
+        .. "\"remaining entirely within the string choir\".","BEL p.23"},
+    }},
+    {"Progressions and climaxes", {
+      {"Orchestral progressions","Crescendi and diminuendi; gradually rising or "
+        .. "falling passages; texture getting thicker or thinner. All \"powerful "
+        .. "sources of musical direction\".","BEL p.20 & p.31"},
+      {"Reserve something for the main climax","\"Usually one climax, near the end, "
+        .. "stands out more than the others. It is important to reserve some unique "
+        .. "orchestral resource for this moment.\"","BEL p.20"},
+      {"Crescendo by addition, diminuendo by subtraction","\"An orchestral crescendo "
+        .. "is achieved by adding instruments in a well graduated order, and a "
+        .. "diminuendo by subtracting them.\" Beethoven's Ninth opens with the "
+        .. "textbook case: violin 1, double bass, viola, clarinet, oboe, flute, "
+        .. "bassoon.","BEL p.26-27; cf. RK p.112"},
+      {"Never contradict the dynamic","\"It is especially important not to "
+        .. "inadvertently contradict the dynamic evolution of a phrase by doing the "
+        .. "opposite, e.g. adding instruments during a diminuendo.\"","BEL p.26"},
+    }},
+  },
+  related={"contrast","dynamics","planes","quality","three_groups"},
+}
+
+e{ id="dynamics", name="Orchestrating Dynamics", family="Craft", kind="topic",
+  aliases={"dynamics","loud","soft","absolute dynamics","relative dynamics",
+           "how loud can it play","dynamic marks","pp","ff"},
+  summary="\"Orchestrate your dynamics instead of just writing them as textual "
+       .. "indications.\" Some instruments simply cannot reach some dynamics in some "
+       .. "registers, however you mark them.",
+  sec={
+    {"Absolute vs relative", {
+      {"The distinction","\"Every instrument has some relative dynamic control in "
+        .. "every register. However, some instruments, in particular registers, simply "
+        .. "cannot achieve certain absolute dynamics.\" A group of brass high up will "
+        .. "never be very soft; a low flute can never be very loud.","BEL p.27"},
+      {"Who can start from nothing","\"Strings and certain percussion (tam-tam, "
+        .. "cymbals, and the lower drums) can start practically inaudibly.\" The "
+        .. "clarinet can play whisper-soft provided it is not written too high.","BEL p.27"},
+      {"Who has the most power","\"For sheer power, nothing has the force and impact "
+        .. "of high brass plus percussion.\"","BEL p.27"},
+    }},
+    {"How to notate them", {
+      {"Work with four levels","\"A good approach is to act as though there are only "
+        .. "four dynamic levels: pp, mf, f, and ff.\"","BEL p.27"},
+      {"Get the level from the scoring first","\"Orchestrate the passage so that the "
+        .. "absolute dynamic level desired results naturally from the choice of "
+        .. "instruments and registers.\" Then treat the mark as a character "
+        .. "indication.","BEL p.27"},
+      {"Avoid the middle as a starting point","\"Avoid the middle dynamics (mp, mf) as "
+        .. "starting points: these are what players do when there are no dynamics "
+        .. "notated at all.\"","BEL p.27"},
+      {"Per-instrument dynamics are advanced","\"Beginners should avoid writing "
+        .. "different dynamics for different instruments; this requires a great deal of "
+        .. "experience: Players normally do not see each other's parts, and will not "
+        .. "adjust unless the conductor specifies otherwise.\" Set against "
+        .. "Rimsky-Korsakov's rule that horns be marked a degree louder than the rest "
+        .. "of the brass, and Mahler's practice of calibrating every instrument "
+        .. "separately: the technique is real, but it is not a beginner's "
+        .. "tool.","BEL p.27-28; cf. RK p.23"},
+    }},
+  },
+  related={"balance","form","brass","strings","percussion"},
+}
+
+e{ id="planes", name="Planes of Tone", family="Craft", kind="topic",
+  aliases={"planes","planes of tone","plane of tone","foreground","background",
+           "texture","layers","layering","accompaniment figuration"},
+  summary="Tovey's term, and the organising idea of modern orchestration: \"one "
+       .. "instrument, or a blended group of instruments, not necessarily from the same "
+       .. "family, sharing one rhythmic outline\". Think in planes first, then decide "
+       .. "what each contains.",
+  facts={
+    {"Why it matters","\"The listener cannot pay equal attention to several musical "
+       .. "strands for any length of time. Even in contrapuntal music, the ear jumps "
+       .. "from one part to another rather than following all the parts continuously\""},
+  },
+  sec={
+    {"Making a plane hold together", {
+      {"Blend inside it","Similarity of timbre and rhythm, close spacing with no large "
+        .. "gaps, and balance - all elements fairly equal in force.","BEL p.40"},
+      {"Differentiate between them","Contrast of register, timbre and/or rhythm.","BEL p.40"},
+      {"Disparate timbres need tricks","\"If there are disparate timbres, as in the "
+        .. "woodwind, special strategies, such as close overlapping, are required to "
+        .. "trick the ear into accepting the result as a unified whole.\" This is what "
+        .. "Rimsky-Korsakov's overlaying and enclosure are for.","BEL p.40 & p.7"},
+    }},
+    {"The hierarchy", {
+      {"One foreground only","\"Although multiple foreground planes are not possible, "
+        .. "multiple background planes can coexist.\" The foreground is usually louder, "
+        .. "strongly coloured and prominently placed - often on top.","BEL p.41"},
+      {"Dialogue between equals","Possible, but the planes must match in loudness "
+        .. "*and* in thickness; contrast then comes from colour, register and rhythm.","BEL p.40"},
+      {"Two kinds of background","Movement, and resonance.","BEL p.41"},
+    }},
+    {"The four types of orchestral movement", {
+      {"Trills and tremolos","Wagner's Ride of the Valkyries - trills in the winds "
+        .. "adding energy and momentum.","BEL p.41"},
+      {"Repeated notes","Beethoven's Fifth, second movement coda: the bassoon theme "
+        .. "over repeated string chords alternating with rests.","BEL p.41"},
+      {"Scales","Die Meistersinger overture - scales in the strings under a majestic "
+        .. "chordal theme in the winds.","BEL p.42"},
+      {"Arpeggiation","Brahms's Third, third movement - rocking arpeggio figures in "
+        .. "the strings.","BEL p.42"},
+      {"How to keep them in their place","\"They must not attract too much attention "
+        .. "on their own... usually limited to one or two mildly varied motives, with a "
+        .. "high degree of consistency, and do not involve too many varied timbres. "
+        .. "Often the accompaniment is lightened with rests.\"","BEL p.42"},
+      {"Movement as direction","Rising and falling passages can be reinforced by fast "
+        .. "runs, scales or harp glissandi in the same direction - and \"often takes "
+        .. "slightly different forms in different instruments, so as to create general "
+        .. "momentum rather than one thickly doubled line\".","BEL p.42"},
+    }},
+    {"Resonance - the quietest plane", {
+      {"It should not be noticed","\"Resonance, the quietest of all planes, should not "
+        .. "be noticed on its own. Therefore it is characterized by the softest "
+        .. "timbres, the dullest registers, and the least activity.\"","BEL p.43"},
+      {"Put it in the foreground's register","\"Resonance is usually in the same "
+        .. "register as the foreground, so as not to draw attention to itself as "
+        .. "something apart.\"","BEL p.43"},
+      {"Depth is the mark of a master","\"One sign of a master orchestrator is the "
+        .. "refinement and depth of his orchestral backgrounds.\" Where a background "
+        .. "has several elements, \"rests and intermittent motives help to space out "
+        .. "details, while maintaining clarity\".","BEL p.44"},
+    }},
+  },
+  related={"resonance","contrast","doubling","counterpoint","tutti","balance"},
+}
+
+e{ id="resonance", name="Sustained vs Dry Sound", family="Craft", kind="topic",
+  aliases={"resonance","sustained","dry","wet","sustain","background resonance",
+           "held notes","reverberation","sustaining pedal"},
+  summary="\"It is often remarked that the orchestra has no sustaining pedal.\" So "
+       .. "resonance has to be composed - and a texture with none, kept up for long, is "
+       .. "one of the named symptoms of poor orchestration.",
+  sec={
+    {"Composing resonance", {
+      {"It is a background layer by definition","Literally it means the echo of a live "
+        .. "room - \"however, resonance can also be deliberately composed "
+        .. "orchestrally, and therefore individualized\".","BEL p.33"},
+      {"Bach got there first","He \"already shows sensitivity to the way a long held "
+        .. "note can enrich the texture\", and goes further, using such notes as "
+        .. "points of departure for important lines.","BEL p.33"},
+      {"Ravel is the model","The Epilogue of Valses nobles et sentimentales - held "
+        .. "strings set off by harp harmonics, \"a shimmering halo surrounding the main "
+        .. "motives in the winds. This conception of the background as delicate "
+        .. "vibration is omnipresent in Ravel.\"","BEL p.33"},
+      {"Lines can dissolve into it","A line that settles onto a held note becomes "
+        .. "resonance; a held note can equally become a doubling.","BEL p.33 & p.38"},
+    }},
+    {"Dry sound", {
+      {"Effective, but not as a norm","\"Although it is not good practice to "
+        .. "orchestrate for long without sustained sound, occasional dry passages can "
+        .. "be extraordinarily effective.\"","BEL p.33"},
+      {"Wet and dry percussion","Metal instruments are \"wet\", with substantial "
+        .. "reverberation - poor for quick precise rhythms, excellent for background "
+        .. "ambiance. Wooden instruments are \"dry\", for clarity and definition. "
+        .. "Membranes sit in between: low ones reverberate, high ones behave like "
+        .. "wood.","BEL p.13 & p.33"},
+      {"It translates into articulation","The wet/dry distinction is the same choice "
+        .. "as staccato against legato, seen from the rhythmic and motivic side.","BEL p.33"},
+    }},
+  },
+  related={"planes","percussion","harp","counterpoint","quality"},
+}
+
+e{ id="counterpoint", name="Orchestrating Counterpoint", family="Craft", kind="topic",
+  aliases={"counterpoint","contrapuntal","fugue","polyphony","imitative",
+           "orchestrating counterpoint","entries"},
+  summary="Four problems, and Belkin's answers to each: balancing the lines, colouring "
+       .. "them, marking the entries, and stopping the result from sounding dry.",
+  sec={
+    {"Balancing the lines", {
+      {"Simplest strategy - one family","\"Assuming all the lines are of equal "
+        .. "importance, the simplest strategy is to give all the lines to the same "
+        .. "family, or, if a thicker sound is appropriate, families: Each line is "
+        .. "doubled by a similar combination of instruments.\" Beethoven's Seventh, "
+        .. "second movement, keeps all the counterpoint in the strings.","BEL p.46-47"},
+      {"Different colours per line","Requires the colours to be equal in loudness *and* "
+        .. "in thickness. \"This latter method can be tiring to the ear and is best used "
+        .. "for short passages\", and suits stratified counterpoint better than "
+        .. "consistent imitation.","BEL p.47"},
+    }},
+    {"Marking the entries", {
+      {"Treat an entry as an accent","\"In counterpoint with frequent imitative "
+        .. "entries, it is sometimes effective to treat the beginning of an important "
+        .. "entry as an accent, orchestrally enhancing the first few notes in some "
+        .. "way.\" Mahler's Fifth finale doubles the strings' first few notes with a "
+        .. "horn in a luminous register.","BEL p.47"},
+    }},
+    {"Avoiding dryness", {
+      {"Add a harmonic plane behind it","\"It is usually a good idea either to add a "
+        .. "complete harmonic plane of tone in the background, covering the middle "
+        .. "register in particular, or to leave sustained 'trailers' (held notes at the "
+        .. "end of a phrase) behind the main lines from time to time.\" The Baroque "
+        .. "continuo was in part an answer to the same problem.","BEL p.47"},
+      {"Let doubling instruments change role","Bassoons switching which line they "
+        .. "double, trombones stopping once they have marked an entry, horns leaving a "
+        .. "sustained note behind - \"thereby avoiding dryness\".","BEL p.47"},
+    }},
+  },
+  related={"planes","resonance","tutti","doubling","woodwind"},
+}
+
+e{ id="tutti", name="The Tutti", family="Craft", kind="topic",
+  aliases={"tutti","full orchestra playing","everyone playing","full tutti",
+           "organising a tutti"},
+  summary="\"One can speak of a tutti when at least three of the four orchestral "
+       .. "families are present.\" The paradox: \"the more instruments are playing, the "
+       .. "less ways there are to combine them\", because acoustic balance closes off "
+       .. "most of the options.",
+  sec={
+    {"The three ways to organise one", {
+      {"1. Each family complete, part-writing independent","\"This is the most common "
+        .. "method; it gives a rich sound, without grayness. The overall harmonic unity "
+        .. "guarantees coherence, and the differences between the families create "
+        .. "richness of color.\" Die Meistersinger's prelude: the winds begin by "
+        .. "doubling the violins and are adding their own detail by bar 7.","BEL p.49-50"},
+      {"2. Each musical element to a distinct family","\"This method has the advantage "
+        .. "of bringing out each musical element clearly, differentiating it from the "
+        .. "others through timbre.\" Tchaikovsky's Fifth finale: strings on the melody "
+        .. "in octaves, horns and winds on two counterpoints, repeated notes in low "
+        .. "brass and basses.","BEL p.50-51"},
+      {"3. Literally double everything in every family","\"While occasionally suitable "
+        .. "for short, vigorous passages, this method usually sounds heavy and "
+        .. "gray.\"","BEL p.51-52"},
+    }},
+    {"Practicalities", {
+      {"Leave the middle empty when the brass is loud","\"Sometimes winds and, more "
+        .. "rarely, strings, are left empty in the middle register when a large brass "
+        .. "section is very fully scored; they would not in any case be audible in this "
+        .. "register over the brass.\"","BEL p.49"},
+      {"Differentiate the rhythm at least mildly","\"As the number of instruments "
+        .. "increases, if all the instruments are moving on the same rhythmic plane, "
+        .. "the effect becomes more and more ponderous. Thus the need, even in a "
+        .. "homophonic tutti of any length, for at least mild rhythmic differentiation "
+        .. "between parts and families.\"","BEL p.41"},
+      {"The soft tutti","\"Usually tutti passages are loud, but the occasional soft "
+        .. "tutti can be very effective; the sound has something menacing about it, "
+        .. "like a great power restrained.\" Beethoven's Ninth, first movement, bar "
+        .. "469.","BEL p.49"},
+      {"Everyone should play sometimes","\"If one writes for orchestra, all the "
+        .. "instruments should play together at least some of the time.\" Against which: "
+        .. "most of the time only part of the orchestra should be playing.","BEL p.49 & p.37"},
+    }},
+  },
+  related={"three_groups","planes","balance","counterpoint","quality"},
+}
+
+e{ id="accompaniment", name="Accompanying a Soloist", family="Craft", kind="topic",
+  aliases={"accompaniment","accompanying","soloist","concerto","orchestral accompaniment",
+           "accompany a soloist","backing a soloist"},
+  summary="\"The main problem is how to make full use of the orchestra, while not "
+       .. "drowning out the soloist. If the orchestra is too often reduced to discrete "
+       .. "murmuring in the background, the overall effect will be feeble.\"",
+  sec={
+    {"The principles", {
+      {"Win by contrast, not by retreat","Contrast of timbre (violin solo against "
+        .. "woodwind), of register (accompany a 'cello solo with upper strings only), or "
+        .. "of rhythm (make the solo line more active than the accompaniment).","BEL p.52"},
+      {"Aerate the texture","\"Lighten the orchestra by aerating the texture with "
+        .. "frequent rests, plucked or staccato basses. Limit held notes in the "
+        .. "accompaniment to dull or weak registers.\"","BEL p.53"},
+      {"Activity can substitute for weight","A piano too weak to dominate can still "
+        .. "lead by \"sheer intensity of activity\" - fastest note values, runs covering "
+        .. "the orchestra's whole range.","BEL p.53"},
+      {"Keep the relationship moving","\"Sometimes use dialogue, sometimes have each "
+        .. "accompany the other.\"","BEL p.54"},
+      {"For great force, alternate","\"Present the soloist in alternation with the "
+        .. "orchestra: This gives the illusion of a confrontation between "
+        .. "equals.\"","BEL p.55"},
+      {"Richness from many thin planes","\"To avoid thinness in the orchestral writing, "
+        .. "create richness by multiple planes, even if each plane only contains a few "
+        .. "notes.\"","BEL p.56"},
+    }},
+    {"With a singer", {
+      {"Double at the octave, not the unison","\"Generally such doubling is less "
+        .. "obtrusive at the octave than at the unison\" - though unison doubling is "
+        .. "commoner in opera, partly because the orchestra is in the pit and the voices "
+        .. "on the stage.","BEL p.57"},
+      {"What never to double","\"Elaborate fiorituras should not be doubled, nor should "
+        .. "passages where detailed understanding of the words is critical: Doubling "
+        .. "obscures detail, and submerges the consonants necessary to clear "
+        .. "speech.\"","BEL p.57"},
+      {"Activity covers a voice faster than volume","Koechlin's point: \"normally "
+        .. "strings are ideal for accompanying the voice, but if they are playing "
+        .. "vigorous counterpoint they will cover the voice much more easily than if "
+        .. "they have long held notes\".","BEL p.36"},
+    }},
+  },
+  related={"voice","planes","balance","strings","quality"},
+}
+
+e{ id="quality", name="Good and Poor Orchestration", family="Craft", kind="topic",
+  aliases={"good orchestration","poor orchestration","bad orchestration","checklist",
+           "what is good orchestration","mistakes","common mistakes","diagnosis"},
+  summary="Belkin's two checklists, and the reason the second is needed: \"if the parts "
+       .. "are reasonably playable... it is almost as hard to write glaringly badly for "
+       .. "the orchestra as it is to write glowingly well\". Poor orchestration does not "
+       .. "announce itself - \"it only shows itself over fairly long spans or in repeated "
+       .. "listening\".",
+  sec={
+    {"Symptoms of poor orchestration", {
+      {"Feebleness of effect","Not using the resources available for the character "
+        .. "wanted, or making contradictory gestures - adding instruments during a "
+        .. "diminuendo.","BEL p.18"},
+      {"Aural fatigue","Overuse of extreme registers or very distinctive colours; lack "
+        .. "of blend in harmonic masses.","BEL p.18"},
+      {"Grayness","Too much unison doubling.","BEL p.18"},
+      {"Heaviness","Too much doubling, or overloading the low register.","BEL p.18"},
+      {"Consistently dry sound","No background resonance anywhere. \"Dry sound can be "
+        .. "effective, but not as a norm.\"","BEL p.18"},
+      {"Confusion among elements","Poorly differentiated planes of tone.","BEL p.18"},
+      {"Formal confusion","Changes of timbre at arbitrary places, or changes not "
+        .. "proportional to the contrast required.","BEL p.18"},
+      {"Lack of clear character","",  "BEL p.18"},
+    }},
+    {"What good orchestration does", {
+      {"Makes formal sense","Changes arrive at appropriate places with appropriate "
+        .. "degrees of contrast.","BEL p.58"},
+      {"Supplies variety and freshness of colour","Enough to maintain interest.","BEL p.58"},
+      {"Enhances the phrasing","",  "BEL p.58"},
+      {"Ensures every element is audible","",  "BEL p.58"},
+      {"Gives every player something individual","What Richard Strauss, writing of "
+        .. "Wagner, called \"the spiritual participation of the players\".","BEL p.58"},
+      {"Is as easily playable as possible","\"Always using the simplest means to create "
+        .. "the desired effect.\"","BEL p.58"},
+      {"Is aurally rich","Usually through multiple planes of tone.","BEL p.58"},
+      {"Expresses a clear character","",  "BEL p.58"},
+      {"Uses the whole ensemble effectively","",  "BEL p.58"},
+    }},
+    {"The underlying point", {
+      {"Colour is not the main issue","\"Color is not as important an issue in "
+        .. "orchestration as is commonly thought.\" What matters more: \"Color is less "
+        .. "the result of exotic timbres than of novelty in the context of the piece. "
+        .. "Even a familiar timbre like an oboe can sound striking and novel, provided "
+        .. "it has not been heard for a while. This is why Mozart's orchestration is "
+        .. "always so fresh, despite its limited number of colors.\"","BEL p.32-33"},
+      {"Orchestration is composition","\"Orchestration can bring out and enhance any "
+        .. "aspect of the music\" - and once that habit forms it becomes \"an integral "
+        .. "part of composition itself\". Compare Rimsky-Korsakov: \"orchestration is "
+        .. "part of the very soul of the work\".","BEL p.58-59; cf. RK p.1"},
+    }},
+  },
+  related={"form","planes","contrast","doubling","character"},
+}
+
+-- ============================================================================
+-- CHARACTER GLOSSARY (Belkin, Artistic Orchestration, Appendix 2)
+-- ============================================================================
+-- Belkin's own caveats apply to every entry below and are reproduced in the
+-- "character" entry. Used as a recipe book these become cliches; they are meant
+-- as a point of departure.
+
+e{ id="character", name="Character: Scoring for a Mood", family="Character", kind="topic",
+  aliases={"character","mood","emotion","feeling","atmosphere","character glossary",
+           "how to sound","what sound for","expression"},
+  summary="The reverse lookup: start from the character you want and find the "
+       .. "orchestral resources that produce it. Belkin compiled this as a teaching "
+       .. "device - \"a list of character words, and orchestral suggestions for how to "
+       .. "express them\" - and warns clearly about how to use it.",
+  sec={
+    {"Read these caveats first", {
+      {"The words are approximate","\"A word like 'lyrical' can imply many different "
+        .. "emotions, each of which would be orchestrated somewhat differently.\"","BEL p.62"},
+      {"A point of departure, not a recipe book","\"Used simplistically, the "
+        .. "combinations given here easily become cliches. Cliches quickly lose their "
+        .. "effect, and can even become inappropriately comic. (Think of the diminished "
+        .. "chord tremolos signifying danger, in silent films.)\"","BEL p.62"},
+      {"Orchestration is not the only dimension","\"Other aspects of the music, like "
+        .. "harmony, tempo, rhythm, etc., are equally important.\" The entries for "
+        .. "\"terrifying\" and \"brilliant\" are deliberately similar - \"the resulting "
+        .. "effect will depend strongly on the kind of harmony used\".","BEL p.62"},
+      {"Everything must pull the same way","\"One characteristic of weak music is the "
+        .. "way certain aspects of the music contribute nothing, or even distract from "
+        .. "the desired effect.\"","BEL p.62"},
+      {"Make your own","The method matters more than the list: \"list every orchestral "
+        .. "resource which can contribute to creating a given character\". Belkin "
+        .. "suggests similar glossaries for harmony, rhythm and the rest.","BEL p.60 & p.62"},
+    }},
+    {"The characters covered", {
+      {"Search any of these directly","Luminous · Mysterious · Menacing · Terrifying "
+        .. "· Brilliant · Splendid · Dramatic · Funereal · Playful · Sad.","BEL p.62-64"},
+    }},
+  },
+  related={"luminous","mysterious","menacing","terrifying","brilliant","splendid",
+           "dramatic","funereal","playful","sad"},
+}
+
+e{ id="luminous", name="Luminous", family="Character", kind="mood",
+  aliases={"luminous","radiant","glowing","shimmering","light","luminosity"},
+  summary="\"This character requires two elements: a soft background, usually sustained "
+       .. "strings, and another element to add 'light'.\"",
+  sec={
+    {"Scoring it", {
+      {"The background","Soft sustained strings.","BEL p.62"},
+      {"Soft medium-high trumpets or horns","One of the three ways to add the light.","BEL p.62"},
+      {"Flutes, medium-high, not too loud","",  "BEL p.62"},
+      {"Touches of high metal percussion","Suspended cymbal, glockenspiel - \"again, "
+        .. "not too loud\".","BEL p.62"},
+    }},
+    {"Related craft", {
+      {"Woodwind doubling an octave above strings adds luminosity","An oboe doubling "
+        .. "the second violins \"helps it to emerge more clearly, and makes it "
+        .. "brighter\".","BEL p.9"},
+    }},
+  },
+  related={"character","strings","horn","trumpet","flute","glockenspiel","resonance"},
+}
+
+e{ id="mysterious", name="Mysterious", family="Character", kind="mood",
+  aliases={"mysterious","mystery","eerie","veiled","ethereal","enigmatic","misty"},
+  summary="\"Mystery comes from lack of clarity. Appropriate sounds include very "
+       .. "delicate background resonance (sustained sound) and/or very quiet movement, "
+       .. "not too thickly spaced.\"",
+  sec={
+    {"Scoring it", {
+      {"Muted strings","",  "BEL p.62-63"},
+      {"String harmonics","",  "BEL p.63"},
+      {"Low flutes","",  "BEL p.63"},
+    }},
+    {"Related craft", {
+      {"A gentle cymbal crescendo adds mystery to a background","Belkin's own example "
+        .. "pairs a rising harp and clarinet with one.","BEL p.32"},
+      {"Held string harmonics as resonance","\"Delicate held notes in violins "
+        .. "(harmonics) and violas provide mysterious background resonance.\"","BEL p.44"},
+    }},
+  },
+  related={"character","strings","flute","harp","cymbals","resonance"},
+}
+
+e{ id="menacing", name="Menacing", family="Character", kind="mood",
+  aliases={"menacing","threatening","ominous","foreboding","dread","sinister"},
+  summary="\"Certain sounds, often starting softly and making a crescendo, which evoke "
+       .. "natural threats (e.g. earthquakes, eruptions) are very potent.\"",
+  sec={
+    {"Scoring it", {
+      {"Low drums, rolls or rhythmic patterns","\"Create an almost primeval, "
+        .. "threatening effect.\"","BEL p.63"},
+      {"Low, closely spaced strings and/or woodwinds, muted brass","",  "BEL p.63"},
+      {"Extreme low sounds, soft","Tam-tam, bass drum.","BEL p.63"},
+    }},
+    {"Related craft", {
+      {"The soft tutti","\"The occasional soft tutti can be very effective; the sound "
+        .. "has something menacing about it, like a great power restrained.\"","BEL p.49"},
+    }},
+  },
+  related={"character","timpani","bassdrum","gong","strings","brass","tutti"},
+}
+
+e{ id="terrifying", name="Terrifying, Angry, Savage", family="Character", kind="mood",
+  aliases={"terrifying","terror","angry","anger","savage","violent","fury","harsh",
+           "frightening"},
+  summary="\"Loud and piercing sounds, which often resemble animal cries, harsh and "
+       .. "strident.\" Note that Belkin's scoring for this and for \"brilliant\" is "
+       .. "deliberately similar - the harmony decides which one you get.",
+  sec={
+    {"Scoring it", {
+      {"High, dissonant woodwinds and/or brass","\"Perhaps in insistent repeated notes "
+        .. "or trills.\"","BEL p.63"},
+      {"High, dry percussion","A loud xylophone; cymbal roll crescendos.","BEL p.63"},
+    }},
+    {"Related craft", {
+      {"Loud muted brass is in a class of its own","\"When loud, their strident sound "
+        .. "puts them in a class of their own.\"","BEL p.13"},
+      {"Instruments strained within their range","Trumpets and horns high *for them*, "
+        .. "though not high absolutely, create \"an effect of intensity and "
+        .. "strain\".","BEL p.30"},
+    }},
+  },
+  related={"character","brilliant","woodwind","brass","xylophone","cymbals","range"},
+}
+
+e{ id="brilliant", name="Brilliant", family="Character", kind="mood",
+  aliases={"brilliant","brilliance","dazzling","virtuosic","sparkling","glittering"},
+  summary="\"Often suggests a certain virtuosity, speed.\"",
+  sec={
+    {"Scoring it", {
+      {"Brass in their high registers, open intervals","\"In fast figuration, e.g. "
+        .. "repeated notes, trills.\"","BEL p.63"},
+      {"Brass crescendos","",  "BEL p.63"},
+      {"Fast rising lines in strings and woodwinds","",  "BEL p.64"},
+    }},
+    {"Related craft", {
+      {"One piccolo is enough at the top","\"Even in a large tutti, one piccolo in its "
+        .. "highest register will penetrate without difficulty.\" The number of "
+        .. "instruments needed at the extremes is much smaller than in the "
+        .. "middle.","BEL p.29"},
+      {"Movement in the direction of the line","Fast runs, scales and harp glissandi "
+        .. "reinforce a rising or falling passage.","BEL p.42"},
+    }},
+  },
+  related={"character","terrifying","brass","piccolo","strings","harp","planes"},
+}
+
+e{ id="splendid", name="Splendid, Rich, Triumphant", family="Character", kind="mood",
+  aliases={"splendid","rich","triumphant","majestic","noble","grand","heroic",
+           "glorious"},
+  summary="\"Requires a mass of instruments, suggesting generosity and richness.\"",
+  sec={
+    {"Scoring it", {
+      {"Tutti with sustained brass","\"Closely spaced in upper middle register "
+        .. "(especially horns, in the range of the alto voice), along with high strings, "
+        .. "in octaves.\"","BEL p.64"},
+    }},
+    {"Related craft", {
+      {"Why the horns sit there","\"The best arrangement for horns in harmony is: three "
+        .. "or four horns, in close position, in the range of the alto voice.\" "
+        .. "Sometimes the fourth doubles the first an octave lower.","BEL p.11"},
+      {"Which tutti method","Each family complete but independently written gives \"a "
+        .. "rich sound, without grayness\"; literal doubling of everything \"usually "
+        .. "sounds heavy and gray\".","BEL p.49 & p.51-52"},
+      {"Rimsky-Korsakov's heavy brass layout","2 horns + tuba on the bass in octaves, "
+        .. "three trombones above: \"beautiful full resonance\".","RK p.83"},
+    }},
+  },
+  related={"character","tutti","horn","brass","strings","three_groups"},
+}
+
+e{ id="dramatic", name="Dramatic", family="Character", kind="mood",
+  aliases={"dramatic","drama","theatrical","striking","startling"},
+  summary="\"Sudden contrasts in register, timbre, and dynamics.\" The shortest entry in "
+       .. "Belkin's glossary, and the one that leans hardest on the rest of the book.",
+  sec={
+    {"Scoring it", {
+      {"Sudden contrast in all three dimensions at once","Register, timbre and "
+        .. "dynamics together.","BEL p.64"},
+    }},
+    {"Related craft", {
+      {"Grade the contrast deliberately","Use the five-group scale of timbral contrast "
+        .. "- \"too great a contrast will create an inappropriate break in the music; "
+        .. "too small a contrast will deprive the music of necessary "
+        .. "punctuation\".","BEL p.23-25"},
+      {"High against low sections","\"The contrast of low and high chords provides a "
+        .. "simple but dramatic contrast\" - Brahms's Fourth, third movement.","BEL p.29"},
+      {"Help the ear after a fortissimo","Hold one or two instruments over for a few "
+        .. "beats, or the first quiet notes will pass unnoticed.","BEL p.25"},
+    }},
+  },
+  related={"character","contrast","form","range","dynamics"},
+}
+
+e{ id="funereal", name="Funereal", family="Character", kind="mood",
+  aliases={"funereal","funeral","mourning","solemn","lament","dirge","march funebre"},
+  summary="\"Heavy, dragging sounds, suggesting a mourning procession.\"",
+  sec={
+    {"Scoring it", {
+      {"Low register brass and winds playing slowly","",  "BEL p.64"},
+      {"Timpani or bass drum dotted rhythms","",  "BEL p.64"},
+    }},
+    {"Related craft", {
+      {"Low horns for slow pedals only","\"The horns' lowest notes are best reserved "
+        .. "for slow moving pedal passages; they are not suitable for mobile bass lines, "
+        .. "which they tend to render ponderous.\" Here that ponderousness is the "
+        .. "point.","BEL p.11"},
+      {"The dark low orchestra","Contrabassoon, low bassoons, bass clarinet, horns, "
+        .. "trombones and tuba - Rimsky-Korsakov's combination for the bottom of the "
+        .. "orchestra, \"dark and gloomy\".","RK p.106"},
+    }},
+  },
+  related={"character","brass","timpani","bassdrum","contrabassoon","range"},
+}
+
+e{ id="playful", name="Playful, Funny", family="Character", kind="mood",
+  aliases={"playful","funny","comic","humorous","lightness","scherzando","witty",
+           "grotesque"},
+  summary="\"The key here is lightness, unless a grotesque effect is wanted.\"",
+  sec={
+    {"Scoring it", {
+      {"Lots of rests","",  "BEL p.64"},
+      {"High, staccato sounds","",  "BEL p.64"},
+      {"Avoid sustained sounds in brass","",  "BEL p.64"},
+      {"Pizzicato","",  "BEL p.64"},
+      {"Bassoon staccato","",  "BEL p.64"},
+      {"For grotesque, use caricature","\"Instruments playing passagework "
+        .. "characteristic of others, e.g. a tuba playing a comic line which would "
+        .. "normally be given to the bassoon.\"","BEL p.64"},
+    }},
+    {"Related craft", {
+      {"The bassoon's comic register","Its medium and lower staccato notes have \"a "
+        .. "certain grotesqueness bordering on awkwardness\" (Lavignac); Humperdinck has "
+        .. "it comment on the stage action in Hansel und Gretel.","SIN p.95 & p.98"},
+      {"Gaps are allowed here","Large registral gaps \"may be effective in one "
+        .. "situation, for example a quiet, playful passage, but not in another, where "
+        .. "fullness and richness are required\".","BEL p.4"},
+    }},
+  },
+  related={"character","bassoon","pizzicato","tuba","woodwind","range"},
+}
+
+e{ id="sad", name="Sad, Melancholy, Poignant", family="Character", kind="mood",
+  aliases={"sad","sadness","melancholy","poignant","mournful","wistful","sorrowful",
+           "elegiac","plaintive"},
+  summary="\"Often suggests an individual (solo) lamenting, or discouragement, "
+       .. "weakness.\"",
+  sec={
+    {"Scoring it", {
+      {"Slow, sustained strings in the lower register","",  "BEL p.64"},
+      {"A wind solo over sustained strings","\"Especially oboe or clarinet, or low "
+        .. "flute.\"","BEL p.64"},
+    }},
+    {"Related craft", {
+      {"Which solo instrument","The oboe's \"natural tone is of a gentle sadness and a "
+        .. "resigned endurance\" (Lavignac); the English horn is \"essentially sad, "
+        .. "melancholy, sorrowful\", superior to all others \"in exciting regret\" "
+        .. "(Berlioz); the viola runs \"from sad reverie to agonized pathos\".","SIN p.85, p.89, p.52"},
+      {"The reference cases","Dvorak's New World Largo - English horn over muted "
+        .. "strings. Tristan Act III - the shepherd's melody on \"the saddest voice in "
+        .. "the orchestra\".","SIN p.90"},
+      {"A solo line must stay solo","Doubling it will weaken exactly the quality you "
+        .. "want: \"a line whose character requires a solo sound will be less effective "
+        .. "when doubled\".","BEL p.7"},
+    }},
+  },
+  related={"character","oboe","englishhorn","clarinet","flute","viola","strings"},
+}
+
+-- ============================================================================
 -- VOICES
 -- ============================================================================
 
@@ -2828,6 +3764,27 @@ e{ id="voice", name="Solo Voice with Orchestra", family="Voices", kind="section"
         .. "peculiar throbbing effect\".","RK p.121"},
       {"Rhythmic imitation","When the vocal part is busy, do not write rhythmic figures in "
         .. "the orchestra that correspond to it; leave the voice free.","RK p.119"},
+    }},
+
+    {"Belkin's practical notes", {
+      {"Plan the climaxes around singable words","\"Singing, by nature, strongly "
+        .. "distorts words in favor of vowels; consonants function mainly as "
+        .. "articulation.\" The voice cannot open out on a closed vowel like the French "
+        .. "u, so \"climactic passages must be planned around important words, which also "
+        .. "permit the voice to sing out\".","BEL p.16-17"},
+      {"Follow the spoken phrase","\"The rhythm, accentuation, and contour of the vocal "
+        .. "line should follow that of the words, well spoken. They may exaggerate, but "
+        .. "should not contradict\" it.","BEL p.17"},
+      {"Agility is a special effect","\"Voices need time to open out to their full sound; "
+        .. "therefore very agile and/or staccato writing is a rare, special "
+        .. "effect.\"","BEL p.17"},
+      {"Stay in the middle","\"More than any other instrument, voices require writing in "
+        .. "the middle of their range most of the time, to avoid discomfort. Very low and "
+        .. "(especially) very high writing should be reserved for special "
+        .. "moments.\"","BEL p.17"},
+      {"Trombones are the gentlest brass here","In the baritone register, close-written "
+        .. "trombones are lighter than horns - useful when brass must accompany a "
+        .. "voice.","BEL p.12"},
     }},
   },
   related={"chorus","strings","harp","pizzicato","englishhorn","oboe","cello"},

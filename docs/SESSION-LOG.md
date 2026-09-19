@@ -235,15 +235,16 @@ loop. It records every `drawstr` with its position, so a "page" can be
 reconstructed as text and inspected. That reconstruction was how layout was
 verified: sorting the recorded draws by `y` then `x` prints the composed page.
 
-`tests/run.lua`, 109 checks in five sections:
+`tests/run.lua`, 142 checks in six sections:
 
 - **Data integrity** — both databases merged; unique ids; required fields; every
-  one of 1,116 items cited; every citation naming a declared source; every
-  `related` and `instruments` id resolving.
-- **Search ranking** — 73 query/expectation pairs, covering aliases, prefixes,
+  one of 1,360 items cited; every citation naming a declared source; every
+  `BEL` citation carrying a page; every `related` and `instruments` id
+  resolving.
+- **Search ranking** — 102 query/expectation pairs, covering aliases, prefixes,
   punctuation (`b-flat clarinet`, `'cello`) and typos (`tromobne`, `bassson`,
   `Bernard Hermann`).
-- **Rendering** — all 100 entries at 760×680, 470×380 and 1400×900, plus survival
+- **Rendering** — all 120 entries at 760×680, 470×380 and 1400×900, plus survival
   at 200×150, 120×120, 60×400 and 3000×200.
 - **Interaction** — arrows, Enter, Esc, Alt+Left, F1, header button clicks, chip
   clicks, wheel and page scrolling, the reverse links, no-result view, prose
@@ -260,27 +261,120 @@ milliseconds — it only happens on keystrokes and resizes.
 
 ## 6. Final shape
 
+Figures are current as of the last commit; §6a records what the Belkin round
+changed.
+
 | File | Lines | Purpose |
 | --- | --- | --- |
-| `Orchestration Helper.lua` | 1,067 | GUI, search, layout, input |
-| `orchestration_data.lua` | 2,912 | 50 entries: instruments, sections, topics |
-| `orchestration_composers.lua` | 1,851 | 50 entries: composers |
-| `tests/run.lua` | 299 | 109 checks |
+| `Orchestration Helper.lua` | 1,075 | GUI, search, layout, input |
+| `orchestration_data.lua` | 3,869 | 70 entries: instruments, sections, cross-group topics, craft, character |
+| `orchestration_composers.lua` | 1,998 | 50 entries: composers |
+| `tests/run.lua` | 355 | the 142-check suite |
 | `tests/harness.lua` | 122 | headless `gfx`/`reaper` stand-in |
-| `README.md` | 252 | user documentation, bibliography |
-| `CLAUDE.md` | 190 | guidance for future Claude sessions |
+| `tests/audit-aliases.lua` | 55 | alias collision report |
+| `README.md` | 278 | user documentation, bibliography |
+| `CLAUDE.md` | 234 | guidance for future Claude sessions |
+| `docs/SESSION-LOG.md` | 400 | this file |
 
-**100 entries, 1,116 cited items, 8 source tags** (`RK`, `SIN`, `WP`, `BEL`,
+**120 entries, 1,360 cited items, 8 source tags** (`RK`, `SIN`, `WP`, `BEL`,
 `OMT`, `IDIO`, `MOD`, `FILM`).
 
-By family: Woodwind 11, Percussion 13, Strings 6, Brass 6, Plucked 3, Voices 2,
-Combining 7, Reference 3, Composers 36, Film Composers 13.
-By kind: 33 instruments, 49 composers, 9 topics, 8 sections, 1 technique.
+By family: Strings 6, Woodwind 11, Brass 6, Percussion 13, Plucked 3, Voices 2,
+Combining 7, Craft 9, Character 11, Reference 3, Composers 36, Film Composers 13.
+
+By kind: 33 instruments, 49 composers, 19 topics, 8 sections, 10 moods,
+1 technique.
 
 Commits on `claude/sharp-hawking-kh7a7a`:
 
 - `0a7d3a3` — the script, the instrument/section database, tests, README.
-- `222df1c` — composer entries, reverse links, extended tests, README updates.
+- `222df1c` — composer entries, reverse links, extended tests.
+- `b295b2c` — CLAUDE.md and this session log.
+- `cdeb280` — Belkin: craft topics, character glossary, `BEL` upgraded to page
+  citations.
+
+---
+
+## 6a. Later addition: Belkin's *Artistic Orchestration*
+
+The user supplied a zip of Alan Belkin materials after the composer work was
+done: seven chapter pages saved from alanbelkinmusic.com, plus `bk-O-O.pdf` —
+the complete 65-page *Artistic Orchestration* (© 2001, 2008), which carries the
+author's own permission: "The material may be used free of charge provided that
+the author's name is included."
+
+The seven HTML pages are the web edition of the same book, chapter by chapter, so
+they were converted and skimmed for anything the PDF lacked, found to duplicate
+it, and then set aside: the PDF is the citable copy because it has page numbers.
+Note what text extraction loses — Belkin's own notated examples and their audio
+live on his site, and the score images do not survive extraction. His
+"(repertoire example)" pointers into the standard repertoire do survive, and those
+are what the entries quote.
+
+This mattered for two reasons.
+
+**It upgraded a source's precision.** `BEL` had been tag-only, because the
+earlier material came from search summaries. With the author's PDF in hand, every
+existing `BEL` claim was re-verified:
+
+- Five verified word for word and were upgraded to page citations (p.7, p.35,
+  p.40 ×2, and the plane-of-tone definition at p.39–40).
+- **One did not.** An item phrased "the single most important principle to grasp
+  in orchestration is: Planes of Tone" is not in this book — it came from a
+  search summary of a different or earlier Belkin text. It was rewritten to what
+  the book actually says, and the term credited to D. F. Tovey, as Belkin credits
+  it.
+
+The suite now fails on any bare `BEL` citation without a page, so the tag-only
+habit cannot creep back. `CLAUDE.md` rule 4 was rewritten to be per-source and to
+say explicitly what to do if a full text for `OMT`, `IDIO`, `MOD` or `FILM` ever
+arrives: re-verify, then upgrade.
+
+**It filled real gaps.** Belkin writes about what none of the other sources
+systematically covers — his stated reason for writing the book — so almost none
+of it duplicated what was already there. Twenty new entries:
+
+- **Craft (9):** orchestration and form; the five-group scale of timbral
+  contrast; planes of tone with its four types of background movement; sustained
+  vs dry sound; orchestrating counterpoint; the tutti and its three organising
+  methods; accompanying a soloist; orchestrating dynamics; and the good/poor
+  orchestration checklists.
+- **Character (11):** the reverse lookup — type a mood, get the scoring. Ten
+  characters from his Appendix 2 plus an index entry carrying his caveats, which
+  are emphatic and were reproduced rather than paraphrased: used as a recipe book
+  these become clichés.
+
+Ten existing entries also gained page-cited sections: strings (crossing,
+pizzicato as percussion), woodwind (each one "three instruments in one", the oboe
+deciding the blend, thickness with strings, completing the top of a brass chord),
+brass (horns as alto instruments, high/low specialists, trumpets empty in wide
+spacing), percussion (the five functions; wet/dry by material), voice, range,
+balance (Koechlin's loudness vs volume), doubling (heterophony, partial,
+piece-meal) and oboe.
+
+**A third disagreement worth recording.** Belkin's study order —
+Mendelssohn, Tchaikovsky, Bizet, Mozart, Beethoven, Wagner, then Ravel/Mahler/
+Strauss — conflicts with Rimsky-Korsakov's advice that "classical music will
+prove of negative value" to a student and that Mozart and Haydn are of no further
+use. Both are now given in the `composers` entry, with a note that they are
+answering different questions: Rimsky-Korsakov was arguing in 1891 against a
+conservatoire tradition, Belkin is grading by technical complexity.
+
+**One search bug introduced and caught.** Adding a `dynamics` entry created an
+exact-alias collision with `balance`, which already claimed the word; the
+alphabetical tie-break sent "dynamics" to the wrong page. Fixed by removing the
+alias from `balance`. A collision audit over both files found five in total; the
+other three (`drums`, `basses`, `plucked`) were left alone because both entries
+are a fair answer and the user can arrow between them. The audit one-liner is now
+in `CLAUDE.md`.
+
+Environment notes from this round, also recorded in `CLAUDE.md`: `poppler-utils`
+would not install (404 from the archive) and `pypdf` crashes on import because
+the system `cryptography` wheel panics under pyo3 — blocking that module in
+`sys.modules` first makes `pypdf` fall back to its no-encryption provider and
+work fine on an unencrypted PDF.
+
+After this round: **120 entries, 1,360 cited items, 8 source tags, 142 checks.**
 
 ---
 
@@ -294,11 +388,16 @@ Commits on `claude/sharp-hawking-kh7a7a`:
 - **HiDPI is written but untested.** `gfx.ext_retina` is read and `SCALE`
   recomputed when it changes; behaviour on a real Retina display is unverified.
 - **No PR opened.** The branch is pushed; the user did not ask for a pull request.
+- **Belkin's musical examples are not represented.** The craft and character
+  entries carry his principles and his repertoire pointers, but his own notated
+  examples — the ones with audio on his site — could not be extracted from the
+  PDF. Anyone working from these entries should read the book alongside them.
 - Possible additions, in rough order of value: instrument ranges as notated
   pitches (the sources give them as engraved tables the plain-text transcription
-  drops); a favourites or history list; the omitted composers, if sources can be
-  reached; extended-technique entries (sul ponticello, harmonics, flutter tongue)
-  which are currently scattered through instrument pages rather than collected.
+  drops); extended-technique entries (sul ponticello, harmonics, col legno,
+  flutter tongue), which are currently scattered through instrument pages rather
+  than collected, and which Belkin's contrast scale would organise well; a
+  favourites or history list; the omitted composers, if sources can be reached.
 
 ---
 
@@ -312,3 +411,20 @@ Commits on `claude/sharp-hawking-kh7a7a`:
   push over HTTPS worked without needing them.
 - The repo's remote is `KallumS/Orchestration-Helper`; the working branch is
   `claude/sharp-hawking-kh7a7a`.
+- **PDF extraction needs a workaround.** `poppler-utils` will not install (404
+  from the archive) and `pypdf` crashes on import because the system
+  `cryptography` wheel panics under pyo3. Block it first —
+  `for n in ("cryptography","cryptography.exceptions","Crypto"): sys.modules[n]=None`
+  — then `from pypdf import PdfReader` works on an unencrypted file. Split the
+  text on `===== PDF PAGE n =====` markers and search a whitespace-normalised
+  copy per page, or quotes broken across the PDF's line wraps will not be found.
+- **Do not document a command without running it.** A collision-audit one-liner
+  written into `CLAUDE.md` during the documentation round turned out to report
+  hundreds of false positives, because it did not dedupe keys within an entry. It
+  was caught only when a later round actually executed it. It is now
+  `tests/audit-aliases.lua`, which is harder to let rot.
+- The harness records one entry per **wrapped line**, and section headers are
+  drawn upper-cased, so a substring probe for a phrase spanning a line break will
+  report a false negative. Two probe results were misread as data problems before
+  this was noticed. Cap the output of any dump — accumulating 70 frames of a long
+  page prints thousands of lines.

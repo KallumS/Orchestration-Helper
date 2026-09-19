@@ -44,7 +44,7 @@ for _, en in ipairs(COMP.ENTRIES) do D.ENTRIES[#D.ENTRIES + 1] = en end
 for t, v in pairs(MAIN.SOURCES) do D.SOURCES[t] = v end
 for t, v in pairs(COMP.SOURCES) do if D.SOURCES[t] == nil then D.SOURCES[t] = v end end
 
-check("entries present", #D.ENTRIES >= 90, ("%d entries"):format(#D.ENTRIES))
+check("entries present", #D.ENTRIES >= 110, ("%d entries"):format(#D.ENTRIES))
 check("composers loaded", #COMP.ENTRIES >= 40, ("%d composers"):format(#COMP.ENTRIES))
 
 local ids = {}
@@ -107,6 +107,21 @@ check("every citation names a declared source", #badcite == 0,
 print(("  %d entries, %d cited items, %d sources")
   :format(#D.ENTRIES, cited, (function() local n=0 for _ in pairs(D.SOURCES) do n=n+1 end return n end)()))
 
+-- Belkin is cited from his own 65-page PDF, so every BEL citation must carry a
+-- page. Catching a bare "BEL" here stops the tag-only habit creeping back.
+local belbare = {}
+for _, e in ipairs(D.ENTRIES) do
+  for _, sec in ipairs(e.sec or {}) do
+    for _, it in ipairs(sec[2]) do
+      local c = it[3] or ""
+      if c:find("BEL") and not c:find("BEL p%.") then
+        belbare[#belbare+1] = e.id .. ":" .. c
+      end
+    end
+  end
+end
+check("every BEL citation names a page", #belbare == 0, table.concat(belbare, " "))
+
 ------------------------------------------------------------------------------
 section("Search ranking")
 ------------------------------------------------------------------------------
@@ -166,6 +181,28 @@ local cases = {
   {"weber", "Carl Maria von Weber"}, {"mendelssohn", "Felix Mendelssohn"},
   {"haydn", "Joseph Haydn"}, {"handel", "George Frideric Handel"},
   {"gluck", "Christoph Willibald Gluck"}, {"rameau", "Jean-Philippe Rameau"},
+  -- Belkin's craft topics
+  {"contrast", "Scale of Timbral Contrast"}, {"planes", "Planes of Tone"},
+  {"planes of tone", "Planes of Tone"}, {"tutti", "The Tutti"},
+  {"resonance", "Sustained vs Dry Sound"},
+  {"counterpoint", "Orchestrating Counterpoint"},
+  {"accompaniment", "Accompanying a Soloist"},
+  {"concerto", "Accompanying a Soloist"},
+  {"dynamics", "Orchestrating Dynamics"},
+  {"form", "Orchestration and Form"},
+  {"good orchestration", "Good and Poor Orchestration"},
+  {"poor orchestration", "Good and Poor Orchestration"},
+  -- the character glossary: emotion in, orchestration out
+  {"character", "Character: Scoring for a Mood"},
+  {"mood", "Character: Scoring for a Mood"},
+  {"luminous", "Luminous"}, {"mysterious", "Mysterious"}, {"eerie", "Mysterious"},
+  {"menacing", "Menacing"}, {"ominous", "Menacing"},
+  {"terrifying", "Terrifying, Angry, Savage"}, {"brilliant", "Brilliant"},
+  {"triumphant", "Splendid, Rich, Triumphant"},
+  {"heroic", "Splendid, Rich, Triumphant"}, {"dramatic", "Dramatic"},
+  {"funereal", "Funereal"}, {"playful", "Playful, Funny"},
+  {"comic", "Playful, Funny"}, {"sad", "Sad, Melancholy, Poignant"},
+  {"melancholy", "Sad, Melancholy, Poignant"},
 }
 for _, c in ipairs(cases) do
   local got = topmatch(c[1])
@@ -245,6 +282,25 @@ do -- click SOURCES, then back
   local str = table.concat(_H.drawn(), " | ")
   check("clicking SOURCES then back returns to the entry",
         str:find("Horn", 1, true) ~= nil)
+end
+
+do -- the contrast scale renders all five of its groups
+  dofile(HARNESS)
+  _H.type("contrast"); _H.press(13, 1); _H.press(_H.K("pgdn"), 20)
+  local str = table.concat(_H.run(60), " | ")
+  check("contrast scale shows group 1 and group 5",
+        str:find("GROUP 1 - IMPERCEPTIBLE OR VERY MILD", 1, true)
+        and str:find("GROUP 5 - EXTREME", 1, true) ~= nil)
+end
+
+do -- a character entry gives scoring suggestions, not just prose
+  dofile(HARNESS)
+  _H.type("mysterious"); _H.press(13, 1)
+  local str = table.concat(_H.run(12), " | ")
+  check("character entry gives scoring suggestions",
+        str:find("Muted strings", 1, true)
+        and str:find("String harmonics", 1, true) ~= nil)
+  check("character entry is page-cited to Belkin", str:find("BEL p.", 1, true) ~= nil)
 end
 
 do -- reverse links from an instrument to the composers noted for it

@@ -2,10 +2,11 @@
 
 A ReaScript that turns REAPER into an offline orchestration encyclopaedia.
 
-Type the name of an instrument, a section or a composer into the box —
-`trombone`, `string section`, `cor anglais`, `Bernard Herrmann`, `Bach` — and you
-get the doublings, pairings and combinations that the standard orchestration
-literature agrees on, each item carrying a citation back to where it came from.
+Type the name of an instrument, a section, a composer — or a mood — into the box:
+`trombone`, `string section`, `cor anglais`, `Bernard Herrmann`, `Bach`,
+`mysterious`. You get the doublings, pairings and combinations that the standard
+orchestration literature agrees on, each item carrying a citation back to where it
+came from.
 
 Everything is stored locally in two Lua files. The script never touches the
 network, and it needs no extensions: no SWS, no ReaImGui, no js_ReaScriptAPI.
@@ -66,9 +67,9 @@ Window size, position and dock state are remembered between runs.
 
 ## What is in it
 
-100 entries, 1,116 cited items, across two databases.
+120 entries, 1,360 cited items, across two databases.
 
-`orchestration_data.lua` — 50 entries:
+`orchestration_data.lua` — 70 entries:
 
 - **Sections** — strings, woodwind, brass, percussion, plucked strings, voices
   and chorus: rosters at full/medium/small size, present-day section sizes,
@@ -81,6 +82,15 @@ Window size, position and dock state are remembered between runs.
   Brass, all three groups combined, the blend bridges between groups, balance
   and relative strength, doubling principles, orchestral range and score order,
   and the modern orchestra's roster.
+- **Craft** — the working topics from Belkin's *Artistic Orchestration*:
+  orchestration and form, the five-group scale of timbral contrast, planes of
+  tone, sustained vs dry sound, orchestrating counterpoint, the tutti,
+  accompanying a soloist, orchestrating dynamics, and his two checklists of what
+  makes orchestration good or poor.
+- **Character** — the reverse lookup. Type a mood, get the scoring: *luminous,
+  mysterious, menacing, terrifying, brilliant, splendid, dramatic, funereal,
+  playful, sad*. Belkin compiled these as a teaching device and warns that used
+  as a recipe book they become clichés; his caveats are reproduced in full.
 
 `orchestration_composers.lua` — 50 entries:
 
@@ -137,7 +147,7 @@ still holds and to supply modern section sizes; they are cited by tag.
 | `RK` | Nikolay Rimsky-Korsakov, *Principles of Orchestration*, ed. Maximilian Steinberg, trans. Edward Agate (Édition Russe de Musique, 1922). Public domain. Page numbers follow Volume I. |
 | `SIN` | Esther Singleton, *The Orchestra and Its Instruments* (Symphony Society of New York, 1917). Public domain. Quotes Berlioz, Lavignac, Gevaert, Stone and Forsyth at length; those attributions are preserved in the text. |
 | `WP` | Wikipedia, *Orchestration* (CC BY-SA) — for the standard instrumentation shorthand. |
-| `BEL` | Alan Belkin, *Theory of Orchestration* (2015) and *Artistic Orchestration* (2001), published free by the author. |
+| `BEL` | Alan Belkin, *Artistic Orchestration* (© Alan Belkin 2001, 2008) — the third volume of his free online series, published by the author at alanbelkinmusic.com. 65 pages, **cited by page**. Belkin's terms: "The material may be used free of charge provided that the author's name is included." |
 | `OMT` | *Open Music Theory* 2e (Gotham et al.), chapter "Core Principles of Orchestration" — open-access textbook. |
 | `IDIO` | *The Idiomatic Orchestra* — online orchestration manual; chapters on Unisono and Doubling, Parallel Doubling, Partial Doubling and Heterophony, Timbre and Sound Combinations. |
 | `MOD` | Present-day practice, where several references agree: Andrew Hugill's *The Orchestra: A User's Manual* (with the Philharmonia Orchestra), the Timbre and Orchestration Resource (ACTOR Project), Orchestration Online, and Wikipedia's *Orchestra*, *String section* and *Brass section*. |
@@ -147,10 +157,18 @@ Berlioz, Lavignac, Gevaert, Stone and Forsyth are quoted **as Singleton quotes
 them**, and are named in the text wherever that is the case — they are not cited
 as if consulted directly.
 
-The `BEL`, `OMT`, `IDIO`, `MOD` and `FILM` items were gathered from search
-results rather than from the full text of each page, because this environment
-blocks direct page fetching. They are therefore cited by tag rather than by page,
-and are phrased no more precisely than that evidence supports. Where a claim is
+The `OMT`, `IDIO`, `MOD` and `FILM` items were gathered from search results
+rather than from the full text of each page, because this environment blocks
+direct page fetching. They are therefore cited by tag rather than by page, and
+are phrased no more precisely than that evidence supports.
+
+`BEL` was originally in that group. When the author's own PDF of *Artistic
+Orchestration* was supplied, every existing `BEL` claim was re-checked against
+it: five verified word for word and were upgraded to page citations, and one —
+a line calling planes of tone "the single most important principle" — could not
+be found in the book at all, so it was rewritten to what Belkin actually says and
+the term credited to Tovey, as he credits it. The test suite now fails on any
+`BEL` citation that lacks a page. Where a claim is
 specifically attributable to one author — Belkin's "planes of tone", his rule
 against unnecessary unison doubling — it is attributed by name.
 
@@ -228,18 +246,18 @@ The script was built and tested against a headless stand-in for REAPER's `gfx`
 and `reaper` APIs, which allows the search ranking, layout, scrolling and mouse
 handling to be exercised without launching REAPER. The checks covered:
 
-- data integrity — 1,116 items all cited, every citation naming a declared
-  source, every `related` and `instruments` id resolving across both files, no
-  duplicate entry ids;
-- search ranking against 73 query/expected-result pairs, including aliases,
+- data integrity — 1,360 items all cited, every citation naming a declared
+  source, every `BEL` citation carrying a page, every `related` and `instruments`
+  id resolving across both files, no duplicate entry ids;
+- search ranking against 102 query/expected-result pairs, including aliases,
   prefixes, punctuation and typos (`Bernard Hermann`, `tromobne`, `bassson`);
-- every one of the 100 entries rendered at three window sizes;
+- every one of the 120 entries rendered at three window sizes;
 - interaction — arrow navigation, Enter, Esc, back, F1, header buttons, chip
   clicks, wheel and page scrolling, and the reverse links from an instrument to
   its composers;
 - extreme window sizes down to 60×400 and up to 3000×200.
 
-109 checks; run them with `lua5.4 tests/run.lua`.
+142 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has
@@ -252,6 +270,9 @@ adjustment on first run.
 
 The script is licensed under the repository's LICENSE.
 
-The two principal sources are in the public domain. The Wikipedia material is
-CC BY-SA. Material drawn from the present-day and film-music references is used
-as short factual statements with attribution.
+The two principal treatises are in the public domain. The Wikipedia material is
+CC BY-SA. Alan Belkin's *Artistic Orchestration* is used on the author's own
+stated terms — free of charge with his name included — and he is named in the
+source list, in the affected entries, and here. Material drawn from the other
+present-day and film-music references is used as short factual statements with
+attribution.
