@@ -18,7 +18,7 @@ rejected alternatives, and the bugs already found and fixed.
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (109 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (142 checks); exits non-zero on failure
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
 luac5.4 -p orchestration_data.lua
 ```
@@ -57,7 +57,9 @@ run inside REAPER.
 entries, sections or items requires **no code changes**. Only these need code:
 
 - a new top-level *family* → add it to the `rank` table inside `layout()`, or it
-  sorts to the end of the index
+  sorts to the end of the index. Current order: Strings, Woodwind, Brass,
+  Percussion, Plucked, Voices, Combining, Craft, Character, Reference, Composers,
+  Film Composers.
 - a new *source tag* → add it to the `order` array in the `sources` view, or it
   will not appear on the Sources page
 - a section title containing the substring `"sparingly"` is coloured as a warning
@@ -153,10 +155,29 @@ e{ id="trombone", name="Trombone", family="Brass", kind="instrument",
 }
 ```
 
+`kind` is free text used only for the subtitle line, which renders as
+`FAMILY · KIND` — so do not repeat the family in it. Values in use: `instrument`,
+`section`, `topic`, `technique`, `composer`, `mood`.
+
 Invariants the suite enforces: unique ids across both files; `name`, `family`,
 `kind` and a substantial `summary` present; **every item cited**; every citation
-naming a tag declared in some `SOURCES` table; every `related` and `instruments`
-id resolving.
+naming a tag declared in some `SOURCES` table; every `BEL` citation carrying a
+page; every `related` and `instruments` id resolving.
+
+**Alias collisions** are allowed where both entries are a fair answer (`drums` →
+Percussion Section and Timpani; `basses` → Double Bass and Chorus), since the
+user can arrow through the matches. They are *not* allowed where a dedicated
+entry exists: when the `dynamics` entry was added, the word had to be removed
+from `balance`'s aliases or the alphabetical tie-break sent it to the wrong page.
+A one-liner over both files will list them:
+
+```bash
+lua5.4 -e 'local S={} for _,f in ipairs{"orchestration_data.lua","orchestration_composers.lua"} do
+  for _,e in ipairs(dofile(f).ENTRIES) do local function k(x) return (x:lower():gsub("[^%w]+","")) end
+  local function a(x) local z=k(x) S[z]=S[z] or {} table.insert(S[z],e.id) end
+  a(e.name) a(e.id) for _,x in ipairs(e.aliases or {}) do a(x) end end end
+  for w,ids in pairs(S) do if #ids>1 then print(w, table.concat(ids,", ")) end end'
+```
 
 ## Editorial rules
 
@@ -172,12 +193,19 @@ tool is for.
 3. **Disagreement is content.** Where the historical treatises and present-day
    teaching conflict, give both and say so. Oboe + clarinet in unison is the
    worked example.
-4. **Cite at the precision the evidence supports.** `RK` and `WP` are cited by
-   page. `SIN` page numbers are *approximations* anchored to the volume's
-   illustration list, because the Gutenberg transcription has no page breaks —
-   use `SIN ch.VIII` where no anchor exists. `BEL`, `OMT`, `IDIO`, `MOD` and
-   `FILM` were gathered from search-result summaries rather than full page reads,
-   so they are cited by tag only.
+4. **Cite at the precision the evidence supports.** This is per-source, and it
+   changes when better evidence arrives.
+   - `RK`, `WP`, `BEL` — cited **by page**. `BEL` began as tag-only and was
+     upgraded when the author's own 65-page PDF of *Artistic Orchestration* was
+     supplied; every existing BEL claim was re-verified against it, one was found
+     unsupported and rewritten, and the suite now **fails on a bare `BEL`**
+     without a page.
+   - `SIN` — page numbers are *approximations* anchored to the volume's
+     illustration list, because the Gutenberg transcription has no page breaks.
+     Use `SIN ch.VIII` where no anchor exists.
+   - `OMT`, `IDIO`, `MOD`, `FILM` — gathered from search-result summaries rather
+     than full page reads, so cited by tag only. If a full text for any of these
+     ever arrives, do what was done for `BEL`: re-verify each claim, then upgrade.
 5. **Quote intermediaries honestly.** Berlioz, Lavignac, Gevaert, Stone and
    Forsyth appear *as Singleton quotes them*, and are named as such in the text.
 6. **Leave gaps rather than guess.** Composers with no citable orchestration
@@ -189,5 +217,17 @@ tool is for.
 - Direct page fetching (`WebFetch`, `curl`) is blocked by the network egress
   proxy. `WebSearch` works and returns substantive summaries — that is how all
   present-day material was gathered, and why it is cited by tag.
-- The four reference documents that seeded the database were session uploads and
-  are **not in the repo**. See `docs/SESSION-LOG.md` for what each contained.
+- The reference documents that seeded the database were session uploads and are
+  **not in the repo**: two public-domain treatises, the Wikipedia orchestration
+  article, the REAPER API reference, and later a zip of Alan Belkin's materials
+  (seven chapter pages from his site plus `bk-O-O.pdf`, the 65-page *Artistic
+  Orchestration*). See `docs/SESSION-LOG.md` for what each contained.
+- Extracting a PDF here needs a workaround: `poppler-utils` will not install
+  (404 from the archive) and `pypdf` crashes on import because the system
+  `cryptography` wheel panics under pyo3. Blocking it first works:
+  `for n in ("cryptography","cryptography.exceptions","Crypto"): sys.modules[n]=None`
+  then `from pypdf import PdfReader`.
+- When probing rendered output in the harness, remember it records one entry per
+  *wrapped line*, so a phrase spanning a line break will not be found by a
+  substring search, and section headers are drawn upper-cased. Cap the output of
+  any dump: accumulating 70 frames of a long page prints thousands of lines.

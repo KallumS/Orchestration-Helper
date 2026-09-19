@@ -420,11 +420,11 @@ local function layout(w)
   if st.view == "index" then
     para("Orchestration Helper", F.TITLE, C.title, x, maxw)
     gap(2)
-    para("Type an instrument, a section or a composer in the box above - " ..
-         "\"trombone\", \"string section\", \"cor anglais\", \"Bernard " ..
-         "Herrmann\", \"Bach\" - and you get the doublings and pairings that the " ..
-         "standard literature agrees on. Everything is stored locally; nothing is " ..
-         "ever fetched from the internet.",
+    para("Type an instrument, a section, a composer - or a mood - in the box " ..
+         "above: \"trombone\", \"string section\", \"cor anglais\", \"Bernard " ..
+         "Herrmann\", \"Bach\", \"mysterious\". You get the doublings and pairings " ..
+         "that the standard literature agrees on. Everything is stored locally; " ..
+         "nothing is ever fetched from the internet.",
          F.BODY, C.dim, x, maxw)
     gap(6)
     para("Press F1 for the keys, or click a name below.", F.SMALL, C.faint, x, maxw)
@@ -437,8 +437,9 @@ local function layout(w)
       list[#list + 1] = en
     end
     local rank = { Strings = 1, Woodwind = 2, Brass = 3, Percussion = 4,
-                   Plucked = 5, Voices = 6, Combining = 7, Reference = 8,
-                   Composers = 9, ["Film Composers"] = 10 }
+                   Plucked = 5, Voices = 6, Combining = 7, Craft = 8,
+                   Character = 9, Reference = 10,
+                   Composers = 11, ["Film Composers"] = 12 }
     table.sort(order, function(a, b)
       return (rank[a] or 50) < (rank[b] or 50)
     end)
@@ -460,10 +461,11 @@ local function layout(w)
   elseif st.view == "noresult" then
     para("Nothing found for \"" .. st.query .. "\"", F.TITLE, C.title, x, maxw)
     gap(4)
-    para("Try a plainer word - \"horn\", \"strings\", \"timpani\", \"Mozart\" - " ..
-         "or clear the box with Esc to see the whole index. Spelling is forgiving, " ..
-         "but the encyclopaedia only covers the orchestra and the composers who " ..
-         "wrote for it.", F.BODY, C.dim, x, maxw)
+    para("Try a plainer word - \"horn\", \"strings\", \"timpani\", \"Mozart\", " ..
+         "\"menacing\" - or clear the box with Esc to see the whole index. Spelling " ..
+         "is forgiving, but the encyclopaedia only covers the orchestra, the " ..
+         "composers who wrote for it, and the craft of scoring for it.",
+         F.BODY, C.dim, x, maxw)
     gap(16)
 
   elseif st.view == "help" then
@@ -498,6 +500,12 @@ local function layout(w)
          "And because those entries name the instruments a composer is known for, " ..
          "every instrument page lists the composers worth studying for it.",
          F.BODY, C.text, x, maxw)
+    gap(8)
+    para("It also works backwards. Type a mood - \"mysterious\", \"menacing\", " ..
+         "\"triumphant\" - and you get the orchestral resources that produce it. " ..
+         "Those entries come from Belkin's character glossary; read his caveats on " ..
+         "the Character page before leaning on them, because used as a recipe book " ..
+         "they turn into cliches.", F.BODY, C.text, x, maxw)
     gap(8)
     para("Rare combinations are deliberately kept out of the suggestion lists. " ..
          "Where a source explicitly warns against something, or calls it rare, it " ..
@@ -741,7 +749,7 @@ local function draw_top(g)
   if st.query == "" then
     setcol(C.faint)
     gfx.x, gfx.y = tx, ty
-    gfx.drawstr("Search an instrument, section or composer...", 0,
+    gfx.drawstr("Search an instrument, section, composer or mood...", 0,
                 sx + sw - S(100), sy + sh)
   else
     setcol(C.text)

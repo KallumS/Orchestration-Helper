@@ -76,6 +76,45 @@ e{ id="composers", name="Composers: How to Use Them", family="Reference", kind="
       {"How to study","\"The best plan is to study full-scores, and listen to an "
         .. "orchestra, score in hand.\"","RK p.4"},
     }},
+    {"Belkin's order for studying scores", {
+      {"1. Mendelssohn","\"An excellent starting point... His orchestration is classical "
+        .. "in spirit, economical, simple, and always effective. Mendelssohn's part "
+        .. "writing is straightforward, his orchestration perfectly balanced, and his "
+        .. "figuration imaginative without being overly elaborate.\"","BEL p.60"},
+      {"2. Tchaikovsky","\"A logical next step, similar in technique to Mendelssohn, but "
+        .. "with a larger orchestra. Again, his orchestration is effective, clear, and "
+        .. "easily understood.\"","BEL p.61"},
+      {"3. Bizet's Carmen","\"A basic text for orchestration with voices.\"","BEL p.61"},
+      {"4. Mozart","\"Although he uses an orchestra smaller than Mendelssohn's, has more "
+        .. "complex and refined methods of part writing, and therefore should follow, "
+        .. "rather than precede the latter.\"","BEL p.61"},
+      {"5. Beethoven","\"Introduces many novel orchestral ideas, and, properly "
+        .. "understood, his approach to the orchestra will greatly increase the student's "
+        .. "sophistication.\"","BEL p.61"},
+      {"6. Wagner","\"More advanced orchestration begins with Wagner, in particular the "
+        .. "richness of his orchestral polyphony as a norm, and the way he uses the "
+        .. "enlarged orchestral families.\"","BEL p.61"},
+      {"7. Then Ravel, Mahler, Strauss","Only after the rest have been assimilated. "
+        .. "\"Composers like Mahler and Ravel, wonderful orchestrators though they are, "
+        .. "are not suitable for beginners since their textures are often very rich and "
+        .. "complex.\"","BEL p.60-61"},
+    }},
+    {"Where the two authorities disagree", {
+      {"They agree on Mendelssohn","Both put him among the first composers a student "
+        .. "should study.","RK p.4; BEL p.60"},
+      {"They disagree sharply about the classics","Rimsky-Korsakov: \"Fairly modern "
+        .. "music will teach the student how to score - classical music will prove of "
+        .. "negative value to him\", and Mozart and Haydn are of \"no further use "
+        .. "today\". Belkin puts Mozart fourth in a graded sequence and Beethoven fifth, "
+        .. "as steps that increase sophistication.","RK p.4; BEL p.61"},
+      {"And about where Wagner sits","Rimsky-Korsakov lists Wagner among the basic "
+        .. "guides for a student. Belkin makes him the threshold of *advanced* study.","RK p.4; BEL p.61"},
+      {"How to read the disagreement","Rimsky-Korsakov was arguing in 1891 against a "
+        .. "conservatoire tradition that taught scoring from Gluck and Mozart, and "
+        .. "against an idiom he found too remote to imitate. Belkin is grading by "
+        .. "technical complexity for a student who will study all of it eventually. The "
+        .. "two are answering different questions.","MOD"},
+    }},
     {"Also worth studying, though not given entries here", {
       {"Not covered, deliberately","Nino Rota, Georges Delerue, Elmer Bernstein, "
         .. "Maurice Jarre, Alfred Newman, Franz Waxman, James Horner, Thomas "
@@ -411,6 +450,20 @@ e{ id="mozart", name="Wolfgang Amadeus Mozart", family="Composers", kind="compos
         .. "fresh colour is the cheapest variety in orchestration and still the most "
         .. "effective.","WP; MOD"},
     }},
+
+    {"Belkin's verdict", {
+      {"Study him after Mendelssohn, not before","\"Although he uses an orchestra "
+        .. "smaller than Mendelssohn's, [he] has more complex and refined methods of part "
+        .. "writing, and therefore should follow, rather than precede the latter.\"","BEL p.61"},
+      {"Why his scoring stays fresh","\"Color is less the result of exotic timbres than "
+        .. "of novelty in the context of the piece. Even a familiar timbre like an oboe "
+        .. "can sound striking and novel, provided it has not been heard for a while. "
+        .. "This is why Mozart's orchestration is always so fresh, despite its limited "
+        .. "number of colors.\"","BEL p.33"},
+      {"Heterophony in a tutti","The Figaro overture keeps a tutti \"light and "
+        .. "transparent\" because upper winds and strings follow the same outline with "
+        .. "different detail, rather than doubling literally.","BEL p.38"},
+    }},
   },
   instruments={"clarinet","viola","bassoon","horn","flute","oboe","trombone","harp",
                "strings","pizzicato"},
@@ -472,6 +525,20 @@ e{ id="beethoven", name="Ludwig van Beethoven", family="Composers", kind="compos
         .. "string parts and his often highly-coloured employment of the wood-wind - "
         .. "these features will combine causing the student of Beethoven to stumble upon "
         .. "a thousand and one points in contradiction.\"","RK p.4"},
+    }},
+
+    {"Belkin's verdict", {
+      {"Fifth in the study order","\"Introduces many novel orchestral ideas, and, "
+        .. "properly understood, his approach to the orchestra will greatly increase the "
+        .. "student's sophistication.\" A milder view than Rimsky-Korsakov's.","BEL p.61"},
+      {"The textbook orchestral crescendo","The Ninth's opening: \"the magnificent "
+        .. "crescendo is achieved by gradually adding instruments: violin 1, double bass, "
+        .. "viola, clarinet, oboe, flute, bassoon\".","BEL p.27"},
+      {"The soft tutti","The Ninth's first movement, bar 469 - Belkin's example of a "
+        .. "quiet tutti sounding \"like a great power restrained\".","BEL p.49"},
+      {"Counterpoint kept in one family","The Seventh's second movement puts all the "
+        .. "counterpoint in the strings - the simplest way to balance "
+        .. "polyphony.","BEL p.47"},
     }},
   },
   instruments={"viola","cello","doublebass","bassoon","timpani","horn","piccolo",
@@ -588,6 +655,14 @@ e{ id="mendelssohn", name="Felix Mendelssohn", family="Composers", kind="compose
         .. "instrument - and he is the clearest demonstration of that.","SIN ch.VIII; MOD"},
       {"Rimsky-Korsakov's endorsement","Another of the handful he names as a model for "
         .. "students of scoring.","RK p.4"},
+    }},
+
+    {"Belkin's verdict", {
+      {"Where to start","\"An excellent starting point\" for learning orchestration "
+        .. "from the repertoire: \"classical in spirit, economical, simple, and always "
+        .. "effective\", with straightforward part-writing, perfectly balanced "
+        .. "orchestration, and \"figuration imaginative without being overly "
+        .. "elaborate\".","BEL p.60"},
     }},
   },
   instruments={"horn","flute","clarinet","bassoon","cello","violin","contrabassoon"},
@@ -754,6 +829,15 @@ e{ id="wagner", name="Richard Wagner", family="Composers", kind="composer",
       {"His vocal demands","Rimsky-Korsakov thought the Wagnerian voice types asked "
         .. "\"something little short of the miraculous\", and that singers who chase them "
         .. "lose \"correct intonation, beauty of tone, and all subtlety of nuances\".","RK p.138-139"},
+    }},
+
+    {"Belkin's verdict", {
+      {"Where advanced orchestration begins","\"More advanced orchestration begins with "
+        .. "Wagner, in particular the richness of his orchestral polyphony as a norm, and "
+        .. "the way he uses the enlarged orchestral families.\"","BEL p.61"},
+      {"His tutti method","The Meistersinger prelude: each family has independent "
+        .. "part-writing, the winds starting by doubling the violins and \"by m. 7 they "
+        .. "are already adding details of their own\".","BEL p.50"},
     }},
   },
   instruments={"horn","tuba","trumpet","trombone","harp","viola","cello","clarinet",
@@ -972,6 +1056,18 @@ e{ id="tchaikovsky", name="Pyotr Ilyich Tchaikovsky", family="Composers", kind="
         .. "comes from consistent choices of register and combination, not from adding "
         .. "instruments.","SIN ch.VIII; MOD"},
     }},
+
+    {"Belkin's verdict", {
+      {"The second composer to study","\"A logical next step, similar in technique to "
+        .. "Mendelssohn, but with a larger orchestra. Again, his orchestration is "
+        .. "effective, clear, and easily understood.\"","BEL p.61"},
+      {"His clarinet and oboe interlocking","Tchaikovsky's Fifth, first movement, is "
+        .. "Belkin's example of clarinets and oboes \"interlocked for better blend, in a "
+        .. "standard classical technique\".","BEL p.40"},
+      {"His tutti method","The Fifth's finale gives each musical element to a distinct "
+        .. "family: strings on the melody in octaves, horns and winds on two "
+        .. "counterpoints, repeated notes in low brass and basses.","BEL p.51"},
+    }},
   },
   instruments={"bassoon","clarinet","bassclarinet","viola","celesta","flute","tuba",
                "pizzicato","woodwind"},
@@ -1075,6 +1171,21 @@ e{ id="mahler", name="Gustav Mahler", family="Composers", kind="composer",
         .. "on\" (Donald Mitchell). More instruments meant more distinguishable lines, not "
         .. "a thicker wall.","WP"},
     }},
+
+    {"Belkin's verdict", {
+      {"Not for beginners","With Ravel, \"not suitable for beginners since their "
+        .. "textures are often very rich and complex\".","BEL p.60"},
+      {"Rate of change as character","In the Fourth's second movement the nervous "
+        .. "character comes from \"the frequent, prominent, changes of timbre\" - and the "
+        .. "third movement's calm \"results from remaining entirely within the string "
+        .. "choir\".","BEL p.23"},
+      {"Piece-meal doubling","In the Ninth, the first horn is an inner counterpoint, "
+        .. "then doubles the 'cello, then the first trombone - creating a new line without "
+        .. "adding polyphony.","BEL p.38"},
+      {"Sustained chords rescue tutti counterpoint","The Fifth's third movement: "
+        .. "\"vigorous, tutti counterpoint is drawn into a rich whole by the sustained "
+        .. "trombone chords\".","BEL p.47"},
+    }},
   },
   instruments={"harp","clarinet","horn","flute","percussion","woodwind","brass","strings"},
   related={"composers","wagner","strauss","balance","doubling","orchestra"},
@@ -1116,6 +1227,18 @@ e{ id="strauss", name="Richard Strauss", family="Composers", kind="composer",
       {"Five trumpets","Rimsky-Korsakov notes, with reserve, that \"some present-day "
         .. "composers (Richard Strauss, Scriabine) write for as many as five "
         .. "trumpets\".","RK p.22"},
+    }},
+
+    {"Belkin's verdict", {
+      {"For the advanced student only","Grouped with Ravel and Mahler as the last stage "
+        .. "of study.","BEL p.61"},
+      {"Several rising figures instead of one doubled line","Die Frau ohne Schatten, "
+        .. "first act: \"a wispy image of a rising shadow is created by using several "
+        .. "different rising figures simultaneously (combined with held notes for "
+        .. "resonance)\".","BEL p.42"},
+      {"The phrase he gave us","Writing of Wagner's polyphony, Strauss called for the "
+        .. "\"spiritual participation of the players\" - which Belkin makes one of his "
+        .. "criteria for good orchestration.","BEL p.36 & p.58"},
     }},
   },
   instruments={"cello","viola","horn","celesta","bassclarinet","bassoon","englishhorn",
@@ -1225,6 +1348,22 @@ e{ id="ravel", name="Maurice Ravel", family="Composers", kind="composer",
         .. "music\".","MOD; cf. RK p.97"},
       {"The inheritance","New Grove traces the line: Berlioz's free use of timbre \"leads "
         .. "to the rich orchestral resource of Debussy and Ravel\".","WP"},
+    }},
+
+    {"Belkin's verdict", {
+      {"Not for beginners","\"Wonderful orchestrators though they are, [Mahler and "
+        .. "Ravel] are not suitable for beginners since their textures are often very "
+        .. "rich and complex.\"","BEL p.60"},
+      {"The master of background resonance","The Epilogue of Valses nobles et "
+        .. "sentimentales: held strings and harp harmonics give \"a shimmering halo "
+        .. "surrounding the main motives in the winds. This conception of the background "
+        .. "as delicate vibration is omnipresent in Ravel. Indeed, Ravel's orchestral "
+        .. "technique is often most sophisticated in his treatment of such sustained "
+        .. "sound in the background.\"","BEL p.33"},
+      {"An organ-stop doubling in Bolero","A horn carrying the line is doubled by "
+        .. "celesta in higher octaves and by two piccolos at a twelfth and two octaves "
+        .. "plus a major third - \"very similar to a common organ combination (the "
+        .. "'cornet'), which gives a rich, piercing sound\".","BEL p.38"},
     }},
   },
   instruments={"woodwind","brass","strings","harp","celesta","percussion"},
@@ -1395,6 +1534,14 @@ e{ id="bizet", name="Georges Bizet", family="Composers", kind="composer",
         .. "the tuba displaced it.","SIN p.117"},
       {"Characteristic Spanish percussion","Carmen is the standard reference for "
         .. "tambourine and castanets used for local colour rather than rhythm alone.","MOD; cf. SIN p.126"},
+    }},
+
+    {"Belkin's verdict", {
+      {"The text for voices","\"Bizet's Carmen is a basic text for orchestration with "
+        .. "voices.\"","BEL p.61"},
+      {"A model of transparency","Carmen's first act: \"Short string chords accompany "
+        .. "high violins in a light, triplet figure, and a simple woodwind counterpoint "
+        .. "in half notes. The effect is rich but extremely transparent.\"","BEL p.57"},
     }},
   },
   instruments={"tuba","tambourine","castanets","flute","woodwind"},
