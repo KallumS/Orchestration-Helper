@@ -34,9 +34,18 @@ end
 section("Data integrity")
 ------------------------------------------------------------------------------
 dofile(HARNESS)
-local D = dofile(_H.datapath())
+local MAIN = dofile(_H.datapath())
+local COMP = dofile(_H.composerspath())
 
-check("entries present", #D.ENTRIES >= 40, ("%d entries"):format(#D.ENTRIES))
+-- The script merges the two databases at load time; validate the merged set.
+local D = { ENTRIES = {}, SOURCES = {} }
+for _, en in ipairs(MAIN.ENTRIES) do D.ENTRIES[#D.ENTRIES + 1] = en end
+for _, en in ipairs(COMP.ENTRIES) do D.ENTRIES[#D.ENTRIES + 1] = en end
+for t, v in pairs(MAIN.SOURCES) do D.SOURCES[t] = v end
+for t, v in pairs(COMP.SOURCES) do if D.SOURCES[t] == nil then D.SOURCES[t] = v end end
+
+check("entries present", #D.ENTRIES >= 90, ("%d entries"):format(#D.ENTRIES))
+check("composers loaded", #COMP.ENTRIES >= 40, ("%d composers"):format(#COMP.ENTRIES))
 
 local ids = {}
 local dup = nil
@@ -61,6 +70,17 @@ for _, e in ipairs(D.ENTRIES) do
   end
 end
 check("every 'related' id resolves", #badrel == 0, table.concat(badrel, ","))
+
+-- Composer entries point at the instruments they are known for; those ids feed
+-- the reverse "Composers noted for it" links, so they must resolve too.
+local badinst = {}
+for _, e in ipairs(D.ENTRIES) do
+  for _, r in ipairs(e.instruments or {}) do
+    if not ids[r] then badinst[#badinst+1] = e.id .. "->" .. r end
+  end
+end
+check("every composer 'instruments' id resolves", #badinst == 0,
+      table.concat(badinst, ","))
 
 local tags = {}
 for t in pairs(D.SOURCES) do tags[t] = true end
@@ -126,6 +146,26 @@ local cases = {
   {"contrabassoon", "Contrabassoon"}, {"tuba", "Tuba"},
   {"snare drum", "Side Drum (Snare Drum)"}, {"tam tam", "Gong (Tam-tam)"},
   {"xylophone", "Xylophone"}, {"voice", "Solo Voice with Orchestra"},
+  -- composers, including the misspellings people actually type
+  {"bernard hermann", "Bernard Herrmann"}, {"herrmann", "Bernard Herrmann"},
+  {"hermann", "Bernard Herrmann"}, {"bach", "Johann Sebastian Bach"},
+  {"js bach", "Johann Sebastian Bach"}, {"mozart", "Wolfgang Amadeus Mozart"},
+  {"beethoven", "Ludwig van Beethoven"}, {"wagner", "Richard Wagner"},
+  {"berlioz", "Hector Berlioz"}, {"debussy", "Claude Debussy"},
+  {"ravel", "Maurice Ravel"}, {"mahler", "Gustav Mahler"},
+  {"tchaikovsky", "Pyotr Ilyich Tchaikovsky"},
+  {"tschaikowsky", "Pyotr Ilyich Tchaikovsky"},
+  {"rimsky korsakov", "Nikolay Rimsky-Korsakov"},
+  {"john williams", "John Williams"}, {"williams", "John Williams"},
+  {"goldsmith", "Jerry Goldsmith"}, {"morricone", "Ennio Morricone"},
+  {"zimmer", "Hans Zimmer"}, {"elfman", "Danny Elfman"},
+  {"howard shore", "Howard Shore"}, {"desplat", "Alexandre Desplat"},
+  {"greenwood", "Jonny Greenwood"}, {"korngold", "Erich Wolfgang Korngold"},
+  {"rozsa", "Miklos Rozsa"}, {"max steiner", "Max Steiner"},
+  {"john barry", "John Barry"}, {"stravinsky", "Igor Stravinsky"},
+  {"weber", "Carl Maria von Weber"}, {"mendelssohn", "Felix Mendelssohn"},
+  {"haydn", "Joseph Haydn"}, {"handel", "George Frideric Handel"},
+  {"gluck", "Christoph Willibald Gluck"}, {"rameau", "Jean-Philippe Rameau"},
 }
 for _, c in ipairs(cases) do
   local got = topmatch(c[1])
@@ -205,6 +245,25 @@ do -- click SOURCES, then back
   local str = table.concat(_H.drawn(), " | ")
   check("clicking SOURCES then back returns to the entry",
         str:find("Horn", 1, true) ~= nil)
+end
+
+do -- reverse links from an instrument to the composers noted for it
+  dofile(HARNESS)
+  _H.type("horn"); _H.press(13, 1); _H.press(_H.K("pgdn"), 14)
+  local str = table.concat(_H.run(45), " | ")
+  check("instrument page lists composers noted for it",
+        str:find("COMPOSERS NOTED FOR IT", 1, true) ~= nil)
+  check("those composer chips are real names",
+        str:find("Carl Maria von Weber", 1, true)
+        and str:find("John Williams", 1, true) ~= nil)
+end
+
+do -- a film composer entry renders its own sections
+  dofile(HARNESS)
+  _H.type("bernard hermann"); _H.press(13, 1)
+  local str = table.concat(_H.run(14), " | ")
+  check("film composer entry renders", str:find("Bernard Herrmann", 1, true) ~= nil)
+  check("film composer entry is cited", str:find("FILM", 1, true) ~= nil)
 end
 
 do -- wheel

@@ -3,9 +3,13 @@
   ====================
   A local, offline orchestration encyclopaedia for REAPER.
 
-  Type the name of an instrument or a section and get the doublings, pairings
-  and combinations that the standard orchestration literature agrees on -
-  every item carrying a citation back to its source.
+  Type the name of an instrument, a section or a composer and get the doublings,
+  pairings and combinations that the standard orchestration literature agrees on
+  - every item carrying a citation back to its source.
+
+  Reads two databases from its own folder: orchestration_data.lua (instruments,
+  sections, cross-group topics) and orchestration_composers.lua (composers,
+  optional).
 
   Requires nothing but REAPER itself: no internet connection, no extensions,
   no SWS, no ReaImGui. Drawing uses REAPER's built-in gfx API.
@@ -51,6 +55,18 @@ end
 
 local ENTRIES = DATA.ENTRIES
 local SOURCES = DATA.SOURCES
+
+-- Optional second database: composers. The script works without it.
+do
+  local extra_file = SCRIPT_DIR .. SEP .. "orchestration_composers.lua"
+  local ok2, EXTRA = pcall(dofile, extra_file)
+  if ok2 and type(EXTRA) == "table" then
+    for _, en in ipairs(EXTRA.ENTRIES or {}) do ENTRIES[#ENTRIES + 1] = en end
+    for tag, src in pairs(EXTRA.SOURCES or {}) do
+      if SOURCES[tag] == nil then SOURCES[tag] = src end
+    end
+  end
+end
 
 ------------------------------------------------------------------------------
 -- INDEX
@@ -102,6 +118,19 @@ for i, en in ipairs(ENTRIES) do
     end
   end
   en.haystack = table.concat(parts, " ")
+end
+
+-- Composer entries name the instruments they are known for; turn that round so
+-- each instrument page can list the composers worth studying for it. Doing it
+-- here means the association is written once, in the composer entry.
+for _, en in ipairs(ENTRIES) do
+  for _, iid in ipairs(en.instruments or {}) do
+    local target = BY_ID[iid]
+    if target and target ~= en then
+      target.composers = target.composers or {}
+      target.composers[#target.composers + 1] = en.id
+    end
+  end
 end
 
 -- Levenshtein distance, capped: we only care about "within 2 typos".
@@ -391,10 +420,11 @@ local function layout(w)
   if st.view == "index" then
     para("Orchestration Helper", F.TITLE, C.title, x, maxw)
     gap(2)
-    para("Type an instrument or a section in the box above - \"trombone\", " ..
-         "\"string section\", \"cor anglais\", \"percussion\" - and you get the " ..
-         "doublings and pairings that the standard literature agrees on. " ..
-         "Everything is stored locally; nothing is ever fetched from the internet.",
+    para("Type an instrument, a section or a composer in the box above - " ..
+         "\"trombone\", \"string section\", \"cor anglais\", \"Bernard " ..
+         "Herrmann\", \"Bach\" - and you get the doublings and pairings that the " ..
+         "standard literature agrees on. Everything is stored locally; nothing is " ..
+         "ever fetched from the internet.",
          F.BODY, C.dim, x, maxw)
     gap(6)
     para("Press F1 for the keys, or click a name below.", F.SMALL, C.faint, x, maxw)
@@ -407,7 +437,8 @@ local function layout(w)
       list[#list + 1] = en
     end
     local rank = { Strings = 1, Woodwind = 2, Brass = 3, Percussion = 4,
-                   Plucked = 5, Voices = 6, Combining = 7, Reference = 8 }
+                   Plucked = 5, Voices = 6, Combining = 7, Reference = 8,
+                   Composers = 9, ["Film Composers"] = 10 }
     table.sort(order, function(a, b)
       return (rank[a] or 50) < (rank[b] or 50)
     end)
@@ -429,9 +460,10 @@ local function layout(w)
   elseif st.view == "noresult" then
     para("Nothing found for \"" .. st.query .. "\"", F.TITLE, C.title, x, maxw)
     gap(4)
-    para("Try a plainer word - \"horn\", \"strings\", \"timpani\" - or clear the " ..
-         "box with Esc to see the whole index. Spelling is forgiving, but the " ..
-         "encyclopaedia only covers the orchestra.", F.BODY, C.dim, x, maxw)
+    para("Try a plainer word - \"horn\", \"strings\", \"timpani\", \"Mozart\" - " ..
+         "or clear the box with Esc to see the whole index. Spelling is forgiving, " ..
+         "but the encyclopaedia only covers the orchestra and the composers who " ..
+         "wrote for it.", F.BODY, C.dim, x, maxw)
     gap(16)
 
   elseif st.view == "help" then
@@ -461,6 +493,12 @@ local function layout(w)
          "balancing a doubling; and the blend bridges between the groups.",
          F.BODY, C.text, x, maxw)
     gap(8)
+    para("Composers too, concert and film. Each composer entry answers one working " ..
+         "question: if you want this sound, what did they actually put together? " ..
+         "And because those entries name the instruments a composer is known for, " ..
+         "every instrument page lists the composers worth studying for it.",
+         F.BODY, C.text, x, maxw)
+    gap(8)
     para("Rare combinations are deliberately kept out of the suggestion lists. " ..
          "Where a source explicitly warns against something, or calls it rare, it " ..
          "appears under \"Use sparingly\" instead - so the advice stays honest " ..
@@ -475,7 +513,7 @@ local function layout(w)
     gap(4)
     para("Every statement in this encyclopaedia is drawn from the works below and " ..
          "tagged with the page it came from.", F.BODY, C.dim, x, maxw)
-    local order = { "RK", "SIN", "WP", "BEL", "OMT", "IDIO", "MOD" }
+    local order = { "RK", "SIN", "WP", "BEL", "OMT", "IDIO", "MOD", "FILM" }
     for _, tag in ipairs(order) do
       local s = SOURCES[tag]
       if s then
@@ -533,6 +571,20 @@ local function layout(w)
         end
         gap(9)
       end
+    end
+
+    if en.composers and #en.composers > 0 then
+      header("Composers noted for it", maxw, x)
+      local list = {}
+      local seen = {}
+      for _, id in ipairs(en.composers) do
+        local c = BY_ID[id]
+        if c and not seen[id] then
+          seen[id] = true
+          list[#list + 1] = { label = c.name, id = id }
+        end
+      end
+      chips(list, x, maxw)
     end
 
     if en.related and #en.related > 0 then
@@ -689,7 +741,8 @@ local function draw_top(g)
   if st.query == "" then
     setcol(C.faint)
     gfx.x, gfx.y = tx, ty
-    gfx.drawstr("Search an instrument or section...", 0, sx + sw - S(100), sy + sh)
+    gfx.drawstr("Search an instrument, section or composer...", 0,
+                sx + sw - S(100), sy + sh)
   else
     setcol(C.text)
     gfx.x, gfx.y = tx, ty

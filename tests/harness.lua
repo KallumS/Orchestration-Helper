@@ -13,6 +13,7 @@
 local HERE = (debug.getinfo(1, "S").source:match("^@(.*)[/\\]") or ".")
 local SCRIPT = HERE .. "/../Orchestration Helper.lua"
 local DATA   = HERE .. "/../orchestration_data.lua"
+local COMPOSERS = HERE .. "/../orchestration_composers.lua"
 
 _H = {}
 
@@ -118,3 +119,4 @@ function _H.wheel(v) gfx.mouse_wheel = v end
 function _H.K(s) local v=0 for i=1,#s do v=v*256+s:byte(i) end return v end
 
 function _H.datapath() return DATA end
+function _H.composerspath() return COMPOSERS end
