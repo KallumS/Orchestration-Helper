@@ -19,6 +19,7 @@ There is no build step and no linter.
 
 ```bash
 lua5.4 tests/run.lua              # the whole suite (142 checks); exits non-zero on failure
+lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
 luac5.4 -p orchestration_data.lua
 ```
@@ -169,15 +170,16 @@ Percussion Section and Timpani; `basses` → Double Bass and Chorus), since the
 user can arrow through the matches. They are *not* allowed where a dedicated
 entry exists: when the `dynamics` entry was added, the word had to be removed
 from `balance`'s aliases or the alphabetical tie-break sent it to the wrong page.
-A one-liner over both files will list them:
+`tests/audit-aliases.lua` reports them:
 
 ```bash
-lua5.4 -e 'local S={} for _,f in ipairs{"orchestration_data.lua","orchestration_composers.lua"} do
-  for _,e in ipairs(dofile(f).ENTRIES) do local function k(x) return (x:lower():gsub("[^%w]+","")) end
-  local function a(x) local z=k(x) S[z]=S[z] or {} table.insert(S[z],e.id) end
-  a(e.name) a(e.id) for _,x in ipairs(e.aliases or {}) do a(x) end end end
-  for w,ids in pairs(S) do if #ids>1 then print(w, table.concat(ids,", ")) end end'
+lua5.4 tests/audit-aliases.lua      # currently: basses, drums, plucked
 ```
+
+It must dedupe keys *within* an entry before comparing across entries — an entry
+whose name, id and one alias all fold to the same key would otherwise look like a
+three-way collision with itself, and the report becomes useless. (A one-liner in
+this file did exactly that until it was run and replaced with the script.)
 
 ## Editorial rules
 
