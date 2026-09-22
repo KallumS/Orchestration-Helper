@@ -238,24 +238,25 @@ page — and what let a test click on something, since `gfx.rect` is a no-op her
 and a drawn row leaves no other trace. (The position record was added in the
 folding round; this section claimed it existed before it did.)
 
-`tests/run.lua`, 171 checks in nine sections:
+`tests/run.lua`, 174 checks in nine sections:
 
 - **Data integrity** — both databases merged; unique ids; required fields; every
-  one of 1,472 items cited; every citation naming a declared source; every
+  one of 1,520 items cited; every citation naming a declared source; every
   `BEL` citation carrying a page; every `related` and `instruments` id
   resolving.
 - **Search ranking** — 102 query/expectation pairs, covering aliases, prefixes,
   punctuation (`b-flat clarinet`, `'cello`) and typos (`tromobne`, `bassson`,
   `Bernard Hermann`).
-- **Rendering** — all 122 entries at 760×680, 470×380 and 1400×900, plus survival
+- **Rendering** — all 123 entries at 760×680, 470×380 and 1400×900, plus survival
   at 200×150, 120×120, 60×400 and 3000×200.
 - **Interaction** — arrows, Enter, Esc, Alt+Left, F1, header button clicks, chip
   clicks, wheel and page scrolling, the reverse links, no-result view, prose
   fallback.
-- **Citation precision** — no bare `BEL`, `IDIO` or `HUG` tag (all three sources
-  have been read in full, so a bare tag is now an un-upgraded citation rather than
-  an honest limit); every declared source actually cited somewhere; no source
-  missing from the Sources page order.
+- **Citation precision** — no bare `BEL`, `IDIO`, `HUG`, `BERL` or `ACTOR` tag (all
+  five have been read, so a bare tag is now an un-upgraded citation rather than an
+  honest limit); every declared source actually cited somewhere; no source missing
+  from the Sources page order; and no `BERL`-only item quoting the copyrighted
+  translation at length.
 - **Index folding** — closed on a first run and short enough not to scroll; every
   family listed with a count taken from the data; click to open one, click again
   to close it; Ctrl+Right and Ctrl+Left for all; the open set surviving a reload;
@@ -281,26 +282,26 @@ changed.
 
 | File | Lines | Purpose |
 | --- | --- | --- |
-| `Orchestration Helper.lua` | 1,222 | GUI, search, layout, input |
-| `orchestration_data.lua` | 4,353 | 72 entries: instruments, sections, cross-group topics, craft, character, acoustics, listening |
+| `Orchestration Helper.lua` | 1,223 | GUI, search, layout, input |
+| `orchestration_data.lua` | 4,647 | 73 entries: instruments, sections, cross-group topics, craft, character, acoustics, listening, playability |
 | `orchestration_composers.lua` | 1,998 | 50 entries: composers |
-| `tests/run.lua` | 596 | the 171-check suite |
+| `tests/run.lua` | 623 | the 174-check suite |
 | `tests/harness.lua` | 138 | headless `gfx`/`reaper` stand-in |
 | `tests/audit-aliases.lua` | 55 | alias collision report |
 | `tests/audit-sources.lua` | 92 | citation coverage per source tag |
-| `README.md` | 330 | user documentation, bibliography |
-| `CLAUDE.md` | 345 | guidance for future Claude sessions |
+| `README.md` | 343 | user documentation, bibliography |
+| `CLAUDE.md` | 362 | guidance for future Claude sessions |
 | `COLOUR.md` | 121 | the colour scheme, kept by hand |
-| `MUSIC-THEORY.md` | 667 | the theory the data files are instances of |
-| `docs/SESSION-LOG.md` | 759 | this file |
+| `MUSIC-THEORY.md` | 828 | the theory the data files are instances of |
+| `docs/SESSION-LOG.md` | 902 | this file |
 
-**122 entries, 1,472 cited items, 9 source tags** (`RK`, `SIN`, `WP`, `BEL`, `HUG`,
-`IDIO`, `OMT`, `MOD`, `FILM`).
+**123 entries, 1,520 cited items, 11 source tags** (`RK`, `BERL`, `SIN`, `WP`,
+`BEL`, `HUG`, `IDIO`, `ACTOR`, `OMT`, `MOD`, `FILM`).
 
 By family: Strings 6, Woodwind 11, Brass 6, Percussion 13, Plucked 3, Voices 2,
-Combining 7, Craft 10, Character 11, Reference 4, Composers 36, Film Composers 13.
+Combining 7, Craft 11, Character 11, Reference 4, Composers 36, Film Composers 13.
 
-By kind: 33 instruments, 49 composers, 21 topics, 8 sections, 10 moods,
+By kind: 33 instruments, 49 composers, 22 topics, 8 sections, 10 moods,
 1 technique.
 
 Commits on `claude/sharp-hawking-kh7a7a`:
@@ -314,8 +315,10 @@ Commits on `claude/sharp-hawking-kh7a7a`:
   replaced by `tests/audit-aliases.lua`, §6 rewritten, stale figures corrected.
 - `3d5a9db` — collapsible index, the shared colour scheme, `COLOUR.md`,
   `tests/audit-sources.lua`.
-- this round — `IDIO` and `HUG` upgraded to located citations, the balance-ratio
+- `f682700` — `IDIO` and `HUG` upgraded to located citations, the balance-ratio
   and spectrum material, *Where to Hear These Combinations*, `MUSIC-THEORY.md`.
+- this round — Berlioz cited directly as `BERL`, `ACTOR` split out of `MOD`,
+  *Writing Playable Music*, and editorial rule 6 on copyrighted translations.
 
 ---
 
@@ -649,6 +652,123 @@ dependence on never-read sources down from 154 items to 137.
 
 ---
 
+## 6d. Later addition: Berlioz direct, and the modern teaching text
+
+Two files: a zip of the ACTOR Project's Timbre and Orchestration Resource, and the
+Berlioz *Treatise on Instrumentation and Orchestration* from the Hector Berlioz
+Website. Both were named in the previous round's shopping list.
+
+### Berlioz stops being an intermediary
+
+Editorial rule 5 existed because Berlioz, Lavignac, Gevaert, Stone and Forsyth were
+all quoted *as Singleton quotes them* — the app had about twenty Berlioz items, all
+tagged `SIN`. Berlioz can now be cited directly as `BERL`, and he is the earliest
+source in the project by eighty years.
+
+His wording in this translation does not match the 1917 translation Singleton uses,
+so nothing could be verified by string search; the existing items had to be checked
+against his **substance**. They hold. But the treatise also produced the most
+interesting single find of the whole project:
+
+**Berlioz and Rimsky-Korsakov disagree about doubling the violins in octaves.**
+Rimsky-Korsakov calls Vns I / Vns II at the octave "a very common process used for
+all kinds of melodic figures" (`RK p.40`). Berlioz grants that this is the common way
+to give a violin passage power, and says that unless the passage lies high, putting
+*all* the violins in unison is far better — citing the end of the first movement of
+Beethoven's Fifth. He also rules out a case Rimsky-Korsakov permits: reinforcing a
+violin unison with violas an octave below, which he calls too weak and out of
+proportion, adding a buzzing that obscures the violins rather than strengthening
+them; put the violas with the 'cellos instead.
+
+Both are now on the `violin` page next to each other, with register as the deciding
+factor, and the disagreement is named in editorial rule 3 as a second worked example
+alongside oboe + clarinet. A third disagreement surfaced too: Berlioz thinks a
+trombone doubling the bass line throughout is about the most vulgar thing in
+orchestration, where Rimsky-Korsakov is relaxed about it.
+
+Other material new to the app, all of it things no later source here states as
+clearly:
+
+- **Build the orchestra to the work**, not the reverse; and repertoire decides the
+  string count, because a large string body is too loud for the delicate wind writing
+  in Haydn and Mozart.
+- **There are two systems.** Invert the string-dominant scheme and the strings become
+  the bridge to a wind-and-brass orchestra, softening brass brilliance or lending
+  warmth, their tremolo able to make a drum roll musical by blending with it. The same
+  bridging function the `blend` entry catalogues, reached from the other side.
+- **Placement is compositional.** Groups in dialogue must be far enough apart to read
+  as dialogue, and the composer should mark the layout in the score. Uniform
+  placement of instrument masses is "one of the greatest obstacles" to genuinely new
+  large-scale work. Percussion excepted: they drag at a distance from the conductor.
+- **There is no open-air music.** Reflectors are indispensable; a thousand winds and
+  two thousand voices in an open plain would not have a twentieth of the effect of
+  eighty players in a good hall. Street bands confirm rather than contradict it.
+- Viola cautions (Méhul's *Uthal*, written for violas without violins, was found
+  unbearably monotonous), when to separate 'cellos from basses, four bassoons written
+  as three parts with the lowest doubled an octave down, and quiet trumpets against
+  the convention.
+
+### A new editorial rule, because of who owns the words
+
+The treatise is public domain. **The translation is not** — it reserves all rights
+explicitly. Facts and ideas are not copyrightable, but a translator's prose is their
+work, so the rule added as **editorial rule 6** is that `BERL` items state Berlioz's
+substance in the encyclopaedia's own words rather than reproducing the translator's
+sentences. Where Berlioz is quoted verbatim anywhere in the repo it is from the older
+public-domain translation Singleton uses, and the item carries `SIN` as well.
+
+This is enforced rather than trusted: the suite fails any `BERL`-only item with a
+quoted run of more than twelve words, and that check was verified to fail by planting
+one. The rule is written to generalise, because the next copyrighted translation or
+edition of an old text will raise the same question.
+
+One scope limit recorded honestly: the translation is a **selection**, omitting
+roughly the third of the treatise given to instrument ranges and mechanism. That is
+the right third to lose for this project, but `BERL` is not complete coverage of
+Berlioz on any instrument.
+
+### ACTOR turns out to be a real textbook
+
+The zip is *Extreme Orchestration* by Don Freund and David Cutler (February 2024) —
+not a reference database but the present-day teaching text `MOD` had been standing in
+for. Split out as `ACTOR`, cited by chapter.
+
+Its best contribution explains something the app already asserted. Belkin warns about
+"grayness" from too much literal doubling; Freund and Cutler supply the mechanism:
+
+> mixing many colours of paint gives grey or black, and combining many instruments
+> cancels the unique qualities of each
+
+so flute, clarinet, trumpet, marimba and violin in unison do not sound five times as
+colourful — they sound generic. With the corollary that colour is contextual, never
+absolute: a single clarinet is far less colourful over saxophones than over strings,
+and the generic dense combination can be the most striking thing in a piece if it
+follows solo writing.
+
+Also new:
+
+- **In an octave doubling, mixed timbres carry further than matched ones** — oboes
+  and clarinets each in octaves project better than either pair in unison. The flute
+  is the exception (weak low register), and brass is the case where matching wins:
+  octaves between trumpets and trombones are the strongest brass doubling available.
+- **Skip a gradation.** The concrete form of Belkin's four-level advice: mf to f is
+  negligible; mp to f or mf to ff registers. Players under-play p and mp and respond
+  to extremes.
+- **A doubling can exist for the player, not the listener** — Strauss gives horns at
+  the top of their range security with a unison trumpet doubling.
+- A new Craft entry, **Writing Playable Music**: difficulty accumulates across a
+  movement rather than per bar; "professional" means paid, not flawless; string
+  players practise scales so scalar writing comes off where leaps will not; changing
+  a note or two can make an unidiomatic passage far easier without losing it; and
+  descriptors (*boldly, whispering, crunchy, like a bad joke*) carry what notation
+  cannot. It gathers the playability material that had been scattered across Berlioz,
+  the Idiomatic Orchestra, Hugill and ACTOR.
+
+After this round: **123 entries, 1,520 cited items, 11 source tags, 174 checks**, and
+dependence on never-read sources at 136 items — `FILM` 77, `MOD` 58, `OMT` 1.
+
+---
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
@@ -681,6 +801,14 @@ dependence on never-read sources down from 154 items to 137.
 - **Koechlin is unread.** Both Belkin and the Idiomatic Orchestra lean on the
   *Traité de l'orchestration*, and everything credited to Koechlin here comes
   through one of them. The Idiomatic Orchestra notes it has never been translated.
+- **Berlioz is read in selection.** The translation consulted omits roughly the
+  third of the treatise given to instrument ranges and mechanism. That is the right
+  third to lose here, but `BERL` is not complete coverage of Berlioz on any
+  instrument, and a full edition (Macdonald's translation and commentary, or the New
+  Berlioz Edition vol. 24) would close it.
+- **Piston and Adler are still absent.** Belkin names both among his own debts, and
+  they are what much of `MOD` is gesturing at. `ACTOR` now covers some of that
+  ground but not the systematic instrument-by-instrument treatment.
 - **One citation is unresolved.** The String Section entry has an item under
   "Belkin's practical notes" quoting "strings generally balance themselves regardless
   of voicing", tagged `MOD`. Either the words are Belkin's and it needs a page, or
@@ -757,3 +885,18 @@ dependence on never-read sources down from 154 items to 137.
 - **An audit is code and can be wrong in the same way twice.** `audit-sources.lua`
   tested for `p.` or `ch.` and so reported every title-based citation as bare, right
   after being written to stop exactly that kind of mistaken count.
+- **Check who owns the words, not just who owns the ideas.** Berlioz's treatise is
+  public domain; the translation consulted is not, and reserves all rights. Facts
+  and ideas are free to use, a translator's prose is not, and the two can come in
+  the same file. That produced editorial rule 6 and a test that fails a long
+  quotation on a `BERL`-only item — written to generalise, because the next
+  copyrighted translation of an old text will raise the same question.
+- **A source's wording will not match across translations, so verify substance.**
+  None of the existing Berlioz quotations could be confirmed by string search: the
+  app has the 1917 translation Singleton quotes, the new file has a modern one. The
+  claims had to be re-read and compared by meaning. Expect this whenever a source
+  arrives in a different edition from the one already cited.
+- **Disagreement between sources is a finding worth going looking for.** The
+  Berlioz/Rimsky-Korsakov split on doubling violins in octaves is the single most
+  useful thing the treatise added, and it only appeared because the new source was
+  read against what the app already claimed rather than only for new material.

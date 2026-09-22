@@ -13,11 +13,13 @@ not the data files in prose — where the app gives a rule, this gives the reaso
 
 | Tag | Work | Precision |
 | --- | --- | --- |
+| `BERL` | Berlioz, *Treatise on Instrumentation and Orchestration* (1843/1855) | by instrument; **paraphrased** |
 | `RK` | Rimsky-Korsakov, *Principles of Orchestration* (1922) | by page |
 | `SIN` | Singleton, *The Orchestra and Its Instruments* (1917) | by approximate page |
 | `BEL` | Belkin, *Artistic Orchestration* (2001/2008) | by page |
 | `IDIO` | *The Idiomatic Orchestra* | by chapter |
 | `HUG` | Hugill, *The Orchestra: A User's Manual* (2015) | by page title |
+| `ACTOR` | Freund & Cutler, *Extreme Orchestration* (2024) | by chapter |
 | `OMT` | *Open Music Theory* 2e | by chapter |
 | `WP` | Wikipedia, *Orchestration* | by tag (no pagination) |
 | `MOD`, `FILM` | present-day and film-music references | by tag (not read in full) |
@@ -25,6 +27,13 @@ not the data files in prose — where the app gives a rule, this gives the reaso
 Where sources conflict, both are given and the conflict is named. That is a rule of
 the project, not an evasion: disagreement between a treatise and present-day
 teaching is information about how confident you should be.
+
+One citation works differently. Berlioz's treatise is public domain, but the modern
+English translation consulted for it is not, and reserves all rights. So `BERL`
+claims state Berlioz's substance in this file's own words rather than reproducing
+the translator's sentences. Ideas and facts are free; a translator's prose is their
+work. Where Berlioz appears in quotation marks anywhere in this project it is from
+the older public-domain translation Singleton uses, and carries `SIN` too.
 
 ---
 
@@ -452,19 +461,162 @@ register; Strauss making a low piccolo pass for a recorder. `IDIO ch.12`
 This matters more than any individual rule, because it tells you how much weight to
 put on the rest.
 
+- **Doubling the violins in octaves.** The clearest case in the project, because both
+  sides are explicit. Rimsky-Korsakov calls Vns I / Vns II at the octave "a very
+  common process used for all kinds of melodic figures, in particular those in the
+  very high register" `RK p.40`. Berlioz grants that this is the common way to give a
+  violin passage power, and says that unless the passage lies high, putting *all* the
+  violins in unison is far better — incomparably more powerful and beautiful — citing
+  the end of the first movement of Beethoven's Fifth, whose electrifying effect he
+  attributes to violins in unison `BERL The violin`. Both are everywhere in the
+  repertoire. The reconcilable reading is register: high, octave; otherwise try the
+  unison first. Note also that Berlioz rules out a case Rimsky-Korsakov permits —
+  reinforcing a violin unison with violas an octave below, which he says is too weak
+  and out of proportion and adds a buzzing that obscures the violins `BERL The viola`.
 - **Oboe + clarinet in unison.** Rimsky-Korsakov scores it freely and describes it as
   fuller than either alone, the dark nasal oboe prevailing low and the bright
   clarinet high `RK p.47`; a good deal of present-day teaching warns against it. It
-  is in Schubert's *Unfinished* and used freely by Tchaikovsky. Both positions are
-  recorded in the app, on both instruments' pages, because the evidence genuinely
-  points both ways.
+  is in Schubert's *Unfinished* and used freely by Tchaikovsky, and Ravel has oboes
+  and clarinets in octaves at Bolero Fig. 9 `HUG Woodwind Section: Standard
+  Combinations`. Both positions are recorded in the app, on both instruments' pages.
+- **Whether the trombone may carry the bass line.** Common practice doubles the
+  basses with a trombone. Berlioz knows "nothing less harmonious and more vulgar",
+  and holds that the trombone's sound is distinctive enough that it should never be
+  heard except for a particular effect `BERL The trombone`. Rimsky-Korsakov is much
+  more relaxed about trombones on the bass.
 - **What to study first.** Rimsky-Korsakov was arguing in 1891 against a
   conservatoire tradition that taught scoring from Gluck and Mozart; Belkin
   recommends a different order. The app records both rather than picking.
 - **How much a treatise transfers.** Brass instruments are considerably more
   powerful now than in the classical era, while strings are essentially unchanged
   `IDIO Dynamics and Balance`; halls are larger. A balance ratio from 1922 is a
-  starting point, not an answer.
+  starting point, not an answer. Berlioz made the same complaint in his own time:
+  opéra-comique orchestras had gained brass and percussion without gaining strings,
+  so "the tonal balance is destroyed, the violins can scarcely be heard"
+  `BERL The Orchestra`.
+
+### 10a. Berlioz on the orchestra as a whole
+
+He is the earliest source here and several of his points are not made as clearly
+anywhere later.
+
+**Build the orchestra to the work.** Unless the forces are fixed, assemble the
+players according to the style and character of the piece and the effects it needs.
+For the Requiem he put four brass orchestras at the four corners of the main one,
+with ten players on eight pairs of timpani, and says no other arrangement could have
+produced the effect. `BERL The Orchestra`
+
+**Repertoire decides the string count.** The modest wind of an opéra-comique
+orchestra suits Haydn and Mozart, and a larger string body would often be too loud
+for the delicate effects they give to flutes, oboes and bassoons alone. Beethoven,
+Weber and anything in a grand and passionate style need the full string body.
+`BERL The Orchestra`
+
+**There are two systems, not one.** The string-dominant scheme is the familiar one,
+but inverting it works: with the strings too few to dominate, they become the bridge
+to a wind-and-brass orchestra, softening the brilliance of the brass or lending
+warmth and impetus, their tremolo able to make even a drum roll musical by blending
+with it. `BERL The Orchestra` This is the same bridging function catalogued in §7,
+arrived at from the other direction.
+
+**Placement is compositional, not administrative.** Groups meant to question and
+answer each other only read as dialogue if they are far enough apart, and the
+composer should mark the layout he wants in the score. Percussion playing an
+ordinary rhythm together can sit together; percussion in rhythmic dialogue belongs
+at the two ends of the orchestra. Berlioz calls the constant uniformity of
+instrument placement one of the greatest obstacles to genuinely new large-scale
+work — imposed by habit, routine and laziness more than by cost. One practical
+exception: percussion must stay near the conductor, because they drag at a distance.
+`BERL The Orchestra`
+
+**There is no open-air music.** Reflectors are indispensable and work better the
+nearer they are to the source. A thousand wind players and two thousand voices in an
+open plain would not have a twentieth of the effect of eighty players and a hundred
+voices in a good hall. Street bands look like a counter-example and are in fact the
+proof: the tall houses, trees and façades are the reflectors, and the music
+evaporates the moment the band marches into open ground. `BERL The Orchestra`
+
+**Tiers, not a flat floor.** Raise the players one above another so each row projects
+with nothing in the way. An opera pit gives up most of that — low, central, flat —
+which is why delicate effects are lost in the theatre, and why a dramatic score
+should not be written exactly like a concert work. `BERL The Orchestra`
+
+**And the honest limit.** Berlioz thought the invention of beautiful orchestral
+effects could not be explained — a gift that practice and observation develop rather
+than supply. What can be taught, he says, is how to assemble an orchestra fit to
+render a given work faithfully. This file is on the teachable side of that line.
+`BERL The Orchestra`
+
+One more thing worth flagging, because it dates an idea a century earlier than you
+would expect. Berlioz states the purpose of combining instruments as two things:
+modifying the sound of some by others, and drawing from the ensemble a sound *none
+of them could produce alone or with others of its own family* `BERL Introduction`.
+That second clause is the mixture principle of §3 — the invented instrument —
+written in 1843, long before it was analysed as such.
+
+### 10b. Why piling on instruments reduces colour
+
+The most useful single idea in the modern teaching text, and the mechanism behind
+Belkin's warning about "grayness" in §3.
+
+**The paint analogy.** Mixing many colours of paint gives grey or black, and
+combining many instruments cancels the unique qualities of each. Flute, clarinet,
+trumpet, marimba and violin in unison do not sound five times as colourful; they
+sound generic. `ACTOR All Instruments: Effective Instrumental Writing`
+
+**Colour is contextual.** "A single clarinet sounds much less colorful when draped
+over a backdrop of saxophones than it does when combined with a string choir." And
+the dense combination that sounds generic alone can be the most striking thing in a
+piece if it follows a long passage of solo writing. Judge a colour against its
+surroundings, never in isolation. `ACTOR All Instruments: Effective Instrumental
+Writing`
+
+**No instrument has one sound.** A clarinet alone offers low, middle and high,
+staccato and legato, sustained, loud and soft, before any combination at all — so a
+woodwind quintet has far more than five sounds. Treating an instrument as a single
+colour is the beginner's error. `ACTOR All Instruments: Effective Instrumental
+Writing`
+
+**In an octave doubling, mixed timbres carry further than matched ones.** Oboes and
+clarinets each doubled in octaves project better than either pair doubled in unison,
+"because the mix of the different timbres in each octave is more penetrating than
+doubles of the same timbre a2" — Tchaikovsky's Fourth uses exactly this for its
+strongest lines. The flute is the exception: its weak low register means a flute
+taken down to double an oboe contributes less than it would playing a2 above.
+`ACTOR Woodwinds: Scoring Excerpts` The one place matching wins is brass, where
+octaves between timbrally matched trumpets and trombones give the most powerful
+doubling available. `ACTOR Brass: Introduction`
+
+### 10c. Playability, and dynamics that register
+
+**Possible is not practical.** Tchaikovsky's First Piano Concerto was called
+unplayable and is now repertoire, so difficulty is no veto — but difficulty
+accumulates, and a passage that works in isolation may be near impossible strung
+together with other acrobatic demands. "Professional" means the players are paid, not
+that they are flawless, and large ensembles rehearse less per player than chamber
+groups. `ACTOR All Instruments: Effective Instrumental Writing`
+
+**Write what the practice room rewards.** String players practise scales and
+arpeggios obsessively, so scalar and arpeggiated writing comes off convincingly even
+quickly, where large leaps, string crossings and irregular patterns will not. And
+altering a note or two can make an unidiomatic passage "exponentially easier to
+execute, while preserving the desired effect and essence" — if two versions sound
+equivalent and one is far easier, there is no argument for the harder one.
+`ACTOR All Instruments: Effective Instrumental Writing`
+
+**Skip a gradation.** Dynamics are relative, not absolute: no decibel level
+constitutes forte. Players respond to wide contrasts and often under-play p and mp
+altogether. "For noticeable contrasts, skip at least one gradation. The difference
+between mf and f is negligible. Moving from mp to f or mf to ff will have a more
+dramatic impact." `ACTOR All Instruments: Effective Instrumental Writing` This is the
+concrete form of Belkin's advice to write as though only pp, mf, f and ff exist
+`BEL p.27`.
+
+**Say what notation cannot.** Descriptors — boldly, whispering, crunchy, like a bad
+joke — give players insight that no arrangement of notes, rhythms, dynamics and
+articulations will. Expressive markings are not a last-minute layer; they are what
+defines the character of the material. `ACTOR All Instruments: Effective Instrumental
+Writing`
 
 ### 11. The consensus rule, and why it is the project's backbone
 
@@ -648,13 +800,22 @@ strophic, 32-bar AABA, and verse-chorus layouts; and there is a developed accoun
 
 Honest gaps, so nobody mistakes this for complete.
 
-- **`MOD`, `FILM` and `OMT` were never read in full.** 137 of the app's 1,472 cited
-  items (9%) rest on search-result summaries. The `OMT` orchestration chapter in
+- **`MOD`, `FILM` and `OMT` were never read in full.** 136 of the app's 1,520 cited
+  items (9%) rest on search-result summaries. `FILM` (77 items) is the weakest part
+  of the project by a wide margin. The `OMT` orchestration chapter in
   particular was not in the material supplied, so the single `OMT` citation could not
   be upgraded even though the rest of *Open Music Theory* was read.
 - **Koechlin's *Traité de l'orchestration* has not been read.** Both Belkin and the
   Idiomatic Orchestra lean on it, and the latter notes it "has never been
   translated." Everything here credited to Koechlin comes through one of them.
+- **Berlioz is read in selection, not in full.** The translation consulted omits
+  roughly the third of the treatise given to instrument ranges and mechanism. That
+  is the right third to lose for this project's purposes, but it means `BERL` cannot
+  be treated as complete coverage of what Berlioz says about any instrument.
+- **The standard modern textbooks are still absent.** Piston and Adler are named by
+  Belkin among his own debts and are what much of `MOD` is gesturing at. *Extreme
+  Orchestration* (`ACTOR`) now covers some of that ground, but not the systematic
+  instrument-by-instrument treatment those two provide.
 - **Belkin's notated examples are not represented.** The extraction lost them.
 - **One citation is unresolved.** An item on the String Section page, under a heading
   reading "Belkin's practical notes", quotes "strings generally balance themselves

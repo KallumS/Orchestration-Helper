@@ -367,6 +367,10 @@ e{ id="brass", name="Brass Section", family="Brass", kind="section",
       {"4 Horns + 2 Trumpets","A standard reinforcement of the same line.","RK p.55"},
     }},
     {"Doublings in octaves, thirds, sixths", {
+      {"The strongest brass doubling","Octaves between timbrally matched instruments - "
+        .. "trumpets with trombones - give the most powerful brass doubling. Matching the "
+        .. "timbre is what does it; this is the case where like with like wins.",
+        "ACTOR Brass: Introduction"},
       {"Normal register order","Trumpet / 2 Horns  ·  Trumpet / Trombone  ·  "
         .. "Trombone / Tuba  ·  2 Trombones / Trombone + Tuba  ·  2 Trumpets / 2 "
         .. "Trombones  ·  2 Horns / Tuba. \"Likewise successful whether the "
@@ -896,6 +900,20 @@ e{ id="blend", name="Blend Bridges Between Groups", family="Combining", kind="to
         .. "distinctly.\"","RK p.35"},
       {"All three in unison","\"Produces a rich, mellow and coherent tone.\"","RK p.35"},
     }},
+    {"Berlioz's statement of the aim", {
+      {"What combining is for","He sets out two purposes: modifying the sound of some "
+        .. "instruments by others, and drawing from the ensemble a sound that none of "
+        .. "them could produce alone or with others of its own family. The second is the "
+        .. "ambition behind everything on this page - and, written in 1843, it is the "
+        .. "mixture principle described under Doubling, a century before it was analysed "
+        .. "as such.","BERL Introduction"},
+      {"And what cannot be taught","Berlioz thought the invention of beautiful "
+        .. "orchestral effects could not be explained - a gift practice and observation "
+        .. "develop rather than supply. What can be taught, he says, is how to assemble "
+        .. "an orchestra fit to render a given work faithfully. This encyclopaedia is on "
+        .. "the teachable side of that line, and does not pretend otherwise.",
+        "BERL The Orchestra"},
+    }},
     {"Ranking for expression", {
       {"The order","Strings first, then woodwind, brass, plucked strings, percussion "
         .. "of definite pitch, percussion of indefinite pitch. \"As regards "
@@ -1107,6 +1125,101 @@ e{ id="listening", name="Where to Hear These Combinations", family="Reference", 
     }},
   },
   related={"doubling","blend","balance","spectrum","composers","three_groups"},
+}
+
+e{ id="idiomatic", name="Writing Playable Music", family="Craft", kind="topic",
+  aliases={"idiomatic","playable","playability","difficulty","hard to play",
+           "unidiomatic","writing for players","practical","will they play it",
+           "too difficult","technique","performability"},
+  summary="Almost anything is possible with enough rehearsal, and that is not the same "
+       .. "as practical. The question is not whether a passage can be played but whether "
+       .. "it will be played well by the players you actually have, in the time they "
+       .. "actually get - and small changes often buy a great deal of it back.",
+  facts={
+    {"The trade","Difficult writing may be exactly what the music needs. The price is "
+        .. "that it may not be played correctly, or at all."},
+    {"Where it bites hardest","Large ensembles rehearse less per player than chamber "
+        .. "groups, so the same passage is riskier in an orchestra."},
+  },
+  sec={
+    {"Possible is not the same as practical", {
+      {"The precedent cuts both ways","Tchaikovsky's First Piano Concerto was called "
+        .. "unplayable and is now repertoire, and Ferneyhough's music gets performed and "
+        .. "recorded. So difficulty is not a veto. But \"just because something is "
+        .. "possible does not mean that it is practical or idiomatic\".",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Difficulty accumulates","A hard passage that works in isolation may be near "
+        .. "impossible strung together with a series of other acrobatic demands. Budget "
+        .. "difficulty across a movement, not per bar.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+      {"\"Professional\" does not mean flawless","It means the players are paid. Top "
+        .. "players still face the same challenge, with less rehearsal time than an "
+        .. "amateur group might give you. Write for the players you have, knowing their "
+        .. "strengths and how long they will have.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+    }},
+    {"Write what the practice room rewards", {
+      {"Scales and arpeggios","String players practise them obsessively, so a scalar or "
+        .. "arpeggiated passage will come off convincingly even at a quick tempo - where "
+        .. "frequent large leaps, string crossings or irregular melodic patterns will "
+        .. "not.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Change a note or two","Slightly varying an unidiomatic passage can make it "
+        .. "\"exponentially easier to execute, while preserving the desired effect and "
+        .. "essence\". If two versions sound equivalent and one is far easier, there is no "
+        .. "argument for the harder one.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Distribute what one player cannot do","Berlioz splits a theme of wide fast leaps "
+        .. "between the violins so no desk has to make them; Ravel modifies Bolero's "
+        .. "triple-tonguing for the woodwind while the horns play it straight. See "
+        .. "Doubling.","IDIO Partial Doubling"},
+      {"Let the less agile instrument simplify","Where 'cellos and basses share a line, "
+        .. "the basses take a plainer version. Berlioz gives the same reason for "
+        .. "separating them at all: figuration quicker than the basses could manage "
+        .. "cleanly.","IDIO Partial Doubling; BERL The cello"},
+    }},
+    {"Look after the player, not just the part", {
+      {"Do not start cold on an exposure","The piccolo's first entrance in Tchaikovsky's "
+        .. "Fourth is a fortissimo octave doubling in the third movement - musically "
+        .. "effective, and \"physically and psychologically unfriendly to the piccolo "
+        .. "player\". An inconsequential warm-up passage a few bars earlier would make it "
+        .. "far less alarming.","ACTOR Woodwinds: Scoring Excerpts"},
+      {"Leave time to move","Percussionists need time to change instrument or pick up "
+        .. "different beaters; not allowing for it is a common mistake. Think about the "
+        .. "choreography of the section.","HUG Percussion Section"},
+      {"Cover the principal where you can","A fifth horn may be engaged to take the less "
+        .. "important passages in the first part so the principal can save themselves for "
+        .. "the solos. You do not write this, but it explains why a demanding first horn "
+        .. "part is less unreasonable than it looks.","HUG Brass Section"},
+    }},
+    {"Say what you want in the score", {
+      {"Descriptors carry what notation cannot","Adjectives - boldly, whispering, "
+        .. "crunchy, like a bad joke - give players insight no combination of notes, "
+        .. "rhythms, dynamics and articulations will. The more character the descriptor "
+        .. "suggests, the more use it is.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Details define character","Notes and rhythms supply the material; the expressive "
+        .. "markings define what it is. Treating dynamics, articulations, inflections and "
+        .. "descriptors as a last-minute layer is a missed opportunity, not a tidy "
+        .. "workflow.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Do not mark every note the same","\"Some orchestrators fall into the trap of an "
+        .. "articulation area, in which every note has the same marking.\" Consistency may "
+        .. "be right; uniformity by default is not.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Write the layout down too","Where a dialogue depends on the groups being far "
+        .. "apart, Berlioz says the composer should indicate the seating he wants in the "
+        .. "score. See The Modern Orchestra.","BERL The Orchestra"},
+    }},
+    {"Register changes the instrument, not just the pitch", {
+      {"The general trend","Instruments tend to sound dark at the bottom of their range "
+        .. "and brighter as the pitch rises - but the character changes, not only the "
+        .. "brightness.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"The same note, two instruments","Middle C sits at the bottom of the flute's range "
+        .. "and sounds rich and colourful; the same sounding pitch is extremely high, thin "
+        .. "and pinched on contrabassoon. Choose the instrument for where the note falls "
+        .. "in its range, not for the note.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"And check the exceptions","A low oboe penetrates more than a high one. See "
+        .. "Overtones, Formants and Penetration.","IDIO Dynamics and Balance"},
+    }},
+  },
+  related={"quality","dynamics","doubling","spectrum","percussion","horn","orchestra"},
 }
 
 e{ id="balance", name="Balance and Relative Strength", family="Combining", kind="topic",
@@ -1382,6 +1495,30 @@ D.SOURCES.BEL = {
     .. "names, are chiefly to Koechlin's 'Traite de l'Orchestration', and to "
     .. "Rimsky-Korsakov, Piston and Adler.",
 }
+D.SOURCES.BERL = {
+  tag="BERL", short="Berlioz, Treatise on Instrumentation and Orchestration",
+  full="Hector Berlioz, 'Grand traite d'instrumentation et d'orchestration "
+    .. "modernes' (Paris, 1843; second edition 1855). The underlying text is public "
+    .. "domain. Consulted in the English translation by Michel Austin on the Hector "
+    .. "Berlioz Website, which is a *selection* - roughly the third of the book "
+    .. "given to technical range and mechanism is omitted, leaving the material on "
+    .. "timbre, character and combination, which is the part this encyclopaedia "
+    .. "needs. That translation reserves all rights, so BERL items paraphrase "
+    .. "Berlioz's substance rather than reproducing the translator's sentences; "
+    .. "where Berlioz is quoted word for word in this encyclopaedia it is from the "
+    .. "older public-domain translation Singleton uses, and is tagged SIN as well. "
+    .. "Cited by the instrument or chapter heading.",
+}
+D.SOURCES.ACTOR = {
+  tag="ACTOR", short="Freund & Cutler, Extreme Orchestration",
+  full="Don Freund and David Cutler, 'Extreme Orchestration' (published February "
+    .. "2024), on the Timbre and Orchestration Resource of the ACTOR Project "
+    .. "(Analysis, Creation and Teaching of Orchestration). Cited by chapter title. "
+    .. "Split out of the MOD group when the full text was supplied: it is the "
+    .. "present-day teaching text MOD was standing in for. Its particular "
+    .. "contribution is on dynamics, idiomatic writing, and why piling on "
+    .. "instruments reduces colour rather than adding it.",
+}
 D.SOURCES.OMT = {
   tag="OMT", short="Open Music Theory, 'Core Principles of Orchestration'",
   full="Gotham et al. (eds.), 'Open Music Theory' 2e, chapter 'Core Principles of "
@@ -1437,6 +1574,56 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
        .. "bards, not the violin tribe"},
   },
   sec={
+    {"Berlioz: build the orchestra to the work", {
+      {"The principle","Unless the available forces are fixed, assemble the players "
+        .. "according to the style and character of the piece and the effects it needs - "
+        .. "the reverse of writing for a standard roster and hoping. For the Requiem he "
+        .. "put four brass orchestras at the four corners of the main one, with ten "
+        .. "players on eight pairs of timpani, and says plainly that no other "
+        .. "arrangement could have produced the effect.","BERL The Orchestra"},
+      {"Haydn and Mozart want fewer strings","The modest wind of an opera-comique "
+        .. "orchestra suits their symphonies, and a larger string body would often be "
+        .. "too loud for the delicate effects they give to flutes, oboes and bassoons "
+        .. "alone. Beethoven's symphonies, Weber's overtures and anything in a grand and "
+        .. "passionate style need the full string body instead.","BERL The Orchestra"},
+      {"His own ideal concert orchestra","21 first violins, 20 seconds, 18 violas, 8 "
+        .. "first 'cellos, 7 second 'cellos, 11 double basses, 4 harps, and wind "
+        .. "including 2 piccolos, cor anglais, bass clarinet, 4 bassoons, 4 valve horns, "
+        .. "2 valve trumpets, 2 cornets, 4 trombones, ophicleide or tuba, two pairs of "
+        .. "timpani with four players. Note the 'cellos divided into firsts and seconds.",
+        "BERL The Orchestra"},
+      {"The other system","The string-dominant scheme is not the only one that works. "
+        .. "Invert it and the strings become the bridge to a wind-and-brass orchestra - "
+        .. "too few to dominate, they soften the brilliance of the brass, or lend warmth "
+        .. "and impetus, their tremolo able to make even a drum roll musical by blending "
+        .. "with it.","BERL The Orchestra"},
+    }},
+    {"Where the players sit", {
+      {"Tiers, not a flat floor","The best arrangement raises the players one above "
+        .. "another so each row projects to the audience with nothing in the way. An "
+        .. "opera pit gives up most of that advantage, being low, central and flat - "
+        .. "which is why, Berlioz says, delicate effects are lost in the theatre, and "
+        .. "why a dramatic score should not be written exactly like a concert work.",
+        "BERL The Orchestra"},
+      {"Distance is a compositional choice","Groups meant to question and answer each "
+        .. "other only read as dialogue if they are far enough apart, and the composer "
+        .. "should mark the layout he wants in the score. Percussion playing an ordinary "
+        .. "rhythm together can sit together; percussion in rhythmic dialogue is better "
+        .. "split to the two ends of the orchestra.","BERL The Orchestra"},
+      {"Keep percussion near the conductor","They drag at a distance, and need to be "
+        .. "close enough to respond instantly to the beat.","BERL The Orchestra"},
+      {"Uniform placement is a habit, not a law","Berlioz calls the constant uniformity "
+        .. "in placing masses of instruments one of the greatest obstacles to genuinely "
+        .. "new large-scale work, imposed by habit, routine and laziness more than by "
+        .. "cost.","BERL The Orchestra"},
+      {"There is no open-air music","Reflectors are indispensable, and the nearer they "
+        .. "are to the source the better they work. A thousand wind players and two "
+        .. "thousand voices in an open plain would not have a twentieth of the effect of "
+        .. "eighty players and a hundred voices in a good hall. Street bands appear to "
+        .. "contradict this and in fact confirm it: the tall houses, trees and facades "
+        .. "are the reflectors, and the music evaporates the moment the band marches "
+        .. "out into open ground.","BERL The Orchestra"},
+    }},
     {"Present-day string sizes", {
       {"Common professional layout","14 first violins / 12 seconds / 10 violas / 8 "
         .. "'cellos / 6 basses - written \"14/12/10/8/6\".","MOD"},
@@ -1516,6 +1703,12 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
        .. "distinct.",
   sec={
     {"When to double", {
+      {"To make a risky note secure","A doubling can exist for the player's sake rather "
+        .. "than the listener's. In Strauss, first and second horns at the top of their "
+        .. "range are given security by a unison doubling from the third trumpet - the "
+        .. "note is guaranteed whether or not the horns land it cleanly. Worth "
+        .. "remembering whenever you write near the top of a brass part.",
+        "ACTOR Brass: Introduction"},
       {"The elementary rule","\"Do not double at the unison, unless there is a "
         .. "definite need for more volume, or unless the particular color is exactly "
         .. "what is needed for the musical character.\"","BEL p.35"},
@@ -1655,6 +1848,33 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "more focused horn sound.","IDIO ch.12"},
     }},
 
+    {"Why more instruments is not more colour", {
+      {"The paint analogy","Mixing many colours of paint gives grey or black, and "
+        .. "combining many instruments cancels the unique qualities of each. Flute, "
+        .. "clarinet, trumpet, marimba and violin in unison do not sound five times as "
+        .. "colourful; they sound generic. This is the mechanism behind the grayness "
+        .. "Belkin warns of below.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Colour is contextual, not absolute","\"A single clarinet sounds much less "
+        .. "colorful when draped over a backdrop of saxophones than it does when combined "
+        .. "with a string choir.\" And the dense combination that sounds generic on its "
+        .. "own can be striking if it follows a long passage of solo writing. Judge a "
+        .. "colour against what precedes and surrounds it.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Mixed timbres penetrate further than matched ones","In an octave doubling, \"the "
+        .. "mix of the different timbres in each octave is more penetrating than doubles "
+        .. "of the same timbre a2\" - so oboes and clarinets each in octaves project "
+        .. "better than either pair doubled in unison. Tchaikovsky's Fourth uses exactly "
+        .. "this for its strongest lines.","ACTOR Woodwinds: Scoring Excerpts"},
+      {"The flute is the exception","Its weak low register means a flute taken down to "
+        .. "double an oboe contributes less than it would playing a2 in the higher "
+        .. "octave. In the middle octave, though, flutes add body to oboes for a full but "
+        .. "less brilliant sound.","ACTOR Woodwinds: Scoring Excerpts"},
+      {"How many sounds an instrument has","Not one. A clarinet alone offers low, "
+        .. "middle and high, staccato and legato, sustained, loud and soft - before any "
+        .. "combination. A woodwind quintet has far more than five sounds, and thinking "
+        .. "of an instrument as a single colour is the beginner's error.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+    }},
     {"Doubling without grayness", {
       {"The problem with literal doubling","\"Too frequent literal doubling leads to "
         .. "heaviness and a rather gray sound.\" Grayness - too much unison doubling - is "
@@ -1732,8 +1952,23 @@ e{ id="violin", name="Violin", family="Strings", kind="instrument",
         .. "figures, in particular those in the very high register\", which otherwise "
         .. "stand too isolated. Secures expression, fullness and firmness of timbre. "
         .. "The classic orchestral sound: high octave to the firsts, lower to the "
-        .. "seconds.","RK p.40; MOD"},
+        .. "seconds.","RK p.40; ACTOR Woodwinds: Scoring Excerpts"},
+      {"But Berlioz prefers the unison","He grants that doubling the firsts with the "
+        .. "seconds an octave below is the common way to give a violin passage power - "
+        .. "and says that unless the passage lies high, putting all the violins in "
+        .. "unison is far better, incomparably more powerful and beautiful. He cites "
+        .. "the end of the first movement of Beethoven's Fifth, whose electrifying "
+        .. "effect he attributes to violins in unison. Rimsky-Korsakov recommends the "
+        .. "octave; Berlioz recommends the unison below the top of the range. Both are "
+        .. "in the repertoire, so decide by register: high, octave; otherwise, try the "
+        .. "unison first.","BERL The violin; cf. RK p.40"},
       {"Vns / Violas","Common, especially when the lower octave goes below the open G.","RK p.41"},
+      {"Violins in unison + Violas an octave below","Berlioz warns against it: having "
+        .. "reached a violin unison, reinforcing it with violas an octave down is too "
+        .. "weak and out of proportion to the part above, and adds a superfluous "
+        .. "buzzing that obscures the violins rather than strengthening them. If the "
+        .. "viola part cannot be made distinctive, put the violas in unison with the "
+        .. "'cellos instead - as Beethoven does in the same movement.","BERL The viola"},
       {"Vns / 'Cellos","For very expressive passages, with the 'cellos on the A or D "
         .. "string. More resonant than violas/'cellos; instances are frequent.","RK p.42"},
       {"Vns I + II / Violas + 'Cellos","Each octave doubled in unison; \"constantly "
@@ -1841,7 +2076,27 @@ e{ id="viola", name="Viola", family="Strings", kind="instrument",
         .. "Childe Harold); Wagner's Venusberg motive in the Tannhauser overture; "
         .. "Strauss's Sancho Panza in Don Quixote.","SIN p.50-51"},
     }},
+    {"Berlioz on how many, and how to divide them", {
+      {"You need fewer than the second violins","Its tone is distinctive enough that a "
+        .. "section need not match the seconds in number - the colour carries without "
+        .. "the weight.","BERL The viola"},
+      {"Divide only if you have the players","Berlioz approves dividing violas into "
+        .. "firsts and seconds where the numbers are adequate, and warns that with only "
+        .. "four or five it can only damage a group already weak and easily overwhelmed.",
+        "BERL The viola"},
+      {"Check the instruments are real violas","He complains that many violas then in "
+        .. "French orchestras were undersized - effectively violins strung as violas - "
+        .. "and so lacked the tonal power of the real instrument, draining colour and "
+        .. "energy from the low notes especially.","BERL The viola"},
+    }},
     {"Use sparingly", {
+      {"A whole work built on violas","Mehul wrote Uthal for violas with no violins at "
+        .. "all, to match the dreamy character of Ossianic poetry; contemporaries found "
+        .. "it unbearably monotonous and it damaged the work. Gretry is said to have "
+        .. "offered a louis to hear an E string. Berlioz's verdict is that the viola's "
+        .. "tone, valuable when contrasted with others, becomes wearisome quickly: it "
+        .. "is too short of variety and too tinged with sadness to sustain a whole "
+        .. "piece.","BERL The viola"},
       {"Solo viola","\"The solo viola is seldom found\" - unlike violin and 'cello "
         .. "solos.","RK p.104"},
       {"Violas / D. basses in octaves","Seldom arises; only when the 'cellos are "
@@ -1896,6 +2151,15 @@ e{ id="cello", name="Violoncello", family="Strings", kind="instrument",
       {"'Cellos + Bassoon / D. basses","For a low melody needing a sweet, soft tone - "
         .. "the basses left undoubled.","RK p.60"},
       {"'Cellos + Bass cl / D. basses + C-Fag","A fully reinforced low octave.","RK p.59"},
+    }},
+    {"When to separate from the basses", {
+      {"The default, and why to leave it","Orchestral practice gives 'cellos and "
+        .. "double basses the same part, in unison or an octave apart. Berlioz lists "
+        .. "four reasons to separate them, and says the cases are numerous: to let the "
+        .. "'cellos sing a melody on their upper strings; to put them below the basses "
+        .. "for an open-string or harmonic effect; or to give them the bass line with "
+        .. "figuration quicker than the basses could manage cleanly.",
+        "BERL The cello; cf. RK p.42"},
     }},
     {"Character", {
       {"Berlioz","\"Violoncellos together to the number of eight, or ten, are "
@@ -2608,6 +2872,15 @@ e{ id="bassoon", name="Bassoon", family="Woodwind", kind="instrument",
       {"With a voice","Listed among the solo instruments that accompany a cantabile "
         .. "aria; bassoons also double men's voices well.","RK p.124 & p.122"},
     }},
+    {"Berlioz on writing the parts", {
+      {"Four bassoons, three parts","Bassoons are normally written in two parts, but a "
+        .. "large orchestra has four. Berlioz's preference is not four real parts but "
+        .. "three, with the lowest doubled an octave below, which puts the extra weight "
+        .. "where it does most good - on the bass line.","BERL The bassoon"},
+      {"The top of the range has a character","He describes the upper notes as pained, "
+        .. "suffering, close to pitiful - and says that is exactly why they work in a "
+        .. "slow melody or an accompanying figure, used deliberately.","BERL The bassoon"},
+    }},
     {"Use sparingly", {
       {"+ Oboe or Flute in unison","\"Very seldom found except in certain orchestral "
         .. "tutti\", where they produce increased resonance \"without creating a fresh "
@@ -2842,6 +3115,13 @@ e{ id="trumpet", name="Trumpet", family="Brass", kind="instrument",
       {"Flute thirds between trumpet octaves","In soft passages, thirds in the low "
         .. "flutes, sometimes with clarinets, between trumpets an octave apart - \"a "
         .. "beautiful mysterious effect\".","RK p.91"},
+    }},
+    {"Quiet trumpets", {
+      {"Against the routine","Berlioz notes that despite the convention of using "
+        .. "trumpets loudly, delightful effects come from them played piano, and credits "
+        .. "Gluck with showing it first - the two trumpets holding the dominant in "
+        .. "unison in the introduction to Iphigenie en Tauride. Beethoven (the slow "
+        .. "movement of the Seventh) and Weber follow him.","BERL The trumpet"},
     }},
     {"Character and use", {
       {"Lavignac","\"A stately and heraldic instrument\" - \"of great agility, the "
@@ -3605,6 +3885,20 @@ e{ id="dynamics", name="Orchestrating Dynamics", family="Craft", kind="topic",
         .. "clarinet can play whisper-soft provided it is not written too high.","BEL p.27"},
       {"Who has the most power","\"For sheer power, nothing has the force and impact "
         .. "of high brass plus percussion.\"","BEL p.27"},
+    }},
+    {"Making a dynamic change register", {
+      {"Skip a gradation","\"For noticeable contrasts, skip at least one gradation. The "
+        .. "difference between mf and f is negligible. Moving from mp to f or mf to ff "
+        .. "will have a more dramatic impact.\" The concrete version of Belkin's advice to "
+        .. "work with four levels.","ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Players respond to extremes","An expanded range from ppp to fff gets attention, "
+        .. "while p and mp are often ignored or under-played. If you want quiet, write pp "
+        .. "or ppp. Musicians answer wide contrasts more readily than subtle ones.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
+      {"Dynamics are relative, not absolute","There is no decibel level that constitutes "
+        .. "forte; the loudness that results is set by the context and by the marks "
+        .. "around it. This is why orchestrating the level beats marking it.",
+        "ACTOR All Instruments: Effective Instrumental Writing"},
     }},
     {"How to notate them", {
       {"Work with four levels","\"A good approach is to act as though there are only "

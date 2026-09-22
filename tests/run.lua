@@ -335,7 +335,7 @@ section("Citation precision")
 -- A tag-only source is honest; a tag-only source that has been read in full is
 -- just an un-upgraded citation. These two were upgraded when their texts
 -- arrived, so a bare tag is now a mistake and the suite says so.
-for _, tag in ipairs{ "BEL", "IDIO", "HUG" } do
+for _, tag in ipairs{ "BEL", "IDIO", "HUG", "BERL", "ACTOR" } do
   local bare = {}
   for _, e in ipairs(D.ENTRIES) do
     for _, sec in ipairs(e.sec or {}) do
@@ -387,6 +387,33 @@ do
   end
   check("no source is missing from the Sources page order", #missing == 0,
         table.concat(missing, ","))
+end
+
+-- The Berlioz translation consulted reserves all rights, so BERL items state his
+-- substance in this encyclopaedia's own words. Where Berlioz is quoted verbatim it
+-- is from the older public-domain translation Singleton uses, and SIN is cited too.
+-- A long quotation on a BERL-only item would be reproducing the live translation.
+do
+  local risky = {}
+  for _, e in ipairs(D.ENTRIES) do
+    for _, sec in ipairs(e.sec or {}) do
+      for _, it in ipairs(sec[2]) do
+        local c = it[3] or ""
+        if c:find("%f[%w]BERL%f[%W]") and not c:find("%f[%w]SIN%f[%W]") then
+          -- longest run between double quotes in the detail text
+          for quoted in (it[2] or ""):gmatch('"([^"]+)"') do
+            local words = 0
+            for _ in quoted:gmatch("%S+") do words = words + 1 end
+            if words > 12 then
+              risky[#risky + 1] = e.id .. ": " .. quoted:sub(1, 40)
+            end
+          end
+        end
+      end
+    end
+  end
+  check("BERL-only items paraphrase rather than quote at length", #risky == 0,
+        table.concat(risky, " | "))
 end
 
 ------------------------------------------------------------------------------

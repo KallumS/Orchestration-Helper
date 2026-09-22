@@ -76,9 +76,9 @@ runs.
 
 ## What is in it
 
-122 entries, 1,472 cited items, across two databases.
+123 entries, 1,520 cited items, across two databases.
 
-`orchestration_data.lua` — 72 entries:
+`orchestration_data.lua` — 73 entries:
 
 - **Sections** — strings, woodwind, brass, percussion, plucked strings, voices
   and chorus: rosters at full/medium/small size, present-day section sizes,
@@ -96,6 +96,10 @@ runs.
   matter of power. Which sounds carry formants and which blend, how register
   inverts the intuition (a low oboe penetrates more than a high one), and why the
   real risk to a quiet instrument is masking rather than volume.
+- **Playability** — *Writing Playable Music*: the difference between a passage
+  that can be played and one that will be, what the practice room rewards, how to
+  make a hard passage easier without losing it, and what to write in the score that
+  notation alone cannot carry.
 - **Listening** — *Where to Hear These Combinations*: for each doubling the
   encyclopaedia calls standard, a place in the repertoire to hear it, with work,
   movement and bar or rehearsal figure. Taken from Hugill's index of the
@@ -164,22 +168,25 @@ still holds and to supply modern section sizes; they are cited by tag.
 | --- | --- |
 | `RK` | Nikolay Rimsky-Korsakov, *Principles of Orchestration*, ed. Maximilian Steinberg, trans. Edward Agate (Édition Russe de Musique, 1922). Public domain. Page numbers follow Volume I. |
 | `SIN` | Esther Singleton, *The Orchestra and Its Instruments* (Symphony Society of New York, 1917). Public domain. Quotes Berlioz, Lavignac, Gevaert, Stone and Forsyth at length; those attributions are preserved in the text. |
+| `BERL` | Hector Berlioz, *Grand traité d'instrumentation et d'orchestration modernes* (1843; 2nd edn 1855). Public domain. Consulted in Michel Austin's translation on the Hector Berlioz Website, which is a selection — the technical range-and-mechanism material is omitted, leaving timbre, character and combination. That translation reserves all rights, so `BERL` items **paraphrase** rather than quote it. **Cited by instrument or chapter.** |
 | `WP` | Wikipedia, *Orchestration* (CC BY-SA) — for the standard instrumentation shorthand. |
 | `BEL` | Alan Belkin, *Artistic Orchestration* (© Alan Belkin 2001, 2008) — the third volume of his free online series, published by the author at alanbelkinmusic.com. 65 pages, **cited by page**. Belkin's terms: "The material may be used free of charge provided that the author's name is included." |
+| `ACTOR` | Don Freund and David Cutler, *Extreme Orchestration* (2024), on the Timbre and Orchestration Resource of the ACTOR Project. **Cited by chapter.** The present-day teaching text `MOD` was standing in for; source of the dynamics and playability material. |
 | `OMT` | *Open Music Theory* 2e (Gotham et al.), chapter "Core Principles of Orchestration" — open-access textbook. |
 | `IDIO` | *The Idiomatic Orchestra* (theidiomaticorchestra.net) — online orchestration manual, read in full and **cited by chapter**. Source of the balance-ratio method and of the clearest account of what each kind of doubling actually does. |
 | `HUG` | Andrew Hugill, *The Orchestra: A User's Manual* (© Andrew Hugill 2015), written with the Philharmonia Orchestra. **Cited by page title.** Largely an index of the Philharmonia's recorded archive giving work, movement and bar or figure for a great many scorings, plus prose on each section. |
 | `MOD` | Present-day practice, where several references agree: the Timbre and Orchestration Resource (ACTOR Project), Orchestration Online, and Wikipedia's *Orchestra*, *String section* and *Brass section*. Hugill was part of this group until the full site was supplied; he is now cited separately as `HUG`. |
 | `FILM` | Film-music references consulted together for the film composer entries: score studies from Movie Music UK, the Timbre and Orchestration Resource, Sound on Sound, Soundfly/Flypaper, Classic FM, the Vienna Symphonic Library forum's orchestration threads, programme notes from the LA Phil, Hollywood Bowl and Wise Music Classical, and Wikipedia's articles on the individual scores and composers. |
 
-Berlioz, Lavignac, Gevaert, Stone and Forsyth are quoted **as Singleton quotes
-them**, and are named in the text wherever that is the case — they are not cited
-as if consulted directly.
+Lavignac, Gevaert, Stone and Forsyth are quoted **as Singleton quotes them**, and
+are named in the text wherever that is the case — they are not cited as if
+consulted directly. Berlioz now appears both ways: quoted through Singleton, and
+cited directly from his own treatise as `BERL`.
 
 The `OMT`, `MOD` and `FILM` items were gathered from search results rather than
 from the full text of each page, because this environment blocks direct page
 fetching. They are therefore cited by tag rather than by page, and are phrased no
-more precisely than that evidence supports. They account for 137 of the 1,472
+more precisely than that evidence supports. They account for 136 of the 1,520
 items — `FILM` 77, `MOD` 59, `OMT` 1 — and they are the part of the database a full
 text would most improve. `lua5.4 tests/audit-sources.lua` prints the current
 coverage per tag.
@@ -287,12 +294,12 @@ The script was built and tested against a headless stand-in for REAPER's `gfx`
 and `reaper` APIs, which allows the search ranking, layout, scrolling and mouse
 handling to be exercised without launching REAPER. The checks covered:
 
-- data integrity — 1,472 items all cited, every citation naming a declared
+- data integrity — 1,520 items all cited, every citation naming a declared
   source, every `BEL` citation carrying a page, every `related` and `instruments`
   id resolving across both files, no duplicate entry ids;
 - search ranking against 102 query/expected-result pairs, including aliases,
   prefixes, punctuation and typos (`Bernard Hermann`, `tromobne`, `bassson`);
-- every one of the 122 entries rendered at three window sizes;
+- every one of the 123 entries rendered at three window sizes;
 - interaction — arrow navigation, Enter, Esc, back, F1, header buttons, chip
   clicks, wheel and page scrolling, and the reverse links from an instrument to
   its composers;
@@ -304,10 +311,11 @@ handling to be exercised without launching REAPER. The checks covered:
 - the colour scheme's mechanical rules (see `COLOUR.md`): every grey cool, the
   accent used no more than four times, no second accent.
 
-- citation precision — no bare `BEL`, `IDIO` or `HUG` tag, every declared source
-  actually cited, and no source missing from the Sources page.
+- citation precision — no bare `BEL`, `IDIO`, `HUG`, `BERL` or `ACTOR` tag, every
+  declared source actually cited, no source missing from the Sources page, and no
+  `BERL`-only item quoting the copyrighted translation at length.
 
-171 checks; run them with `lua5.4 tests/run.lua`.
+174 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has
@@ -326,5 +334,10 @@ stated terms — free of charge with his name included — and he is named in th
 source list, in the affected entries, and here. Andrew Hugill's *The Orchestra: A
 User's Manual* reserves all rights, so it is used only as short factual statements
 and brief quotations with attribution, and he is named on the Sources page and in
-every entry that draws on him. Material drawn from *The Idiomatic Orchestra* and
+every entry that draws on him. Berlioz's treatise is public domain, but the modern
+translation consulted is not and reserves all rights — so `BERL` items state his
+substance in this repository's own words rather than reproducing the translator's
+sentences, and the test suite fails any `BERL`-only item that quotes at length.
+Where Berlioz is quoted verbatim here it is from the older public-domain
+translation Singleton uses, and the item is tagged `SIN` as well. Material drawn from *The Idiomatic Orchestra* and
 the other present-day and film-music references is used the same way.

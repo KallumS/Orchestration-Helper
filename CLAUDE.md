@@ -23,7 +23,7 @@ and form vocabulary those sources assume.
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (171 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (174 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
@@ -267,8 +267,13 @@ tool is for.
    "Use sparingly" section with the source's own wording. The point is to explain
    why not to do something without recommending what nobody writes.
 3. **Disagreement is content.** Where the historical treatises and present-day
-   teaching conflict, give both and say so. Oboe + clarinet in unison is the
-   worked example.
+   teaching conflict, give both and say so. Two worked examples: oboe + clarinet in
+   unison (Rimsky-Korsakov scores it freely, much present-day teaching warns against
+   it), and **doubling the violins in octaves** — Rimsky-Korsakov recommends
+   Vns I / Vns II at the octave `RK p.40`, while Berlioz says that unless the passage
+   lies high the unison is far better `BERL The violin`. Both are on the `violin`
+   page, next to each other, with the register as the deciding factor. Finding a
+   disagreement like this is a *result*, not a problem to resolve away.
 4. **Cite at the precision the evidence supports.** This is per-source, and it
    changes when better evidence arrives.
    - `RK`, `BEL` — cited **by page**. `BEL` began as tag-only and was
@@ -285,7 +290,7 @@ tool is for.
    - `SIN` — page numbers are *approximations* anchored to the volume's
      illustration list, because the Gutenberg transcription has no page breaks.
      Use `SIN ch.VIII` where no anchor exists.
-   - `IDIO`, `HUG` — cited by **chapter or page title**. Neither source has page
+   - `IDIO`, `HUG`, `ACTOR`, `BERL` — cited by **chapter or page title**. Neither source has page
      numbers, but both name their pages, which is enough to find a claim. `IDIO`
      began as tag-only; when the full text arrived every existing claim was
      re-checked and **all fourteen were confirmed**, so the citations were
@@ -294,7 +299,7 @@ tool is for.
      group at the same time. The suite fails on a bare `BEL`, `IDIO` or `HUG`.
    - `OMT`, `MOD`, `FILM` — gathered from search-result summaries rather than full
      page reads, so cited by tag only. **These are the incomplete sources**, and
-     between them they carry 137 of the 1,472 items: `FILM` 77, `MOD` 59, `OMT` 1.
+     between them they carry 136 of the 1,520 items: `FILM` 77, `MOD` 58, `OMT` 1.
      If a full text for any of them arrives, do what was done for `BEL` and
      `IDIO`: re-verify every claim against it first, then upgrade. Note that a
      full *Open Music Theory* was supplied and did **not** contain its
@@ -310,9 +315,21 @@ tool is for.
    ```bash
    lua5.4 tests/audit-sources.lua
    ```
-5. **Quote intermediaries honestly.** Berlioz, Lavignac, Gevaert, Stone and
-   Forsyth appear *as Singleton quotes them*, and are named as such in the text.
-6. **Leave gaps rather than guess.** Composers with no citable orchestration
+5. **Quote intermediaries honestly.** Lavignac, Gevaert, Stone and Forsyth appear
+   *as Singleton quotes them*, and are named as such in the text. Berlioz now
+   appears both ways: quoted through Singleton (`SIN`), and cited directly from his
+   own treatise (`BERL`).
+6. **Mind whose words they are, separately from whose ideas.** Berlioz's treatise
+   is public domain; the modern English translation consulted for `BERL` is not,
+   and reserves all rights. So **`BERL` items state Berlioz's substance in this
+   encyclopaedia's own words** rather than reproducing the translator's sentences.
+   Facts and ideas are free; a translator's prose is their work. Where Berlioz is
+   quoted word for word in this repo it is from the older public-domain translation
+   Singleton uses, and the item carries `SIN` as well as `BERL`. The suite enforces
+   this: a `BERL`-only item with a quoted run over twelve words fails. The same
+   discipline applies to any future source that is a copyrighted translation or
+   edition of an old text — cite it, use it, do not copy out of it.
+7. **Leave gaps rather than guess.** Composers with no citable orchestration
    specifics were omitted and are listed as omitted inside the app, under
    "Composers: How to Use Them".
 
