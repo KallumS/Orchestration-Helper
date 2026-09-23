@@ -613,7 +613,8 @@ local function layout(w)
     gap(4)
     para("Every statement in this encyclopaedia is drawn from the works below and " ..
          "tagged with the page it came from.", F.BODY, C.dim, x, maxw)
-    local order = { "RK", "SIN", "WP", "BEL", "HUG", "IDIO", "OMT", "MOD", "FILM" }
+    local order = { "RK", "BERL", "SIN", "WP", "BEL", "HUG", "IDIO", "ACTOR",
+                    "OMT", "MOD", "FILM" }
     for _, tag in ipairs(order) do
       local s = SOURCES[tag]
       if s then
