@@ -279,9 +279,25 @@ rest, and its entry count comes from the data.
 
 `CLAUDE.md` holds the architecture notes, the data schema and the editorial rules
 — read it before changing anything. `COLOUR.md` is the colour scheme, shared with
-another project and kept by hand. `docs/SESSION-LOG.md` records how the project
-was built: the sources and how they were mined, the decisions and the rejected
-alternatives, the bugs already found and fixed, and what is still unverified.
+another project and kept by hand. `MUSIC-THEORY.md` is the theory the data files are
+instances of, including where the sources disagree. `docs/SESSION-LOG.md` records how
+the project was built: the sources and how they were mined, the bugs already found and
+fixed, and what is still unverified.
+
+`docs/adr/` holds twelve architecture decision records — one per choice that would be
+expensive to reverse, each stating what it cost and what it rules out. Read the
+relevant one before changing anything structural or editorial; they are cross-linked
+from the sections of `CLAUDE.md` they explain. The ones most worth knowing before you
+touch the code:
+
+- **0001** — `gfx` only, so a stock REAPER install runs it. No clipboard, no widgets.
+- **0008** — the body is drawn *before* the opaque header and footer, which is how
+  clipping works without a clipping API. Reordering those four calls breaks the window
+  silently, and no test can catch it.
+- **0009** — the scroll position is clamped in exactly one place, and handlers
+  deliberately set out-of-range targets.
+- **0005** and **0007** — how citations work, and why Berlioz is paraphrased where
+  Rimsky-Korsakov is quoted.
 
 Two audits answer questions that are easy to get wrong from memory:
 

@@ -4,8 +4,18 @@ A record of how this repository came to exist, what was decided and why, what
 went wrong on the way, and what is still unverified. Written for whoever picks it
 up next, including future Claude sessions.
 
-Built in one session, 19 September 2026, from an empty repository containing only
-a LICENSE.
+Begun 19 September 2026 from an empty repository containing only a LICENSE. Eight
+rounds so far, each triggered by the user either asking for something or supplying
+source material:
+
+| — | Date | What happened |
+| --- | --- | --- |
+| §1–6 | 19 Sep | The brief, the database, composer entries, the first `CLAUDE.md` and this log |
+| §6a | 19 Sep | Belkin's *Artistic Orchestration*: craft topics, character glossary, `BEL` upgraded to page citations |
+| §6b | 19 Sep | Documentation verified against the repo; collapsible index; the shared colour scheme |
+| §6c | 19 Sep | The Idiomatic Orchestra, Hugill, Open Music Theory, the REAPER API reference; `MUSIC-THEORY.md` |
+| §6d | 22 Sep | Berlioz cited directly; ACTOR split out of `MOD`; editorial rule 6 |
+| §6e | 23 Sep | Twelve architecture decision records; documentation audit |
 
 ---
 
@@ -103,10 +113,17 @@ Material gathered this way:
 
 ## 3. Key decisions
 
-### `gfx`, not ReaImGui
+Most of these now also have a decision record in `docs/adr/`, which gives the
+consequences and says how (or whether) the codebase defends the decision. This
+section is the contemporaneous account — what was decided at the time and on what
+evidence. Where the two differ, the ADR is current and this is history.
 
-Checked the bundled REAPER API reference: 243 `gfx.` matches, **zero** `ImGui`
-matches. ReaImGui is a third-party extension. Since the brief demanded the tool
+### `gfx`, not ReaImGui (ADR 0001)
+
+Checked the REAPER API reference: **243 matches for the string `gfx.`, which is 59
+distinct functions, and zero matches for `ImGui`.** Both numbers appear in the
+documentation and they measure different things — worth knowing, because they look
+like a contradiction. ReaImGui is a third-party extension. Since the brief demanded the tool
 just work, the GUI uses the built-in `gfx` API. Also confirmed there is no
 clipboard function in the core API, so no copy feature was attempted.
 
@@ -290,10 +307,11 @@ changed.
 | `tests/audit-aliases.lua` | 55 | alias collision report |
 | `tests/audit-sources.lua` | 92 | citation coverage per source tag |
 | `README.md` | 343 | user documentation, bibliography |
-| `CLAUDE.md` | 362 | guidance for future Claude sessions |
+| `CLAUDE.md` | 384 | guidance for future Claude sessions |
 | `COLOUR.md` | 121 | the colour scheme, kept by hand |
 | `MUSIC-THEORY.md` | 828 | the theory the data files are instances of |
-| `docs/SESSION-LOG.md` | 902 | this file |
+| `docs/SESSION-LOG.md` | 998 | this file |
+| `docs/adr/` | 13 files | architecture decision records, one per decision |
 
 **123 entries, 1,520 cited items, 11 source tags** (`RK`, `BERL`, `SIN`, `WP`,
 `BEL`, `HUG`, `IDIO`, `ACTOR`, `OMT`, `MOD`, `FILM`).
@@ -322,7 +340,7 @@ Commits on `claude/sharp-hawking-kh7a7a`:
 
 ---
 
-## 6a. Later addition: Belkin's *Artistic Orchestration*
+## 6a. 19 September 2026 — Belkin's *Artistic Orchestration*
 
 The user supplied a zip of Alan Belkin materials after the composer work was
 done: seven chapter pages saved from alanbelkinmusic.com, plus `bk-O-O.pdf` —
@@ -405,7 +423,7 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 142 checks.**
 
 ---
 
-## 6b. Later addition: a collapsible index and the shared colour scheme
+## 6b. 19 September 2026 — a collapsible index and the shared colour scheme
 
 Three requests in one round: whether any sources are incomplete, whether the
 index families could be made collapsible, and a colour scheme to match the
@@ -507,7 +525,7 @@ After this round: **120 entries, 1,360 cited items, 8 source tags, 165 checks.**
 
 ---
 
-## 6c. Later addition: three full texts, and the REAPER API reference
+## 6c. 19 September 2026 — three full texts, and the REAPER API reference
 
 The user supplied five files: the ReaScript overview and the generated REAPER API
 function reference, and zips of *The Idiomatic Orchestra*, Hugill's *The Orchestra:
@@ -652,7 +670,7 @@ dependence on never-read sources down from 154 items to 137.
 
 ---
 
-## 6d. Later addition: Berlioz direct, and the modern teaching text
+## 6d. 22 September 2026 — Berlioz direct, and the modern teaching text
 
 Two files: a zip of the ACTOR Project's Timbre and Orchestration Resource, and the
 Berlioz *Treatise on Instrumentation and Orchestration* from the Hector Berlioz
@@ -766,6 +784,74 @@ Also new:
 
 After this round: **123 entries, 1,520 cited items, 11 source tags, 174 checks**, and
 dependence on never-read sources at 136 items — `FILM` 77, `MOD` 58, `OMT` 1.
+
+---
+
+## 6e. 23 September 2026 — architecture decision records
+
+No new source material. The user asked for `CLAUDE.md` and this log to be updated, and
+for the big decisions to be written up as architecture decision records.
+
+### Why ADRs earn their place here, given this log already exists
+
+They answer a different question. This log is a narrative: what happened, in order,
+with the bugs and the dead ends and the things that turned out to be wrong. It is long
+and it is chronological, which makes it good for understanding how the project got here
+and bad for answering "can I change this?"
+
+An ADR answers only that: *why is it like this, and what did we give up?* Twelve of
+them now live in `docs/adr/`, one file per decision, each carrying Context, Decision,
+Consequences and — the addition worth noting — **Enforcement**, naming the check in
+`tests/run.lua` that stops the decision being undone silently, or saying plainly that
+there is none.
+
+That last field turned out to be the most useful part of writing them, because it
+sorted the twelve decisions by how exposed they are:
+
+- **Well defended.** ADR 0005 (citation precision), 0007 (paraphrasing copyrighted
+  translations), 0010 (the index folds), 0011 (the colour scheme) and 0012 (the
+  harness) are all enforced by tests that fail loudly.
+- **Partly defended.** ADR 0002 (data drives layout) and 0003 (two databases) are
+  caught indirectly — the suite renders every entry and checks id uniqueness across
+  both files, which catches most violations without naming the decision.
+- **Undefended.** ADR 0001 (`gfx` only), 0004 (consensus only) and 0006 (disagreement
+  is content) cannot be mechanically checked at all; they need a reader. And **ADR
+  0008 (the frame pipeline order) is the most exposed decision in the project**:
+  reordering those four calls reintroduces the original collision with no error, and
+  the harness cannot see it because `gfx.rect` is a no-op there. That is now stated in
+  the record rather than only implied by a "do not reorder these" comment.
+
+### What the documentation audit found
+
+Two claims in `CLAUDE.md` had gone stale in the previous round, both from editing a
+list without re-reading the sentence around it:
+
+- Rule 4's new bullet read "`IDIO`, `HUG`, `ACTOR`, `BERL` — **Neither** source has
+  page numbers, but **both** name their pages" — singular-pair wording left over from
+  when the bullet covered two sources. Rewritten, and the two things worth knowing
+  about how those four got their locators pulled out as sub-bullets.
+- The invariants paragraph still said the suite enforces "every `BEL` citation carrying
+  a page", which had been true two rounds earlier. It now lists all five read-in-full
+  sources, and the three other checks added since (no long `BERL` quotation, every
+  declared source cited, no source missing from the Sources page order).
+
+Neither was caught by a test, because both are prose about tests. The pattern is the
+one recorded in §8: a documentation claim about a count or a list is a claim to check.
+
+`CLAUDE.md` now cross-references the relevant ADR from each section that has one, so
+the pointer sits where someone about to break the rule is already reading, rather than
+only in a list at the top.
+
+### One figure corrected
+
+ADR 0003 initially said the composers file held 50 entries "against the original 73".
+The data file holds 73 entries *today*; it held 70 when the composers were added.
+Corrected to say both. Every other numeric claim across the twelve records was checked
+against the repo before committing — entry counts, item counts, check counts, the
+`gfx` function count, the accent-use count, and the number of bugs found in round one.
+
+After this round: **123 entries, 1,520 cited items, 11 source tags, 174 checks**,
+12 decision records, and no change to the script or the data.
 
 ---
 
@@ -900,3 +986,13 @@ dependence on never-read sources at 136 items — `FILM` 77, `MOD` 58, `OMT` 1.
   Berlioz/Rimsky-Korsakov split on doubling violins in octaves is the single most
   useful thing the treatise added, and it only appeared because the new source was
   read against what the app already claimed rather than only for new material.
+- **Write the enforcement down, not just the decision.** Giving every ADR an
+  *Enforcement* field sorted the twelve decisions by how exposed they are, which no
+  amount of prose about the decisions themselves would have done. It also made one
+  thing plain that had been implicit for four rounds: the frame pipeline order (ADR
+  0008) is the most reversible-by-accident decision in the project, because the
+  harness stubs `gfx.rect` and so cannot see the bug that reordering causes.
+- **Two numbers can both be right and still read as a contradiction.** §3 said the
+  API reference has "243 `gfx.` matches"; ADR 0001 said 59 entries. Both are correct
+  — 243 occurrences of the string, 59 distinct functions. Stated explicitly now,
+  because the next reader would reasonably assume one was stale.

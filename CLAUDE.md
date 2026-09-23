@@ -17,6 +17,15 @@ project, and its least obvious rule is the easiest to break.
 Read `MUSIC-THEORY.md` for the theory the data files are instances of — the
 principles, the disagreements between sources, and the wider harmony, counterpoint
 and form vocabulary those sources assume.
+Read `docs/adr/` **before changing anything structural or editorial.** Twelve
+decision records, one per choice that would be expensive to reverse or that someone
+would otherwise undo by accident because the reason is not visible in the code. Each
+says what it cost and what it rules out. The session log is the narrative; an ADR
+answers only *why is it like this*.
+
+If you make a decision of that kind, add a record rather than only a commit message:
+`docs/adr/README.md` has the format, and the index table at the bottom of it needs the
+new row. A decision reversible in an afternoon with no consequences does not need one.
 
 ## Commands
 
@@ -61,11 +70,16 @@ keeps the hover state.
 
 **The harness approximates font metrics** (character count × size factor). It
 verifies structure and behaviour, never appearance. Nothing in this repo has been
-run inside REAPER.
+run inside REAPER. ADR 0012 records why the harness exists, the two design choices
+that carry its value, and the ways it has itself been wrong.
+
+When adding a check, **verify it fails** by deliberately breaking what it guards.
+A check that passes on first write may be passing vacuously; both citation checks
+were confirmed this way.
 
 ## Architecture
 
-### Data drives layout
+### Data drives layout (ADR 0002)
 
 `layout()` walks the entry's `sec` list and emits rows generically. Adding
 entries, sections or items requires **no code changes**. Only these need code:
@@ -79,7 +93,7 @@ entries, sections or items requires **no code changes**. Only these need code:
 - a section title containing the substring `"sparingly"` is coloured as a warning
   (`header()` checks for it) — a semantic dependency on the string
 
-### The index folds
+### The index folds (ADR 0010)
 
 The index emits one `fold` row per family and the family's chips only when it is
 open. `st.open` maps family name —> `true`; everything else follows from that.
@@ -116,9 +130,9 @@ handle_mouse()
 ```
 
 The body is drawn **first** so the opaque top strip and footer clip it. Do not
-reorder these. An earlier version drew the header first and tried to mask with a
-small rect, which left scrolled text colliding with the search box; another
-version mutated `gfx.h` to fake a viewport, which is not supported.
+reorder these (ADR 0008). An earlier version drew the header first and tried to
+mask with a small rect, which left scrolled text colliding with the search box;
+another version mutated `gfx.h` to fake a viewport, which is not supported.
 
 ### Two-stage layout
 
@@ -127,7 +141,7 @@ version mutated `gfx.h` to fake a viewport, which is not supported.
 rows inside the viewport. Relayout happens when `st.dirty` is set or the window
 width changes — both checked at the top of `draw_body`.
 
-### Scroll clamping lives in exactly one place
+### Scroll clamping lives in exactly one place (ADR 0009)
 
 `draw_body` clamps `st.scroll` against `st.maxscroll`. Key handlers and the wheel
 set **unclamped** targets (`st.scroll = math.huge` for Ctrl+End). This is
@@ -158,7 +172,7 @@ Composer entries carry `instruments = {ids}`. At load the script inverts this
 into `target.composers`, which renders as the "Composers noted for it" chip row
 on instrument pages. Write the association once, in the composer entry.
 
-### Two databases, merged at load
+### Two databases, merged at load (ADR 0003)
 
 `orchestration_data.lua` (instruments, sections, cross-group topics) and
 `orchestration_composers.lua` (composers) each return `{ENTRIES, SOURCES}`. The
@@ -166,7 +180,7 @@ script loads the first and requires it, then loads the second inside `pcall` and
 merges — the composers file is optional and its absence is not an error. Entry
 ids must be unique **across both files**.
 
-### REAPER compatibility constraints
+### REAPER compatibility constraints (ADR 0001)
 
 - **`gfx` only.** No ReaImGui, SWS or js_ReaScriptAPI, so a stock install runs
   it. The API reference has 59 `gfx.` entries and **zero** matches for `ImGui`,
@@ -195,7 +209,7 @@ ids must be unique **across both files**.
   draw time and the fill chosen there; `button()` reads `cap(1)` itself for the
   held state. There is no style stack to push.
 
-### Colour
+### Colour (ADR 0011)
 
 `C` is keyed by role, not by shade, and built with `hex(0xRRGGBB)`. The scheme is
 shared with another project and documented in `COLOUR.md`; read it before
@@ -236,8 +250,12 @@ e{ id="trombone", name="Trombone", family="Brass", kind="instrument",
 
 Invariants the suite enforces: unique ids across both files; `name`, `family`,
 `kind` and a substantial `summary` present; **every item cited**; every citation
-naming a tag declared in some `SOURCES` table; every `BEL` citation carrying a
-page; every `related` and `instruments` id resolving.
+naming a tag declared in some `SOURCES` table; **every `BEL`, `IDIO`, `HUG`, `BERL`
+and `ACTOR` citation carrying a locator** (a page, a chapter or a page title), since
+all five have been read in full and a bare tag would be an un-upgraded citation
+rather than an honest limit; no `BERL`-only item quoting at length (rule 6); every
+declared source cited somewhere; no source missing from the Sources page `order`
+array; every `related` and `instruments` id resolving.
 
 **Alias collisions** are allowed where both entries are a fair answer (`drums` →
 Percussion Section and Timpani; `basses` → Double Bass and Chorus), since the
@@ -258,7 +276,8 @@ this file did exactly that until it was run and replaced with the script.)
 ## Editorial rules
 
 These are project conventions, not preferences. Breaking them corrupts what the
-tool is for.
+tool is for. Rules 2, 3, 4 and 6 have decision records — ADRs 0004, 0006, 0005 and
+0007 — which give the reasoning and the cost; this list is the working summary.
 
 1. **Cite everything.** Every item's third element is a source tag. The suite
    fails on uncited items. If you cannot cite it, do not add it.
@@ -290,13 +309,16 @@ tool is for.
    - `SIN` — page numbers are *approximations* anchored to the volume's
      illustration list, because the Gutenberg transcription has no page breaks.
      Use `SIN ch.VIII` where no anchor exists.
-   - `IDIO`, `HUG`, `ACTOR`, `BERL` — cited by **chapter or page title**. Neither source has page
-     numbers, but both name their pages, which is enough to find a claim. `IDIO`
-     began as tag-only; when the full text arrived every existing claim was
-     re-checked and **all fourteen were confirmed**, so the citations were
-     upgraded rather than rewritten — the opposite outcome to the `BEL` round, and
-     worth recording as the other possibility. `HUG` was split out of the `MOD`
-     group at the same time. The suite fails on a bare `BEL`, `IDIO` or `HUG`.
+   - `IDIO`, `HUG`, `ACTOR`, `BERL` — cited by **chapter, page title or instrument**.
+     None of the four is paginated, but each names its pages, which is enough to
+     find a claim. Two things worth knowing about how they got here:
+     - `IDIO` began as tag-only. When the full text arrived every existing claim was
+       re-checked and **all fourteen were confirmed**, so the citations were upgraded
+       rather than rewritten — the opposite outcome to the `BEL` round, and worth
+       remembering as the other possibility. `HUG` and `ACTOR` were split out of the
+       `MOD` umbrella on the same principle, once each had been read in full.
+     - `BERL` carries the extra constraint in rule 6: the treatise is public domain
+       but the translation consulted is not, so those items paraphrase.
    - `OMT`, `MOD`, `FILM` — gathered from search-result summaries rather than full
      page reads, so cited by tag only. **These are the incomplete sources**, and
      between them they carry 136 of the 1,520 items: `FILM` 77, `MOD` 58, `OMT` 1.
