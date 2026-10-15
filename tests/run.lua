@@ -259,13 +259,13 @@ check("Enter collapses the match list", s:find("1 match", 1, true) ~= nil)
 
 s = scenario(function() _H.type("horn"); _H.press(27, 1); _H.press(27, 1) end, 20)
 check("Esc twice returns to the index",
-      s:find("Search an instrument", 1, true) and s:find("STRINGS", 1, true) ~= nil)
+      s:find("Search for an instrument", 1, true) and s:find("STRINGS", 1, true) ~= nil)
 
 s = scenario(function() _H.press(_H.K("f1"), 1) end, 8)
-check("F1 opens help", s:find("How to use it", 1, true) ~= nil)
+check("F1 opens help", s:find("How to Use It", 1, true) ~= nil)
 
 s = scenario(function() _H.type("zzzqqqx") end, 8)
-check("unknown query explains itself", s:find("Nothing found", 1, true) ~= nil)
+check("unknown query explains itself", s:find("Nothing Found", 1, true) ~= nil)
 
 s = scenario(function() _H.type("glissando") end, 10)
 check("prose fallback finds a topic", s:find("Harp", 1, true) ~= nil)
@@ -289,8 +289,8 @@ do -- the contrast scale renders all five of its groups
   _H.type("contrast"); _H.press(13, 1); _H.press(_H.K("pgdn"), 20)
   local str = table.concat(_H.run(60), " | ")
   check("contrast scale shows group 1 and group 5",
-        str:find("GROUP 1 - IMPERCEPTIBLE OR VERY MILD", 1, true)
-        and str:find("GROUP 5 - EXTREME", 1, true) ~= nil)
+        str:find("GROUP 1 — IMPERCEPTIBLE OR VERY MILD", 1, true)
+        and str:find("GROUP 5 — EXTREME", 1, true) ~= nil)
 end
 
 do -- a character entry gives scoring suggestions, not just prose
@@ -595,6 +595,40 @@ do
   check("item labels no longer take the accent",
         src:find("para(label, F.LABEL, C.title", 1, true) ~= nil)
   check("there is no second accent", src:find("C.accent2", 1, true) == nil)
+end
+
+------------------------------------------------------------------------------
+section("Wording (Apple's writing guidelines)")
+------------------------------------------------------------------------------
+do
+  -- The header buttons are title-style, not shouted.
+  local s = scenario(nil, 4)
+  check("header buttons read Help, Index, Sources",
+        s:find(" | Help | ", 1, true) and s:find(" | Index | ", 1, true)
+          and s:find(" | Sources | ", 1, true) and not s:find("SOURCES", 1, true))
+  -- Elsewhere the keys are named in words; on a Mac, with its symbols.
+  check("keys in words off the Mac", s:find("Ctrl+Right opens all", 1, true) ~= nil)
+  dofile(HARNESS)
+  reaper.GetOS = function() return "macOS-arm64" end
+  local d = table.concat(_H.run(4), " | ")
+  check("keys as Mac symbols on a Mac",
+        d:find("⌘→ opens all", 1, true) and not d:find("Ctrl+", 1, true))
+  -- No three full stops, spaced hyphens or straight quotes in the window's own
+  -- pages. An entry's prose is the encyclopaedia's content and quotes its
+  -- sources as written, so it is not held to this.
+  local function screens()
+    local all = {}
+    for _, feed in ipairs{ function() end,
+                           function() _H.press(_H.K("f1"), 1) end,
+                           function() _H.type("zzzqqqx") end } do
+      all[#all + 1] = scenario(feed, 8)
+    end
+    return table.concat(all, " | ")
+  end
+  local text = screens()
+  check("no ... on screen", not text:find("...", 1, true))
+  check("no spaced hyphen as a dash on screen", not text:find(" - ", 1, true))
+  check("no straight double quotes on screen", not text:find('"', 1, true))
 end
 
 ------------------------------------------------------------------------------

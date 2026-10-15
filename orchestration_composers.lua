@@ -53,7 +53,7 @@ e{ id="composers", name="Composers: How to Use Them", family="Reference", kind="
       {"What to take from them","The transferable lesson, separated from the "
         .. "period style.","MOD"},
     }},
-    {"Rimsky-Korsakov's advice on whom to study", {
+    {"Rimsky-Korsakov’s advice on whom to study", {
       {"Study the fairly modern, not the ancient","\"Fairly modern music will "
         .. "teach the student how to score - classical music will prove of "
         .. "negative value to him... It is useless for a Berlioz or a Gevaert to "
@@ -76,7 +76,7 @@ e{ id="composers", name="Composers: How to Use Them", family="Reference", kind="
       {"How to study","\"The best plan is to study full-scores, and listen to an "
         .. "orchestra, score in hand.\"","RK p.4"},
     }},
-    {"Belkin's order for studying scores", {
+    {"Belkin’s order for studying scores", {
       {"1. Mendelssohn","\"An excellent starting point... His orchestration is classical "
         .. "in spirit, economical, simple, and always effective. Mendelssohn's part "
         .. "writing is straightforward, his orchestration perfectly balanced, and his "
@@ -84,7 +84,7 @@ e{ id="composers", name="Composers: How to Use Them", family="Reference", kind="
       {"2. Tchaikovsky","\"A logical next step, similar in technique to Mendelssohn, but "
         .. "with a larger orchestra. Again, his orchestration is effective, clear, and "
         .. "easily understood.\"","BEL p.61"},
-      {"3. Bizet's Carmen","\"A basic text for orchestration with voices.\"","BEL p.61"},
+      {"3. Bizet’s Carmen","\"A basic text for orchestration with voices.\"","BEL p.61"},
       {"4. Mozart","\"Although he uses an orchestra smaller than Mendelssohn's, has more "
         .. "complex and refined methods of part writing, and therefore should follow, "
         .. "rather than precede the latter.\"","BEL p.61"},
@@ -317,7 +317,7 @@ e{ id="gluck", name="Christoph Willibald Gluck", family="Composers", kind="compo
         .. "mutually as a sordino; and the sounds, interclashing, assume a distant "
         .. "accent and a cavernous quality of tone of the most strange and dramatic "
         .. "effect\" (Berlioz).","SIN p.105-106"},
-      {"Double basses doubled with violas and 'cellos","For the howling of Cerberus "
+      {"Double basses doubled with violas and ’cellos","For the howling of Cerberus "
         .. "in Orfeo - the first time anyone gave the double bass a characterising "
         .. "role.","SIN p.69"},
       {"Clarinet instead of flute for desolation","In Alceste's 'Ah, malgre moi' he had "
@@ -413,7 +413,7 @@ e{ id="mozart", name="Wolfgang Amadeus Mozart", family="Composers", kind="compos
         .. "chromatic line in the 'cellos.","WP"},
       {"Clarinets and bassoons with the lower strings supplying the bass","The "
         .. "continuation of that passage.","WP"},
-      {"Pizzicato 'cellos and basses under bowed violins and violas in thirds","A few "
+      {"Pizzicato ’cellos and basses under bowed violins and violas in thirds","A few "
         .. "bars later - the same material, a new colour.","WP"},
       {"Violins as the bass for solo clarinets","In the Piano Concerto K482: \"the "
         .. "unusual sound on the violins providing the bass for the solo clarinets. The "
@@ -451,7 +451,7 @@ e{ id="mozart", name="Wolfgang Amadeus Mozart", family="Composers", kind="compos
         .. "effective.","WP; MOD"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Study him after Mendelssohn, not before","\"Although he uses an orchestra "
         .. "smaller than Mendelssohn's, [he] has more complex and refined methods of part "
         .. "writing, and therefore should follow, rather than precede the latter.\"","BEL p.61"},
@@ -481,12 +481,12 @@ e{ id="beethoven", name="Ludwig van Beethoven", family="Composers", kind="compos
             .. "overtures"} },
   sec={
     {"Favoured combinations", {
-      {"Violas + 'cellos carrying the melody","The Andante of the Fifth. \"The first "
+      {"Violas + ’cellos carrying the melody","The Andante of the Fifth. \"The first "
         .. "critics who heard this Symphony noticed to their amazement that the "
         .. "violoncellos gained roundness and purity of tone from their association with "
         .. "the viola!\" Violas also sing with 'cellos and bassoons in the Egmont "
         .. "Overture.","SIN p.50"},
-      {"'Cello + double bass alone","The opening of the Fifth's Scherzo as a solo for "
+      {"’Cello + double bass alone","The opening of the Fifth's Scherzo as a solo for "
         .. "the two - \"the people who first heard such a strange innovation were aghast "
         .. "and horrified\".","SIN p.70"},
       {"Horns in unison with strings, over a bassoon pedal","The Emperor Concerto's "
@@ -494,7 +494,7 @@ e{ id="beethoven", name="Ludwig van Beethoven", family="Composers", kind="compos
         .. "violins simultaneously playing an elaborated version, timpani and pizzicato "
         .. "lower strings adding colour. The same theme appears in five different "
         .. "orchestrations across the movement.","WP"},
-      {"Bassoon against 'cellos and violins in unison","The opening of the Ninth's "
+      {"Bassoon against ’cellos and violins in unison","The opening of the Ninth's "
         .. "Finale - the theme in 'cellos and violins, accompanied by \"a long "
         .. "independent melody of the greatest ingenuity\" in the first bassoon.","SIN p.96-97"},
       {"Two bassoons working independently, then joining two clarinets","The First "
@@ -519,7 +519,7 @@ e{ id="beethoven", name="Ludwig van Beethoven", family="Composers", kind="compos
         .. "of bridge leading from the sounds of instruments to human voices\".","SIN p.70"},
     }},
     {"Use sparingly", {
-      {"Don't copy his brass or horn intervals","Rimsky-Korsakov: \"His use of the "
+      {"Don’t copy his brass or horn intervals","Rimsky-Korsakov: \"His use of the "
         .. "trumpets, standing out above the rest of the orchestra, the difficult and "
         .. "unhappy intervals he gives to the horns, the distinctive features of the "
         .. "string parts and his often highly-coloured employment of the wood-wind - "
@@ -527,7 +527,7 @@ e{ id="beethoven", name="Ludwig van Beethoven", family="Composers", kind="compos
         .. "a thousand and one points in contradiction.\"","RK p.4"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Fifth in the study order","\"Introduces many novel orchestral ideas, and, "
         .. "properly understood, his approach to the orchestra will greatly increase the "
         .. "student's sophistication.\" A milder view than Rimsky-Korsakov's.","BEL p.61"},
@@ -579,7 +579,7 @@ e{ id="weber", name="Carl Maria von Weber", family="Composers", kind="composer",
       {"Learn the instrument from its player","Weber toured with the clarinettist "
         .. "Baermann and \"learned much from the latter about the resources of this "
         .. "instrument\".","SIN ch.VIII"},
-      {"And Rimsky-Korsakov's endorsement","Weber heads his list of the composers a "
+      {"And Rimsky-Korsakov’s endorsement","Weber heads his list of the composers a "
         .. "student should actually study for scoring.","RK p.4"},
     }},
   },
@@ -644,7 +644,7 @@ e{ id="mendelssohn", name="Felix Mendelssohn", family="Composers", kind="compose
       {"Clarinet for water","\"Mendelssohn also used the clarinet for the idea of water. "
         .. "It is very evident in the Hebrides Overture and in the Overture of Melusine it "
         .. "suggests the rolling waves.\"","SIN p.100"},
-      {"'Cello obbligato with a solo voice","\"It is Enough\" in Elijah - finer even than "
+      {"’Cello obbligato with a solo voice","\"It is Enough\" in Elijah - finer even than "
         .. "the solo in Saint Paul.","SIN p.58-59"},
       {"Flute obbligato in a vocal quartet","\"O Rest in the Lord\" in Elijah.","SIN p.77"},
       {"Contrabassoon","In the Hebrides Overture.","SIN p.101"},
@@ -653,11 +653,11 @@ e{ id="mendelssohn", name="Felix Mendelssohn", family="Composers", kind="compose
       {"Balance first","Clarity and polish are his subject. If a passage of yours does "
         .. "not come through, the fault is usually spacing and doubling, not choice of "
         .. "instrument - and he is the clearest demonstration of that.","SIN ch.VIII; MOD"},
-      {"Rimsky-Korsakov's endorsement","Another of the handful he names as a model for "
+      {"Rimsky-Korsakov’s endorsement","Another of the handful he names as a model for "
         .. "students of scoring.","RK p.4"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Where to start","\"An excellent starting point\" for learning orchestration "
         .. "from the repertoire: \"classical in spirit, economical, simple, and always "
         .. "effective\", with straightforward part-writing, perfectly balanced "
@@ -744,7 +744,7 @@ e{ id="liszt", name="Franz Liszt", family="Composers", kind="composer",
       {"Col legno strings","He calls for it in Mazeppa.","SIN p.15"},
     }},
     {"What to take from him", {
-      {"Rimsky-Korsakov's endorsement","Named among the best guides for a student of "
+      {"Rimsky-Korsakov’s endorsement","Named among the best guides for a student of "
         .. "scoring.","RK p.4"},
     }},
   },
@@ -800,7 +800,7 @@ e{ id="wagner", name="Richard Wagner", family="Composers", kind="composer",
         .. "\"the violins are halved, then doubled by the cellos, a clarinet, and a "
         .. "bassoon, as well as, for the peak of the phrase, an alto oboe [cor "
         .. "anglais]\".","WP"},
-      {"'Cellos supported by wind","The opening phrase of the Tristan prelude; when it "
+      {"’Cellos supported by wind","The opening phrase of the Tristan prelude; when it "
         .. "returns at the end, cor anglais and bass clarinet colour it, with the timpani "
         .. "rumbling beneath.","WP"},
       {"Six horns offstage and two in the pit","The hunting horns of Tristan Act II - "
@@ -831,7 +831,7 @@ e{ id="wagner", name="Richard Wagner", family="Composers", kind="composer",
         .. "lose \"correct intonation, beauty of tone, and all subtlety of nuances\".","RK p.138-139"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Where advanced orchestration begins","\"More advanced orchestration begins with "
         .. "Wagner, in particular the richness of his orchestral polyphony as a norm, and "
         .. "the way he uses the enlarged orchestral families.\"","BEL p.61"},
@@ -852,7 +852,7 @@ e{ id="verdi", name="Giuseppe Verdi", family="Composers", kind="composer",
   facts={ {"Dates","1813-1901"}, {"Look at","Otello, Falstaff, Il Trovatore, Requiem"} },
   sec={
     {"Favoured combinations", {
-      {"Double bass as a murderer's voice","Otello's entrance into Desdemona's chamber - "
+      {"Double bass as a murderer’s voice","Otello's entrance into Desdemona's chamber - "
         .. "\"here the double-bass darkly and wickedly mutters all that is in Otello's "
         .. "savage heart and tells us just what he means to do\". He considered the "
         .. "instrument \"a dark, morbid personality, particularly fitted for tragedy\".","SIN p.69-70"},
@@ -916,7 +916,7 @@ e{ id="glinka", name="Mikhail Glinka", family="Composers", kind="composer",
         .. "stage itself in the mid-19th century.","RK p.129"},
     }},
     {"What to take from him", {
-      {"Rimsky-Korsakov's endorsement","Named alongside Weber, Mendelssohn, Berlioz, "
+      {"Rimsky-Korsakov’s endorsement","Named alongside Weber, Mendelssohn, Berlioz, "
         .. "Wagner and Liszt as the best guides for a student of orchestration.","RK p.4"},
     }},
   },
@@ -939,11 +939,11 @@ e{ id="rimskykorsakov", name="Nikolay Rimsky-Korsakov", family="Composers", kind
             .. "pairs with extras"} },
   sec={
     {"Favoured combinations", {
-      {"Violas + 'cellos + English horn","His signature warm middle voice, returned to "
+      {"Violas + ’cellos + English horn","His signature warm middle voice, returned to "
         .. "again and again in Snegourotchka - and he notes that \"the addition of the Eng. "
         .. "horn makes no essential difference to the compound tone; the 'cellos stand out "
         .. "above the rest\".","RK p.39"},
-      {"Violins + 'cellos + English horn","The same melody, fuller: \"the Eng. horn is "
+      {"Violins + ’cellos + English horn","The same melody, fuller: \"the Eng. horn is "
         .. "absorbed in the musical texture, the principal colour being that of the "
         .. "'cellos. Still more powerful in resonance.\"","RK p.40"},
       {"Violas + English horn","A favourite for short characteristic phrases, in Sadko "
@@ -1057,7 +1057,7 @@ e{ id="tchaikovsky", name="Pyotr Ilyich Tchaikovsky", family="Composers", kind="
         .. "instruments.","SIN ch.VIII; MOD"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"The second composer to study","\"A logical next step, similar in technique to "
         .. "Mendelssohn, but with a larger orchestra. Again, his orchestration is "
         .. "effective, clear, and easily understood.\"","BEL p.61"},
@@ -1143,7 +1143,7 @@ e{ id="mahler", name="Gustav Mahler", family="Composers", kind="composer",
        .. "and his music was as often soft as loud. Its colours were continually shifting, "
        .. "blending or contrasting with each other.\"",
   facts={ {"Dates","1860-1911"},
-          {"Symphony 2's wind and brass","4 flutes, 4 oboes, 5 clarinets, 4 bassoons; "
+          {"Symphony 2’s wind and brass","4 flutes, 4 oboes, 5 clarinets, 4 bassoons; "
             .. "10 horns, 8 trumpets, 4 trombones, tuba; 2 sets of timpani + 4 "
             .. "percussion, 2 harps, organ, strings"},
           {"Look at","Symphonies 2, 4, 5 and 9"} },
@@ -1172,7 +1172,7 @@ e{ id="mahler", name="Gustav Mahler", family="Composers", kind="composer",
         .. "a thicker wall.","WP"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Not for beginners","With Ravel, \"not suitable for beginners since their "
         .. "textures are often very rich and complex\".","BEL p.60"},
       {"Rate of change as character","In the Fourth's second movement the nervous "
@@ -1229,7 +1229,7 @@ e{ id="strauss", name="Richard Strauss", family="Composers", kind="composer",
         .. "trumpets\".","RK p.22"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"For the advanced student only","Grouped with Ravel and Mahler as the last stage "
         .. "of study.","BEL p.61"},
       {"Several rising figures instead of one doubled line","Die Frau ohne Schatten, "
@@ -1281,7 +1281,7 @@ e{ id="debussy", name="Claude Debussy", family="Composers", kind="composer",
        .. "orchestration showed \"an infinitely fresher imagination\" than Strauss's or "
        .. "Mahler's.",
   facts={ {"Dates","1862-1918"},
-          {"Faune's orchestra","3 flutes, oboes, clarinets, 4 horns, 2 harps, antique "
+          {"Faune’s orchestra","3 flutes, oboes, clarinets, 4 horns, 2 harps, antique "
             .. "cymbals and strings - no trumpets, trombones, tuba or timpani at all"},
           {"Look at","Prelude a l'apres-midi d'un faune, Nocturnes, La Mer, Jeux, "
             .. "Pelleas et Melisande"} },
@@ -1350,7 +1350,7 @@ e{ id="ravel", name="Maurice Ravel", family="Composers", kind="composer",
         .. "to the rich orchestral resource of Debussy and Ravel\".","WP"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"Not for beginners","\"Wonderful orchestrators though they are, [Mahler and "
         .. "Ravel] are not suitable for beginners since their textures are often very "
         .. "rich and complex.\"","BEL p.60"},
@@ -1462,7 +1462,7 @@ e{ id="meyerbeer", name="Giacomo Meyerbeer", family="Composers", kind="composer"
         .. "Glinka's refusal to do the same.","RK p.14"},
     }},
     {"What to take from him", {
-      {"Rimsky-Korsakov's endorsement","Named - specifically for Le Prophete - among the "
+      {"Rimsky-Korsakov’s endorsement","Named - specifically for Le Prophete - among the "
         .. "scores a student should study.","RK p.4"},
     }},
   },
@@ -1477,10 +1477,10 @@ e{ id="rossini", name="Gioachino Rossini", family="Composers", kind="composer",
           .. "Il Barbiere di Siviglia"} },
   sec={
     {"Favoured combinations", {
-      {"Five solo 'cellos","The Overture to William Tell opens with five solo "
+      {"Five solo ’cellos","The Overture to William Tell opens with five solo "
         .. "violoncellos, accompanied by two more playing pizzicato in first and second "
         .. "parts.","SIN p.65"},
-      {"English horn as a cowherd's call","The \"Ranz des vaches\" in William Tell - "
+      {"English horn as a cowherd’s call","The \"Ranz des vaches\" in William Tell - "
         .. "originally written for the oboe da caccia and inherited by the cor anglais when "
         .. "that instrument became obsolete.","SIN p.90"},
       {"Bassoon opening","He opens the Stabat Mater with it.","SIN p.97"},
@@ -1536,7 +1536,7 @@ e{ id="bizet", name="Georges Bizet", family="Composers", kind="composer",
         .. "tambourine and castanets used for local colour rather than rhythm alone.","MOD; cf. SIN p.126"},
     }},
 
-    {"Belkin's verdict", {
+    {"Belkin’s verdict", {
       {"The text for voices","\"Bizet's Carmen is a basic text for orchestration with "
         .. "voices.\"","BEL p.61"},
       {"A model of transparency","Carmen's first act: \"Short string chords accompany "
@@ -1648,18 +1648,18 @@ e{ id="herrmann", name="Bernard Herrmann", family="Film Composers", kind="compos
             .. "Northwest, Psycho, Fahrenheit 451, Taxi Driver"} },
   sec={
     {"His signature ensembles", {
-      {"Psycho - strings only","Scored for string orchestra alone, to match Hitchcock's "
+      {"Psycho — strings only","Scored for string orchestra alone, to match Hitchcock's "
         .. "black-and-white photography with a \"black and white\" sound. The most famous "
         .. "single orchestration decision in film music.","FILM"},
-      {"Journey to the Center of the Earth - no violins, five organs","Woodwind, brass, a "
+      {"Journey to the Center of the Earth — no violins, five organs","Woodwind, brass, a "
         .. "large percussion ensemble, nine harps, and five organs (one pipe, four "
         .. "electronic).","FILM"},
-      {"Torn Curtain - no strings at all","A large brass section including nine trombones, "
+      {"Torn Curtain — no strings at all","A large brass section including nine trombones, "
         .. "percussion, and twelve flutes as the entire woodwind.","FILM"},
-      {"The Day the Earth Stood Still - electronics and brass","Brass ensemble, harps, "
+      {"The Day the Earth Stood Still — electronics and brass","Brass ensemble, harps, "
         .. "electronic organ, theremin and electric violin - the founding science-fiction "
         .. "palette.","FILM"},
-      {"Vertigo - harp and vibraphone","The pairing that gives the score its vertiginous "
+      {"Vertigo — harp and vibraphone","The pairing that gives the score its vertiginous "
         .. "shimmer.","FILM"},
     }},
     {"What to take from him", {
@@ -1800,7 +1800,7 @@ e{ id="williams", name="John Williams", family="Film Composers", kind="composer"
        .. "indications of dynamics and articulations being particularly important to his "
        .. "orchestrations.\"",
   facts={ {"Dates","b. 1932"},
-          {"Star Wars' orchestra","Triple woodwind, five horns and the usual brass"},
+          {"Star Wars’ orchestra","Triple woodwind, five horns and the usual brass"},
           {"Look at","Star Wars, E.T., Jaws, Schindler's List, Harry Potter, "
             .. "Horn Concerto (2003)"} },
   sec={
@@ -1872,13 +1872,13 @@ e{ id="shore", name="Howard Shore", family="Film Composers", kind="composer",
           .. "The Fly, Hugo, Crash"} },
   sec={
     {"Instruments as places", {
-      {"The Shire - British and Irish folk instruments","Mandolin, Celtic harp, musette (a "
+      {"The Shire — British and Irish folk instruments","Mandolin, Celtic harp, musette (a "
         .. "kind of accordion) and bodhran, \"reflecting how Tolkien saw the Shire\".","FILM"},
-      {"Rohan - Hardanger fiddle","The Norwegian fiddle for the horse-riders.","FILM"},
-      {"Gollum - Hungarian cimbalom","\"A creepy theme on the Hungarian cimbalom (similar to "
+      {"Rohan — Hardanger fiddle","The Norwegian fiddle for the horse-riders.","FILM"},
+      {"Gollum — Hungarian cimbalom","\"A creepy theme on the Hungarian cimbalom (similar to "
         .. "a hammered dulcimer)\".","FILM"},
-      {"The Ents - woody percussion","Log drums and marimba.","FILM"},
-      {"Antiquity - ethnic flutes and djembe","\"The haunting sounds of ethnic flutes and "
+      {"The Ents — woody percussion","Log drums and marimba.","FILM"},
+      {"Antiquity — ethnic flutes and djembe","\"The haunting sounds of ethnic flutes and "
         .. "djembe drums introduce a sense of ancient mystery.\"","FILM"},
     }},
     {"What to take from him", {
@@ -1905,7 +1905,7 @@ e{ id="zimmer", name="Hans Zimmer", family="Film Composers", kind="composer",
           .. "Interstellar, Dune"} },
   sec={
     {"His signature methods", {
-      {"'Cello and low string ostinato","\"Low-frequency synths or cellos often underpin "
+      {"’Cello and low string ostinato","\"Low-frequency synths or cellos often underpin "
         .. "rhythmic motifs to create urgency, and repeating rhythmic cells in strings, "
         .. "percussion or synths provide propulsion and allow harmonic shifts above a fixed "
         .. "groove.\"","FILM"},

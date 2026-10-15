@@ -45,10 +45,10 @@ local DATA_FILE = SCRIPT_DIR .. SEP .. "orchestration_data.lua"
 local ok, DATA = pcall(dofile, DATA_FILE)
 if not ok or type(DATA) ~= "table" or type(DATA.ENTRIES) ~= "table" then
   reaper.ShowMessageBox(
-    "Orchestration Helper could not load its database.\n\n" ..
-    "Expected to find:\n" .. DATA_FILE .. "\n\n" ..
-    "Keep 'orchestration_data.lua' in the same folder as this script.\n\n" ..
-    (type(DATA) == "string" and ("Error: " .. DATA) or ""),
+    "Orchestration Helper couldn’t load its database.\n\n" ..
+    "Put “orchestration_data.lua” in the same folder as the script, then run " ..
+    "it again. It should be here:\n" .. DATA_FILE .. "\n\n" ..
+    (type(DATA) == "string" and ("Details: " .. DATA) or ""),
     "Orchestration Helper", 0)
   return
 end
@@ -270,6 +270,21 @@ local FONTFACE = (function()
   if os:match("OSX") or os:match("macOS") then return "Helvetica" end
   return "DejaVu Sans"
 end)()
+
+-- Keys are named the way each system writes them: the Mac's symbols there
+-- (Ctrl is Command on a Mac, see CLAUDE.md), words elsewhere.
+local MAC = (function()
+  local os = reaper.GetOS() or ""
+  return os:match("OSX") ~= nil or os:match("macOS") ~= nil
+end)()
+local KEYNAME = MAC and {
+  updown = "↑ ↓", leftright = "← →", enter = "Return", del = "Delete",
+  fwddel = "Forward Delete", altleft = "⌥←", ctrlright = "⌘→", ctrlleft = "⌘←",
+} or {
+  updown = "Up / Down", leftright = "Left / Right", enter = "Enter",
+  del = "Backspace", fwddel = "Delete", altleft = "Alt+Left",
+  ctrlright = "Ctrl+Right", ctrlleft = "Ctrl+Left",
+}
 
 local F = { TITLE = 1, HEAD = 2, LABEL = 3, BODY = 4, SMALL = 5, INPUT = 6, SUB = 7 }
 local SCALE = 1
@@ -498,14 +513,14 @@ local function layout(w)
   if st.view == "index" then
     para("Orchestration Helper", F.TITLE, C.title, x, maxw)
     gap(2)
-    para("Type an instrument, a section, a composer - or a mood - in the box " ..
-         "above: \"trombone\", \"string section\", \"cor anglais\", \"Bernard " ..
-         "Herrmann\", \"Bach\", \"mysterious\". You get the doublings and pairings " ..
+    para("Type an instrument, a section, a composer — or a mood — in the box " ..
+         "above: “trombone”, “string section”, “cor anglais”, “Bernard " ..
+         "Herrmann”, “Bach”, “mysterious”. You get the doublings and pairings " ..
          "that the standard literature agrees on. Everything is stored locally; " ..
          "nothing is ever fetched from the internet.",
          F.BODY, C.dim, x, maxw)
     gap(6)
-    para("Or click a family below to open it. Press F1 for the keys.",
+    para("Or click a family below to open it. Press F1 to see the keyboard shortcuts.",
          F.SMALL, C.faint, x, maxw)
 
     local fams, order = {}, {}
@@ -540,39 +555,41 @@ local function layout(w)
     end
     gap(10)
     rule(6)
-    para(("%d entries in %d families. %s  ·  Sources: click SOURCES in the header.")
+    para(("%d entries in %d families. %s · To see the sources, click Sources at the top.")
          :format(#ENTRIES, #order,
-                 nopen == #order and "Ctrl+Left closes them all"
-                                 or "Ctrl+Right opens them all"),
+                 nopen == #order and (KEYNAME.ctrlleft .. " closes them all.")
+                                 or (KEYNAME.ctrlright .. " opens them all.")),
          F.SMALL, C.faint, x, maxw)
     gap(16)
 
   elseif st.view == "noresult" then
-    para("Nothing found for \"" .. st.query .. "\"", F.TITLE, C.title, x, maxw)
+    para("Nothing Found for “" .. st.query .. "”", F.TITLE, C.title, x, maxw)
     gap(4)
-    para("Try a plainer word - \"horn\", \"strings\", \"timpani\", \"Mozart\", " ..
-         "\"menacing\" - or clear the box with Esc to see the whole index. Spelling " ..
+    para("Try a plainer word — “horn”, “strings”, “timpani”, “Mozart”, " ..
+         "“menacing” — or clear the box with Esc to see the whole index. Spelling " ..
          "is forgiving, but the encyclopaedia only covers the orchestra, the " ..
          "composers who wrote for it, and the craft of scoring for it.",
          F.BODY, C.dim, x, maxw)
     gap(16)
 
   elseif st.view == "help" then
-    para("How to use it", F.TITLE, C.title, x, maxw)
+    para("How to Use It", F.TITLE, C.title, x, maxw)
     gap(6)
     local keys = {
-      { "type", "search as you type; the best match is shown straight away" },
-      { "Up / Down", "move through the other matches" },
-      { "Enter", "keep the highlighted match and close the match list" },
-      { "Esc", "clear the box; press again for the index" },
-      { "Left / Right", "move the caret;  Backspace / Delete to edit" },
-      { "Alt + Left", "back to the previous entry" },
-      { "wheel, PgUp / PgDn", "scroll" },
-      { "F1", "this page" },
-      { "click", "any name or chip opens that entry" },
-      { "click a family", "on the index, opens and closes it; what you leave " ..
-        "open is remembered" },
-      { "Ctrl + Right / Left", "on the index, open or close every family" },
+      { "Type", "Search as you type; the best match is shown straight away." },
+      { KEYNAME.updown, "Move through the other matches." },
+      { KEYNAME.enter, "Keep the highlighted match and close the list of matches." },
+      { "Esc", "Clear the box; press it again to go to the index." },
+      { KEYNAME.leftright, "Move the cursor; " .. KEYNAME.del .. " and " ..
+        KEYNAME.fwddel .. " edit." },
+      { KEYNAME.altleft, "Go back to the previous entry." },
+      { "Scroll wheel, Page Up, Page Down", "Scroll." },
+      { "F1", "Show this page." },
+      { "Click a name", "Open that entry." },
+      { "Click a family", "On the index, open or close it; what you leave " ..
+        "open is remembered." },
+      { KEYNAME.ctrlright .. " " .. KEYNAME.ctrlleft,
+        "On the index, open or close every family." },
     }
     for _, k in ipairs(keys) do
       gfx.setfont(F.LABEL)
@@ -581,7 +598,7 @@ local function layout(w)
       para(k[2], F.BODY, C.text, x + kw, maxw - kw)
       gap(2)
     end
-    header("What is in here", maxw, x)
+    header("What’s in Here", maxw, x)
     para("Doublings and pairings in unison, in octaves, in thirds and sixths, and " ..
          "in harmony; section rosters and how they divide; relative strengths for " ..
          "balancing a doubling; and the blend bridges between the groups.",
@@ -593,19 +610,19 @@ local function layout(w)
          "every instrument page lists the composers worth studying for it.",
          F.BODY, C.text, x, maxw)
     gap(8)
-    para("It also works backwards. Type a mood - \"mysterious\", \"menacing\", " ..
-         "\"triumphant\" - and you get the orchestral resources that produce it. " ..
-         "Those entries come from Belkin's character glossary; read his caveats on " ..
+    para("It also works backwards. Type a mood — “mysterious”, “menacing”, " ..
+         "“triumphant” — and you get the orchestral resources that produce it. " ..
+         "Those entries come from Belkin’s character glossary; read his caveats on " ..
          "the Character page before leaning on them, because used as a recipe book " ..
-         "they turn into cliches.", F.BODY, C.text, x, maxw)
+         "they turn into clichés.", F.BODY, C.text, x, maxw)
     gap(8)
     para("Rare combinations are deliberately kept out of the suggestion lists. " ..
          "Where a source explicitly warns against something, or calls it rare, it " ..
-         "appears under \"Use sparingly\" instead - so the advice stays honest " ..
+         "appears under “Use sparingly” instead — so the advice stays honest " ..
          "without recommending what nobody writes.", F.BODY, C.text, x, maxw)
     header("Citations", maxw, x)
     para("Every item is tagged with the work and page it comes from. The tags are " ..
-         "spelled out on the SOURCES page.", F.BODY, C.text, x, maxw)
+         "spelled out on the Sources page.", F.BODY, C.text, x, maxw)
     gap(16)
 
   elseif st.view == "sources" then
@@ -618,11 +635,11 @@ local function layout(w)
     for _, tag in ipairs(order) do
       local s = SOURCES[tag]
       if s then
-        header(s.tag .. "  -  " .. s.short, maxw, x)
+        header(s.tag .. " — " .. s.short, maxw, x)
         para(s.full, F.BODY, C.text, x, maxw)
       end
     end
-    header("A note on the reading", maxw, x)
+    header("A Note on the Reading", maxw, x)
     para("Rimsky-Korsakov and Singleton are quoted directly and cited by page. " ..
          "Berlioz, Lavignac, Gevaert, Stone and Forsyth appear as Singleton quotes " ..
          "them, and are named in the text where that is the case. The present-day " ..
@@ -839,19 +856,19 @@ local function draw_top(g)
   gfx.drawstr("ORCHESTRATION HELPER", 0, w - S(230), by + g.btn_h)
 
   gfx.setfont(F.SMALL)
-  local w3 = textw("SOURCES") + S(18)
-  local w2 = textw("INDEX") + S(18)
-  local w1 = textw("HELP") + S(18)
+  local w3 = textw("Sources") + S(18)
+  local w2 = textw("Index") + S(18)
+  local w1 = textw("Help") + S(18)
   local rx = w - S(8) - w3
-  button("SOURCES", rx, by, w3, g.btn_h, st.view == "sources",
+  button("Sources", rx, by, w3, g.btn_h, st.view == "sources",
          function() go("sources", nil, true) end)
   rx = rx - S(6) - w2
-  button("INDEX", rx, by, w2, g.btn_h, st.view == "index", function()
+  button("Index", rx, by, w2, g.btn_h, st.view == "index", function()
     st.query, st.caret, st.sugg, st.sel = "", 0, {}, 1
     go("index", nil, true)
   end)
   rx = rx - S(6) - w1
-  button("HELP", rx, by, w1, g.btn_h, st.view == "help",
+  button("Help", rx, by, w1, g.btn_h, st.view == "help",
          function() go("help", nil, true) end)
 
   -- search box
@@ -867,7 +884,7 @@ local function draw_top(g)
   if st.query == "" then
     setcol(C.faint)
     gfx.x, gfx.y = tx, ty
-    gfx.drawstr("Search an instrument, section, composer or mood...", 0,
+    gfx.drawstr("Search for an instrument, section, composer or mood", 0,
                 sx + sw - S(100), sy + sh)
   else
     setcol(C.text)
@@ -1030,10 +1047,11 @@ local function draw_footer(g)
   gfx.setfont(F.SMALL)
   gfx.x, gfx.y = S(20), y + S(4)
   gfx.drawstr(st.view == "index"
-    and "Click a family to open it   Ctrl+Right all   Ctrl+Left none   " ..
-        "F1 help   -   works offline"
-     or "Up/Down matches   Enter open   Esc clear   Alt+Left back   " ..
-        "F1 help   -   works offline", 256)
+    and ("Click a family to open it · " .. KEYNAME.ctrlright .. " opens all · " ..
+         KEYNAME.ctrlleft .. " closes all · F1 for help · Works offline")
+     or (KEYNAME.updown .. " matches · " .. KEYNAME.enter .. " opens · " ..
+         "Esc clears · " .. KEYNAME.altleft .. " goes back · F1 for help · " ..
+         "Works offline"), 256)
 end
 
 ------------------------------------------------------------------------------

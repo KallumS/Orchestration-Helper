@@ -34,7 +34,7 @@ D.SOURCES = {
   },
   WP = {
     tag   = "WP",
-    short = "Wikipedia, 'Orchestration'",
+    short = "Wikipedia, “Orchestration”",
     full  = "Wikipedia contributors, 'Orchestration', Wikipedia, The Free "
          .. "Encyclopedia (CC BY-SA). Used for the standard instrumentation "
          .. "shorthand and for the orchestration bibliography.",
@@ -82,7 +82,7 @@ e{ id="strings", name="String Section", family="Strings", kind="section",
       {"Violas + Violoncellos","Rich, full resonance with the 'cello quality on top.","RK p.39"},
       {"Violins + Violoncellos","Similar to the above but fuller; the 'cello tone "
         .. "prevails.","RK p.40"},
-      {"Vns I + Vns II + Violas + 'Cellos","Only possible in the alto-tenor register. "
+      {"Vns I + Vns II + Violas + ’Cellos","Only possible in the alto-tenor register. "
         .. "Complex, very tense and powerful in forte; extremely full and rich in piano.","RK p.40"},
       {"Violoncellos + Double basses","Rich and full; used for phrases in the very "
         .. "low register.","RK p.40"},
@@ -96,12 +96,12 @@ e{ id="strings", name="String Section", family="Strings", kind="section",
       {"Vns I + II / Violas","Use for greater brilliance in the upper part.","RK p.41"},
       {"Vns I / Vns II + Violas","Use to give the lower part a fuller, more "
         .. "cantabile quality.","RK p.41"},
-      {"Violas / 'Cellos","Of special use when the violins are otherwise employed.","RK p.41"},
-      {"Vns / 'Cellos","For very expressive passages with the 'cellos on the A or D "
+      {"Violas / ’Cellos","Of special use when the violins are otherwise employed.","RK p.41"},
+      {"Vns / ’Cellos","For very expressive passages with the 'cellos on the A or D "
         .. "string; more resonant than violas/'cellos, and frequent.","RK p.42"},
-      {"'Cellos / D. basses","The normal construction of the bass. Examples are "
+      {"’Cellos / D. basses","The normal construction of the bass. Examples are "
         .. "\"to be found everywhere\"; the bass part is sometimes simplified.","RK p.42"},
-      {"Vns I + II / Violas + 'Cellos","Each octave doubled in unison. \"Constantly "
+      {"Vns I + II / Violas + ’Cellos","Each octave doubled in unison. \"Constantly "
         .. "found\", and produces a beautiful tone, somewhat severe in character. For "
         .. "melodies in the middle orchestral range.","RK p.43"},
     }},
@@ -138,13 +138,13 @@ e{ id="strings", name="String Section", family="Strings", kind="section",
       {"Violins divisi in octaves","Halves the number of players and so drains the "
         .. "melody of resonance - noticeable above all in small orchestras. Usable "
         .. "when the woodwind doubles the strings.","RK p.40-41"},
-      {"Vns I / Vns II / Violas / 'Cellos / D. basses in 4 octaves","Very seldom "
+      {"Vns I / Vns II / Violas / ’Cellos / D. basses in 4 octaves","Very seldom "
         .. "found, and as a rule only when supported by wind.","RK p.45"},
       {"Solo double bass","\"Practically unknown\"; the solo viola is also seldom "
         .. "found. Violin and 'cello solos are the usual ones.","RK p.104"},
     }},
 
-    {"Belkin's practical notes", {
+    {"Belkin’s practical notes", {
       {"Compare it with the choir","\"Like the vocal choir, the string family offers "
         .. "excellent homogeneity of timbre, and can play anything from the simplest "
         .. "monophonic line to the richest polyphony. Virtually anything that is "
@@ -181,19 +181,19 @@ e{ id="woodwind", name="Woodwind Section", family="Woodwind", kind="section",
        .. "alto flute, E-flat clarinet, bass clarinet)"},
   },
   sec={
-    {"Formation - in pairs", {
+    {"Formation — in pairs", {
       {"Flutes","2 (II takes piccolo)","RK p.13"},
       {"Oboes","2 (II takes English horn)","RK p.13"},
       {"Clarinets","2 (II takes bass clarinet)","RK p.13"},
       {"Bassoons","2","RK p.13"},
     }},
-    {"Formation - in threes", {
+    {"Formation — in threes", {
       {"Flutes","3 (III takes piccolo, II takes alto flute)","RK p.13"},
       {"Oboes","2 + 1 English horn (III)","RK p.13"},
       {"Clarinets","3 (II takes E-flat clarinet, III takes bass clarinet)","RK p.13"},
       {"Bassoons","2 + 1 contrabassoon (III)","RK p.13"},
     }},
-    {"Formation - in fours", {
+    {"Formation — in fours", {
       {"Flutes","1 piccolo (IV) + 3 flutes (III takes alto flute)","RK p.13"},
       {"Oboes","3 + 1 English horn (IV)","RK p.13"},
       {"Clarinets","3 (II takes E-flat clarinet) + 1 bass clarinet (IV)","RK p.13"},
@@ -292,7 +292,7 @@ e{ id="woodwind", name="Woodwind Section", family="Woodwind", kind="section",
         .. "phrases needing diverse expression to solo instruments.","RK p.48"},
     }},
 
-    {"Belkin's practical notes", {
+    {"Belkin’s practical notes", {
       {"Each woodwind is three instruments","\"A good policy is to consider each "
         .. "woodwind as being three instruments in one: a high, a middle, and a low "
         .. "timbre. Combinations that work well in one register can be quite odd in "
@@ -348,7 +348,7 @@ e{ id="brass", name="Brass Section", family="Brass", kind="section",
       {"With woodwind in fours","3 Trumpets (II takes small trumpet, III alto or "
         .. "bass trumpet), 6 or 8 Horns, 3 Trombones, 1 Tuba.","RK p.22"},
     }},
-    {"Balance - the key ratio", {
+    {"Balance — the key ratio", {
       {"1 Trumpet = 1 Trombone = 1 Tuba = 2 Horns","In forte the horns are only "
         .. "half as strong as the rest of the brass. To balance a forte you need two "
         .. "horns to one trumpet or trombone.","RK p.23 & p.33"},
@@ -438,7 +438,7 @@ e{ id="brass", name="Brass Section", family="Brass", kind="section",
         .. "effect\".","RK p.118"},
     }},
 
-    {"Belkin's practical notes", {
+    {"Belkin’s practical notes", {
       {"More homogeneous than the woodwind","\"Brass are more homogeneous than "
         .. "woodwind, but less agile. They can play melodic, rhythmic, contrapuntal, and "
         .. "harmonic roles equally well. They also reproduce choral writing better than "
@@ -536,7 +536,7 @@ e{ id="percussion", name="Percussion Section", family="Percussion", kind="sectio
         .. "then percussion - and within percussion: triangle, cymbals, bass drum, "
         .. "side drum, tambourine, gong. Celesta, glockenspiel and xylophone stand "
         .. "further off still, being too characteristic to use often.","RK p.118"},
-      {"Careful - they win","Bass drum, cymbals, gong and a fortissimo side-drum "
+      {"Careful — they win","Bass drum, cymbals, gong and a fortissimo side-drum "
         .. "tremolo are each \"sufficient to overpower any orchestral tutti\".","RK p.117"},
       {"Against the voice","Percussion rarely accompanies a singer; a timpani figure "
         .. "or tremolo, sometimes the triangle, less often cymbals.","RK p.124"},
@@ -635,8 +635,8 @@ e{ id="strings_wind", name="Strings + Woodwind", family="Combining", kind="topic
       {"Violas + Oboe","Also English horn.","RK p.58"},
       {"Violas + Clarinet","",  "RK p.58"},
       {"Violas + Bassoon","",  "RK p.58"},
-      {"'Cellos + Clarinet","Also bass clarinet.","RK p.58"},
-      {"'Cellos + Bassoon","",  "RK p.58"},
+      {"’Cellos + Clarinet","Also bass clarinet.","RK p.58"},
+      {"’Cellos + Bassoon","",  "RK p.58"},
       {"D. basses + Bassoon","Also bass clarinet or contrabassoon.","RK p.58"},
     }},
     {"Why do it", {
@@ -647,19 +647,19 @@ e{ id="strings_wind", name="Strings + Woodwind", family="Combining", kind="topic
         .. "with an oboe, bassoon with the 'cellos). If several winds play in unison "
         .. "against one string group, the strings are overpowered.","RK p.58"},
     }},
-    {"Absorption - wind swallows the strings", {
+    {"Absorption — wind swallows the strings", {
       {"2 Fl + 2 Ob + Violins I","One department of strings added to woodwind in "
         .. "unison gives a sweet coherent quality with the wind timbre still "
         .. "predominating.","RK p.34"},
       {"2 Ob + 2 Cl + Violas","As above.","RK p.34"},
-      {"2 Cl + 2 Fag + 'Cellos","As above.","RK p.34"},
+      {"2 Cl + 2 Fag + ’Cellos","As above.","RK p.34"},
     }},
-    {"Thickening - strings swallow the wind", {
+    {"Thickening — strings swallow the wind", {
       {"Vns I + Vns II + 1 Oboe","Adding a single wind to all or part of the strings "
         .. "in unison \"only thickens the resonance of the latter, the wood-wind "
         .. "timbre being lost in the process\".","RK p.34"},
-      {"Violas + 'Cellos + 1 Clarinet","As above.","RK p.34"},
-      {"'Cellos + D. basses + 1 Bassoon","As above.","RK p.34"},
+      {"Violas + ’Cellos + 1 Clarinet","As above.","RK p.34"},
+      {"’Cellos + D. basses + 1 Bassoon","As above.","RK p.34"},
     }},
     {"Octaves", {
       {"Prefer wind in both octaves","When only one of two octaves is doubled and "
@@ -703,11 +703,11 @@ e{ id="strings_brass", name="Strings + Brass", family="Combining", kind="topic",
     {"Pairs that work (matched registers)", {
       {"Violin + Trumpet","The nearest corresponding registers in the two groups.","RK p.61"},
       {"Viola + Horn","",  "RK p.61"},
-      {"'Cellos / D. basses + Trombones / Tuba","For heavy, massive effects.","RK p.61"},
-      {"Horns + 'Cellos","\"Frequently employed, produces a beautifully blended, "
+      {"’Cellos / D. basses + Trombones / Tuba","For heavy, massive effects.","RK p.61"},
+      {"Horns + ’Cellos","\"Frequently employed, produces a beautifully blended, "
         .. "soft quality of tone.\" This is the one combination of the two groups "
         .. "Rimsky-Korsakov singles out for praise.","RK p.61"},
-      {"Horns + divided Violas or 'Cellos","\"The splendid effect of horns doubled by "
+      {"Horns + divided Violas or ’Cellos","\"The splendid effect of horns doubled by "
         .. "divided violas or 'cellos\" - the exception worth seeking out in harmony.","RK p.95"},
     }},
     {"In harmony", {
@@ -819,9 +819,9 @@ e{ id="three_groups", name="All Three Groups Combined", family="Combining", kind
   sec={
     {"The standard groupings", {
       {"Violins + Oboe (or Flute, Clarinet) + Trumpet","The soprano grouping.","RK p.61"},
-      {"Violas (or 'Cellos) + Clarinet (or English horn) + Horn","The alto-tenor "
+      {"Violas (or ’Cellos) + Clarinet (or English horn) + Horn","The alto-tenor "
         .. "grouping.","RK p.61"},
-      {"'Cellos / D. basses + 2 Bassoons + 3 Trombones + Tuba","The bass grouping.","RK p.61"},
+      {"’Cellos / D. basses + 2 Bassoons + 3 Trombones + Tuba","The bass grouping.","RK p.61"},
     }},
     {"In harmony", {
       {"Side by side","Setting strings, woodwind and brass side by side \"produces a "
@@ -875,20 +875,20 @@ e{ id="blend", name="Blend Bridges Between Groups", family="Combining", kind="to
        .. "across when you want a join nobody hears.",
   sec={
     {"The bridges", {
-      {"String harmonics -- Flute / Piccolo","\"The relationship which exists between "
+      {"String harmonics – Flute / Piccolo","\"The relationship which exists between "
         .. "string harmonics and the flute or piccolo constitutes a link between the "
         .. "two groups in the upper range of the orchestra.\"","RK p.35"},
-      {"Viola -- Bassoon (middle) / Clarinet (lowest)","\"The timbre of the viola may "
+      {"Viola – Bassoon (middle) / Clarinet (lowest)","\"The timbre of the viola may "
         .. "be vaguely compared to the middle register of the bassoon and the lowest "
         .. "compass of the clarinet; hence, in the medium orchestral range, a point of "
         .. "contact is established between the quartet of strings and the wood-wind.\"","RK p.35-36"},
-      {"Bassoon -- Horn","\"The bassoon and horn provide the connection between "
+      {"Bassoon – Horn","\"The bassoon and horn provide the connection between "
         .. "wood-wind and brass, these two instruments being somewhat analogous in "
         .. "character when played piano or mezzo-forte.\" The horn \"serves as a link "
         .. "between the brass and wood-wind\".","RK p.36 & p.24"},
-      {"Low Flute -- pianissimo Trumpet","\"The flute also, in its lowest register, "
+      {"Low Flute – pianissimo Trumpet","\"The flute also, in its lowest register, "
         .. "recalls the pianissimo trumpet tone.\"","RK p.36"},
-      {"Stopped / muted Horns and Trumpets -- Oboe / English horn","\"Similar in "
+      {"Stopped / muted Horns and Trumpets – Oboe / English horn","\"Similar in "
         .. "quality to the oboe and Eng. horn, and blend tolerably well with the "
         .. "latter instrument.\"","RK p.36"},
     }},
@@ -900,7 +900,7 @@ e{ id="blend", name="Blend Bridges Between Groups", family="Combining", kind="to
         .. "distinctly.\"","RK p.35"},
       {"All three in unison","\"Produces a rich, mellow and coherent tone.\"","RK p.35"},
     }},
-    {"Berlioz's statement of the aim", {
+    {"Berlioz’s statement of the aim", {
       {"What combining is for","He sets out two purposes: modifying the sound of some "
         .. "instruments by others, and drawing from the ensemble a sound that none of "
         .. "them could produce alone or with others of its own family. The second is the "
@@ -1056,13 +1056,13 @@ e{ id="listening", name="Where to Hear These Combinations", family="Reference", 
         "HUG Section Combinations in twos"},
       {"Pizzicato strings + bassoon","Mahler, Symphony 5, M3 b.308-328.",
         "HUG Section Combinations in twos"},
-      {"'Cellos + basses + bassoons in octaves","Holst, The Planets: Mars, 4 after VI.",
+      {"’Cellos + basses + bassoons in octaves","Holst, The Planets: Mars, 4 after VI.",
         "HUG Section Combinations in twos"},
       {"Violas + horn + bassoon in unison","Elgar, Symphony 1, Fig. 137.",
         "HUG Section Combinations in threes"},
       {"Violas + flutes + clarinets + bassoons in octaves","Elgar, Symphony 1, opening.",
         "HUG Section Combinations in twos"},
-      {"Oboes + clarinet + violins in unison, 'cellos an octave below","Mahler, "
+      {"Oboes + clarinet + violins in unison, ’cellos an octave below","Mahler, "
         .. "Symphony 5, MI b96-104.","HUG Section Combinations in twos"},
       {"Bass clarinet + bassoon + muted strings","Elgar, Symphony 1, IV.",
         "HUG Section Combinations in twos"},
@@ -1070,7 +1070,7 @@ e{ id="listening", name="Where to Hear These Combinations", family="Reference", 
         "HUG Section Combinations in twos"},
     }},
     {"Horns with strings", {
-      {"Violas + 'cellos + 8 horns in unison","Holst, The Planets: Jupiter, opening - "
+      {"Violas + ’cellos + 8 horns in unison","Holst, The Planets: Jupiter, opening - "
         .. "the big-tune version of the horn/'cello blend.","HUG Section Combinations in twos"},
       {"Horn + 1st violin in unison","Stravinsky, Petrushka, Fig. 176-178.",
         "HUG Section Combinations in twos"},
@@ -1092,14 +1092,14 @@ e{ id="listening", name="Where to Hear These Combinations", family="Reference", 
         .. "harmonic series and the high register.","HUG Brass Section: solos and groups"},
     }},
     {"Strings on their own", {
-      {"Violas + 'cellos in unison","Beethoven, Symphony 7, MII bb. 27-34.",
+      {"Violas + ’cellos in unison","Beethoven, Symphony 7, MII bb. 27-34.",
         "HUG String Section"},
       {"Violins + violas in octaves","Tchaikovsky, Symphony 5, MII.","HUG String Section"},
       {"Strings in octaves","Sibelius, Symphony 5, Molto moderato 2 after M.",
         "HUG String Section"},
       {"All strings in close harmony","Saint-Saens, Symphony 3, MI letter M.",
         "HUG String Section"},
-      {"'Cellos high, joined by violas","Debussy, La Mer, II Fig. 26.","HUG String Section"},
+      {"’Cellos high, joined by violas","Debussy, La Mer, II Fig. 26.","HUG String Section"},
     }},
     {"Whole-orchestra scoring", {
       {"Typical romantic tutti","Mahler, Symphony 4, MI b264-266 - violins carrying the "
@@ -1152,7 +1152,7 @@ e{ id="idiomatic", name="Writing Playable Music", family="Craft", kind="topic",
         .. "impossible strung together with a series of other acrobatic demands. Budget "
         .. "difficulty across a movement, not per bar.",
         "ACTOR All Instruments: Effective Instrumental Writing"},
-      {"\"Professional\" does not mean flawless","It means the players are paid. Top "
+      {"“Professional” does not mean flawless","It means the players are paid. Top "
         .. "players still face the same challenge, with less rehearsal time than an "
         .. "amateur group might give you. Write for the players you have, knowing their "
         .. "strengths and how long they will have.",
@@ -1274,7 +1274,7 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "dynamic grading - marking the woodwind one degree louder than the brass.","RK p.94"},
     }},
 
-    {"Counting a chord - the balance ratio", {
+    {"Counting a chord — the balance ratio", {
       {"The whole system, in four numbers","One string group (e.g. all 1st violins) = "
         .. "2  ~  one woodwind instrument = 1  ~  one horn, or one saxophone = 2  ~  "
         .. "one other brass instrument = 4. Add up each note of a chord and compare. "
@@ -1318,7 +1318,7 @@ e{ id="balance", name="Balance and Relative Strength", family="Combining", kind=
         .. "about the thing you are breaking it for.","IDIO Chords"},
     }},
     {"Loudness is not the same as thickness", {
-      {"Koechlin's distinction","\"By 'volume' he means the thickness of a given sound. "
+      {"Koechlin’s distinction","\"By 'volume' he means the thickness of a given sound. "
         .. "For example, at any dynamic level, a horn will always sound thicker, or "
         .. "'fatter', than a violin. Acoustically, thick sounds tend to have stronger "
         .. "fundamentals than thin sounds.\"","BEL p.34"},
@@ -1520,7 +1520,7 @@ D.SOURCES.ACTOR = {
     .. "instruments reduces colour rather than adding it.",
 }
 D.SOURCES.OMT = {
-  tag="OMT", short="Open Music Theory, 'Core Principles of Orchestration'",
+  tag="OMT", short="Open Music Theory, “Core Principles of Orchestration”",
   full="Gotham et al. (eds.), 'Open Music Theory' 2e, chapter 'Core Principles of "
     .. "Orchestration' - open-access music theory textbook.",
 }
@@ -1538,7 +1538,7 @@ D.SOURCES.IDIO = {
     .. "'Traite de l'Orchestration', which it notes has never been translated.",
 }
 D.SOURCES.HUG = {
-  tag="HUG", short="Hugill, The Orchestra: A User's Manual",
+  tag="HUG", short="Hugill, The Orchestra: A User’s Manual",
   full="Andrew Hugill, 'The Orchestra: A User's Manual' (c) Andrew Hugill 2015, "
     .. "written with the Philharmonia Orchestra. Cited by page title. Split out "
     .. "of the MOD group when the full site was supplied: it is mostly an index "
@@ -1659,7 +1659,7 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
         .. "variations and occasional massive expansions.","HUG Brass Section; cf. RK p.21"},
       {"Percussion","Timpani plus 2-4 percussionists, and one or two harps.","MOD"},
     }},
-    {"Seating (Singleton's 1917 description, still recognisable)", {
+    {"Seating (Singleton’s 1917 description, still recognisable)", {
       {"Left of the conductor","First violins, with the 'cellos beside them and the "
         .. "double basses behind.","SIN p.9"},
       {"Right of the conductor","Second violins, with the violas beside them.","SIN p.9"},
@@ -1676,15 +1676,15 @@ e{ id="orchestra", name="The Modern Orchestra", family="Reference", kind="sectio
       {"Mozart / Haydn inheritance","Strings, 2 flutes, 2 oboes, 2 bassoons, 2 horns, "
         .. "2 trumpets, kettledrums and occasionally 2 clarinets. Neither used "
         .. "trombones in a symphony.","SIN p.219"},
-      {"Beethoven's Fifth","First appearance in his symphonies of piccolo, trombones "
+      {"Beethoven’s Fifth","First appearance in his symphonies of piccolo, trombones "
         .. "and contrabassoon.","SIN p.229"},
-      {"Beethoven's Ninth","2 flutes, 2 oboes, 2 clarinets, 2 bassoons, 4 horns, 2 "
+      {"Beethoven’s Ninth","2 flutes, 2 oboes, 2 clarinets, 2 bassoons, 4 horns, 2 "
         .. "trumpets, 2 drums and strings; with 3 trombones, contrabassoon, piccolo, "
         .. "triangle, cymbals and bass drum in some movements.","SIN p.240"},
-      {"Debussy, Prelude a l'apres-midi d'un faune","3 flutes, oboes, clarinets, 4 "
+      {"Debussy, Prelude a l’apres-midi d’un faune","3 flutes, oboes, clarinets, 4 "
         .. "horns, 2 harps, antique cymbals and strings - no trumpets, trombones, "
         .. "timpani or tuba at all.","SIN p.270"},
-      {"Cesti, Il Pomo d'oro (1666)","Thirty players: 6 violins, 12 alto violas, "
+      {"Cesti, Il Pomo d’oro (1666)","Thirty players: 6 violins, 12 alto violas, "
         .. "tenor, bass, contrabass, 2 flutes, trumpets, 2 cornets, 3 trombones, a "
         .. "bassoon and a little organ - strings accompanied the voices, flutes did "
         .. "the pastoral scenes, trumpets the choral scenes, cornets and trombones "
@@ -1768,7 +1768,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "an octave to carry on. Stagger those shifts: they must not all happen at "
         .. "once, but \"smoothly and carefully graduated\".","IDIO Octaves"},
     }},
-    {"Parallel doubling - other intervals", {
+    {"Parallel doubling — other intervals", {
       {"What it does","Doubling at intervals other than the octave - most often the "
         .. "third, fifth or sixth, adjusted to fit the current key or scale. \"Even "
         .. "more than octave doubling, parallel doubling results in increased volume "
@@ -1789,7 +1789,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "onward - Bolero saturates nearly the whole texture with them once it "
         .. "reaches forte.","IDIO Parallel Doubling"},
     }},
-    {"Mixture - building an instrument that does not exist", {
+    {"Mixture — building an instrument that does not exist", {
       {"The idea","Doubling does not only blend colours; it can synthesise one. Add "
         .. "instruments on a note's own overtones, soft enough that the ear takes them "
         .. "for overtones rather than notes, and the result is a timbre no player "
@@ -1811,7 +1811,7 @@ e{ id="doubling", name="Doubling: General Principles", family="Combining", kind=
         .. "celesta, the clarinet's weak middle-register notes.","IDIO ch.12"},
     }},
     {"Partial doubling", {
-      {"Don't double everything","Complete doubling produces a heavy, massive sound. "
+      {"Don’t double everything","Complete doubling produces a heavy, massive sound. "
         .. "Partial doubling - woodwind partly doubling the high strings while horns "
         .. "partly double the lower ones - keeps weight without clogging.","IDIO Partial Doubling"},
       {"Modify as you double","A bassoon and flute may double the first violins' "
@@ -1932,7 +1932,7 @@ e{ id="violin", name="Violin", family="Strings", kind="instrument",
         .. "stays that of the string quartet, enriched. The weight of violins prevents "
         .. "any doubling woodwind from predominating.","RK p.39"},
       {"+ Violas","Violins remain predominant; rich, full resonance.","RK p.39"},
-      {"+ 'Cellos","The 'cello tone prevails and the resonance is fuller.","RK p.40"},
+      {"+ ’Cellos","The 'cello tone prevails and the resonance is fuller.","RK p.40"},
       {"+ Flute","One of the best and most natural string/wind combinations - "
         .. "registers correspond closely. Also with alto flute or piccolo.","RK p.58"},
       {"+ Oboe","A classic: the oboe gives the violins bite and definite colour, the "
@@ -1969,9 +1969,9 @@ e{ id="violin", name="Violin", family="Strings", kind="instrument",
         .. "buzzing that obscures the violins rather than strengthening them. If the "
         .. "viola part cannot be made distinctive, put the violas in unison with the "
         .. "'cellos instead - as Beethoven does in the same movement.","BERL The viola"},
-      {"Vns / 'Cellos","For very expressive passages, with the 'cellos on the A or D "
+      {"Vns / ’Cellos","For very expressive passages, with the 'cellos on the A or D "
         .. "string. More resonant than violas/'cellos; instances are frequent.","RK p.42"},
-      {"Vns I + II / Violas + 'Cellos","Each octave doubled in unison; \"constantly "
+      {"Vns I + II / Violas + ’Cellos","Each octave doubled in unison; \"constantly "
         .. "found\" for melodies in the middle range, beautiful and somewhat severe.","RK p.43"},
       {"Picc / Fl + Vns","When only one of two octaves may be doubled in a soprano "
         .. "melody, let the woodwind take both octaves and double just the lower one "
@@ -2035,7 +2035,7 @@ e{ id="viola", name="Viola", family="Strings", kind="instrument",
   },
   sec={
     {"Pairings in unison", {
-      {"+ 'Cellos","Rich, full resonance with the 'cello quality predominating.","RK p.39"},
+      {"+ ’Cellos","Rich, full resonance with the 'cello quality predominating.","RK p.39"},
       {"+ Violins","No special new character; the violins stay predominant.","RK p.39"},
       {"+ Oboe or English horn","One of the best-matched string/wind pairs.","RK p.58"},
       {"+ Clarinet","Especially the clarinet's low register: the viola's timbre is "
@@ -2048,16 +2048,16 @@ e{ id="viola", name="Viola", family="Strings", kind="instrument",
       {"+ Clarinet (or Eng. horn) + Horn","The standard alto-tenor grouping of all "
         .. "three groups.","RK p.61"},
       {"+ 2 Ob + 2 Cl (absorbed)","With that much wind, the wind timbre predominates.","RK p.34"},
-      {"+ 'Cellos + 1 Clarinet (thickened)","A single wind added to the string body "
+      {"+ ’Cellos + 1 Clarinet (thickened)","A single wind added to the string body "
         .. "only thickens it; the wind timbre disappears.","RK p.34"},
     }},
     {"Doublings in octaves", {
       {"Vns / Violas","Common, especially when the lower octave falls below the "
         .. "violin's open G. Vns I + II / Violas gives brilliance above; Vns I / Vns II "
         .. "+ Violas gives a fuller, more cantabile lower octave.","RK p.41"},
-      {"Violas / 'Cellos","Of special use when the violins are otherwise employed; "
+      {"Violas / ’Cellos","Of special use when the violins are otherwise employed; "
         .. "often doubled by bassoons.","RK p.41"},
-      {"Violas + 2 Cl / 'Cellos + D. basses + 2 Fag","A fully scored low-middle "
+      {"Violas + 2 Cl / ’Cellos + D. basses + 2 Fag","A fully scored low-middle "
         .. "octave doubling.","RK p.59"},
     }},
     {"Character", {
@@ -2142,15 +2142,15 @@ e{ id="cello", name="Violoncello", family="Strings", kind="instrument",
         .. "recipe - 'Cellos + Violas + Eng. horn, or Vns + 'Cellos + Eng. horn.","RK p.58-59"},
     }},
     {"Doublings in octaves", {
-      {"'Cellos / D. basses","\"The bass is usually constructed in this manner. "
+      {"’Cellos / D. basses","\"The bass is usually constructed in this manner. "
         .. "Examples of it are to be found everywhere.\" The bass part is sometimes "
         .. "simplified against the 'cello part.","RK p.42"},
-      {"Vns / 'Cellos","For very expressive passages with the 'cellos on the A or D "
+      {"Vns / ’Cellos","For very expressive passages with the 'cellos on the A or D "
         .. "string; more resonant than violas/'cellos, and frequent.","RK p.42"},
-      {"Violas / 'Cellos","When the violins are otherwise employed.","RK p.41"},
-      {"'Cellos + Bassoon / D. basses","For a low melody needing a sweet, soft tone - "
+      {"Violas / ’Cellos","When the violins are otherwise employed.","RK p.41"},
+      {"’Cellos + Bassoon / D. basses","For a low melody needing a sweet, soft tone - "
         .. "the basses left undoubled.","RK p.60"},
-      {"'Cellos + Bass cl / D. basses + C-Fag","A fully reinforced low octave.","RK p.59"},
+      {"’Cellos + Bass cl / D. basses + C-Fag","A fully reinforced low octave.","RK p.59"},
     }},
     {"When to separate from the basses", {
       {"The default, and why to leave it","Orchestral practice gives 'cellos and "
@@ -2169,7 +2169,7 @@ e{ id="cello", name="Violoncello", family="Strings", kind="instrument",
         .. "of violoncellos playing in unison upon their first string.\"","SIN p.65"},
       {"Also","\"Excellent for airs of a religious character.\" The two lower strings "
         .. "are smooth and deep, but too low to carry melodies.","SIN p.65"},
-      {"Solo 'cello","With the violin, one of the two string solos reasonably often "
+      {"Solo ’cello","With the violin, one of the two string solos reasonably often "
         .. "used. A solo 'cello combined with violins gives the latter a touch of "
         .. "'cello timbre.","RK p.104 & p.40"},
       {"Clefs","Bass clef for the lower and middle registers, tenor clef above that, "
@@ -2193,24 +2193,24 @@ e{ id="doublebass", name="Double Bass", family="Strings", kind="instrument",
   },
   sec={
     {"Pairings in unison", {
-      {"+ 'Cellos","Rich and full; the standard low-register combination, and the "
+      {"+ ’Cellos","Rich and full; the standard low-register combination, and the "
         .. "closest-allied pair in the orchestra.","RK p.40; MOD"},
       {"+ Bassoon","One of the best-matched string/wind pairs in the bass.","RK p.58"},
       {"+ Contrabassoon","For the true bottom of the orchestra.","RK p.58"},
       {"+ Bass clarinet","As above, darker and smoother.","RK p.58"},
-      {"+ Trombones / Tuba (with 'cellos)","For heavy, massive effects.","RK p.61"},
-      {"+ 2 Fag + 3 Trombones + Tuba (with 'cellos)","The standard bass grouping of "
+      {"+ Trombones / Tuba (with ’cellos)","For heavy, massive effects.","RK p.61"},
+      {"+ 2 Fag + 3 Trombones + Tuba (with ’cellos)","The standard bass grouping of "
         .. "all three groups; the tuba is \"eminently useful for doubling, an octave "
         .. "lower, the bass of the group to which it belongs\".","RK p.61 & p.24"},
-      {"+ 'Cellos + D. basses + 1 Bassoon (thickened)","One wind added to the string "
+      {"+ ’Cellos + D. basses + 1 Bassoon (thickened)","One wind added to the string "
         .. "bass only thickens it; the bassoon timbre is lost.","RK p.34"},
     }},
     {"Doublings in octaves", {
-      {"'Cellos / D. basses","The normal bass; the bass part is sometimes simplified.","RK p.42"},
-      {"'Cellos + Fag / D. basses","For a sweet, soft low melody - leave the basses "
+      {"’Cellos / D. basses","The normal bass; the bass part is sometimes simplified.","RK p.42"},
+      {"’Cellos + Fag / D. basses","For a sweet, soft low melody - leave the basses "
         .. "undoubled. Sometimes obligatory when no contrabassoon is available.","RK p.60"},
-      {"'Cellos + Bass cl / D. basses + C-Fag","Fully reinforced.","RK p.59"},
-      {"Violas / 'Cellos / D. basses","In double octaves, for the low register and "
+      {"’Cellos + Bass cl / D. basses + C-Fag","Fully reinforced.","RK p.59"},
+      {"Violas / ’Cellos / D. basses","In double octaves, for the low register and "
         .. "rough, severe phrases.","RK p.44"},
     }},
     {"Character", {
@@ -2413,7 +2413,7 @@ e{ id="piccolo", name="Piccolo", family="Woodwind", kind="instrument",
         .. "the second octave are suitable in all their gradations; while the upper "
         .. "notes are excellent fortissimo for violent and tearing effects: in a storm, "
         .. "for instance, or in a scene of fierce, or infernal, character.\"","SIN p.80"},
-      {"Berlioz's warning","He calls it \"a stupid method of instrumentation\" to use "
+      {"Berlioz’s warning","He calls it \"a stupid method of instrumentation\" to use "
         .. "the piccolo to double a baritone line in triple octave, to cast its "
         .. "squeaking voice into religious harmony, or to sharpen the top of the "
         .. "orchestra \"for the sake of noise only\".","SIN p.81"},
@@ -2526,7 +2526,7 @@ e{ id="oboe", name="Oboe", family="Woodwind", kind="instrument",
         .. "sustained passages need pauses - the difficulty is refilling the lungs, not "
         .. "the air supply.","SIN p.88"},
     }},
-    {"Register - against the intuition", {
+    {"Register — against the intuition", {
       {"Low is the penetrating end","\"A low oboe is far more penetrating than the same "
         .. "instrument in its highest register.\" If you want the oboe to cut through, "
         .. "the bottom of its range does it, not the top.","IDIO Dynamics and Balance"},
@@ -2582,7 +2582,7 @@ e{ id="englishhorn", name="English Horn (Cor Anglais)", family="Woodwind", kind=
     {"Pairings in unison", {
       {"+ Violas","A best-matched string/wind pair; also Violas + Ob + Eng horn, and "
         .. "Violas + Ob + Eng horn in Sheherazade.","RK p.58-59"},
-      {"+ 'Cellos and/or Violins","Rimsky-Korsakov's recurring recipe: 'Cellos + Violas "
+      {"+ ’Cellos and/or Violins","Rimsky-Korsakov's recurring recipe: 'Cellos + Violas "
         .. "+ Eng horn, and Vns I + II + 'Cellos + Eng horn - the English horn is "
         .. "absorbed into the texture while the 'cellos stand out.","RK p.39-40 & p.58-59"},
       {"+ Trombone","Listed among the brass/reed unison combinations that share the "
@@ -2652,7 +2652,7 @@ e{ id="clarinet", name="Clarinet", family="Woodwind", kind="instrument",
       {"+ Violas","Especially the clarinet's low register - the viola's timbre is "
         .. "comparable to the clarinet's lowest compass, making this a standard blended "
         .. "doubling in modern practice too.","RK p.58 & p.35-36; IDIO ch.12"},
-      {"+ 'Cellos","With bass clarinet as the darker alternative.","RK p.58"},
+      {"+ ’Cellos","With bass clarinet as the darker alternative.","RK p.58"},
       {"+ Trumpet","\"The trumpet is the instrument most frequently doubled\", and "
         .. "Trumpet + Cl heads Rimsky-Korsakov's list; also Trumpet + Cl + Ob + Fl.","RK p.56"},
       {"+ Horn","Horn + Cl is the commonest horn/woodwind doubling; also 2 or 3 Horns "
@@ -2672,7 +2672,7 @@ e{ id="clarinet", name="Clarinet", family="Woodwind", kind="instrument",
       {"Cl / Fag  or  Cl / Bass cl","To double an extreme low line an octave higher.","RK p.50"},
       {"2 Cl above 1 Horn","One of the standard woodwind-above-horn octave doublings; "
         .. "2 Fl + 2 Cl above 2 Horns for forte.","RK p.57"},
-      {"2 Cl / 'Cellos + 2 Horns","A mixed octave doubling from Sheherazade.","RK p.60"},
+      {"2 Cl / ’Cellos + 2 Horns","A mixed octave doubling from Sheherazade.","RK p.60"},
     }},
     {"Thirds and sixths", {
       {"2 Clarinets in thirds","One colour gives the best equality of tone in thirds.","RK p.52"},
@@ -2766,14 +2766,14 @@ e{ id="bassclarinet", name="Bass Clarinet", family="Woodwind", kind="instrument"
   },
   sec={
     {"Pairings in unison", {
-      {"+ 'Cellos","One of the best-matched string/wind pairs in the low register.","RK p.58"},
+      {"+ ’Cellos","One of the best-matched string/wind pairs in the low register.","RK p.58"},
       {"+ D. basses","For the bottom of the orchestra, with bassoon and contrabassoon.","RK p.58"},
       {"+ 3 Trombones","One of Rimsky-Korsakov's own low-brass/reed combinations "
         .. "(Mlada); also Trombone + Bass cl.","RK p.57"},
       {"+ Horn","Bass cl + Horn / D. basses + C-Fag + Tuba in Ivan the Terrible.","RK p.62"},
       {"+ Clarinets (harmony)","2 Cl + Bass cl is a recurring three-part harmonic "
         .. "basis; also Cl + Bass cl + Fag + C-Fag.","RK p.80-81"},
-      {"+ solo 'cello","'Cello + Bass cl as a doubled solo line, and Bass cl + C-Fag "
+      {"+ solo ’cello","'Cello + Bass cl as a doubled solo line, and Bass cl + C-Fag "
         .. "doubling a solo double bass.","RK p.105"},
     }},
     {"Doublings in octaves", {
@@ -2818,7 +2818,7 @@ e{ id="bassoon", name="Bassoon", family="Woodwind", kind="instrument",
       {"+ Clarinet","Very full. The clarinet's gloom prevails low, the bassoon's "
         .. "thinner quality higher. The one woodwind pairing with the bassoon that "
         .. "Rimsky-Korsakov recommends outright.","RK p.48"},
-      {"+ 'Cellos","One of the best-matched string/wind pairs; bassoons added to 'cello "
+      {"+ ’Cellos","One of the best-matched string/wind pairs; bassoons added to 'cello "
         .. "and bass parts clarify and reinforce them.","RK p.58; MOD"},
       {"+ Violas","The viola's timbre is comparable to the bassoon's middle register; "
         .. "Tchaikovsky's Marche Slave uses the two together \"very effectively\".","RK p.58 & p.35-36; SIN p.97"},
@@ -2829,10 +2829,10 @@ e{ id="bassoon", name="Bassoon", family="Woodwind", kind="instrument",
       {"+ Trombone or Tuba","Trombone + Fag and Tuba + Fag; the bassoon is also the "
         .. "usual instrument for doubling a brass bass in octaves, in place of the "
         .. "too-resonant trombone or tuba.","RK p.57 & p.82"},
-      {"+ 2 Fag + 3 Trombones + Tuba + 'Cellos/D. basses","The standard bass grouping "
+      {"+ 2 Fag + 3 Trombones + Tuba + ’Cellos/D. basses","The standard bass grouping "
         .. "of all three orchestral groups.","RK p.61"},
       {"+ string pizzicato","One of the standard blended pairs - close enough in colour that the combination reads as a single sound.","IDIO ch.12"},
-      {"+ 'Cellos + D. basses (thickened)","One bassoon added to the string bass only "
+      {"+ ’Cellos + D. basses (thickened)","One bassoon added to the string bass only "
         .. "thickens it; the bassoon timbre is lost.","RK p.34"},
     }},
     {"Doublings in octaves", {
@@ -2840,11 +2840,11 @@ e{ id="bassoon", name="Bassoon", family="Woodwind", kind="instrument",
       {"Ob / Fag  ·  Cl / Fag","Natural order, bassoon below - very common.","RK p.49"},
       {"Fag / C-Fag  ·  Bass cl / Fag  ·  Cl / Fag","To double an extremely low line an "
         .. "octave higher.","RK p.50"},
-      {"'Cellos + Fag / D. basses","For a sweet, soft low melody, the basses undoubled.","RK p.60"},
-      {"Violas + Fag / 'Cellos + Fag / D. basses","A three-octave low scheme from Tsar "
+      {"’Cellos + Fag / D. basses","For a sweet, soft low melody, the basses undoubled.","RK p.60"},
+      {"Violas + Fag / ’Cellos + Fag / D. basses","A three-octave low scheme from Tsar "
         .. "Saltan.","RK p.60"},
     }},
-    {"In harmony - the bridge", {
+    {"In harmony — the bridge", {
       {"2 Bassoons + 2 Horns","\"The bassoon and horn are the two instruments best "
         .. "capable of reconciling the groups of wood-wind and brass.\" Four-part "
         .. "harmony on this quartet yields a finely balanced tone recalling a horn "
@@ -2918,7 +2918,7 @@ e{ id="contrabassoon", name="Contrabassoon", family="Woodwind", kind="instrument
       {"+ D. basses","\"Like the double bass and double bassoon, the tuba is eminently "
         .. "useful for doubling, an octave lower, the bass of the group to which it "
         .. "belongs\" - the contrabassoon does the same job for the woodwind.","RK p.58 & p.24"},
-      {"'Cellos + Bass cl / D. basses + C-Fag","A fully reinforced low octave.","RK p.59"},
+      {"’Cellos + Bass cl / D. basses + C-Fag","A fully reinforced low octave.","RK p.59"},
       {"+ Tuba (+ D. basses)","Tuba + C-Fag / D. basses in Ivan the Terrible.","RK p.62"},
       {"Doubled an octave up","By bassoon, clarinet or bass clarinet - always double a "
         .. "melody lying in the extreme low compass an octave higher.","RK p.50"},
@@ -2962,7 +2962,7 @@ e{ id="horn", name="Horn", family="Brass", kind="instrument",
     {"Pairings in unison", {
       {"4 Horns","Frequently met with; the standard way to give the group melodic "
         .. "weight. Also 4 Horns + 2 Trumpets, and 6 Horns in Mlada.","RK p.55"},
-      {"+ 'Cellos","\"Frequently employed, produces a beautifully blended, soft quality "
+      {"+ ’Cellos","\"Frequently employed, produces a beautifully blended, soft quality "
         .. "of tone\" - the one string/brass combination Rimsky-Korsakov singles out for "
         .. "praise, and a standard blended pair today.","RK p.61; IDIO ch.12"},
       {"+ Violas","The best-matched string/brass pair by register; muted violas with "
@@ -2971,9 +2971,9 @@ e{ id="horn", name="Horn", family="Brass", kind="instrument",
         .. "register this gives a slimmer, more focused horn sound.","RK p.57 & p.24; IDIO ch.12"},
       {"+ Clarinet","Horn + Cl is the commonest horn/woodwind doubling; also 2-3 Horns "
         .. "with the same number of clarinets as a chord block, or 2 Horns + 2 Fag + 2 Cl.","RK p.57 & p.88"},
-      {"+ Clarinet (or Eng. horn) + Violas or 'Cellos","The standard alto-tenor grouping "
+      {"+ Clarinet (or Eng. horn) + Violas or ’Cellos","The standard alto-tenor grouping "
         .. "of all three orchestral groups.","RK p.61"},
-      {"Divided violas or 'cellos","\"The splendid effect of horns doubled by divided "
+      {"Divided violas or ’cellos","\"The splendid effect of horns doubled by divided "
         .. "violas or 'cellos\" - the exception worth seeking in string/brass harmony.","RK p.95"},
       {"Stopped horns + Clarinet (low notes)","\"A beautiful dark tone.\" Substituting "
         .. "bassoons loses part of the character.","RK p.89"},
@@ -2990,7 +2990,7 @@ e{ id="horn", name="Horn", family="Brass", kind="instrument",
         .. "wind instruments above, especially in forte.","RK p.57"},
       {"2 Horns / 1 Trombone  ·  4 Horns / 2 Trombones","Horns above trombones, "
         .. "exclusively in octaves - \"possible, though not so reliable\".","RK p.56"},
-      {"2 Cl / 'Cellos + 2 Horns","A mixed string/wind/brass octave doubling.","RK p.60"},
+      {"2 Cl / ’Cellos + 2 Horns","A mixed string/wind/brass octave doubling.","RK p.60"},
       {"2 Ob + Eng horn / 3 stopped Horns","Reeds above stopped brass.","RK p.93"},
     }},
     {"Writing the parts", {
@@ -3108,7 +3108,7 @@ e{ id="trumpet", name="Trumpet", family="Brass", kind="instrument",
       {"Trumpet / Trombone","As above.","RK p.56"},
       {"2 Trumpets / 2 Trombones","As above, doubled.","RK p.56"},
       {"Trumpet / Trumpet","Used directly in Sadko.","RK p.56"},
-      {"3-4 wind above a trumpet","To double a trumpet an octave up you need three or "
+      {"3–4 wind above a trumpet","To double a trumpet an octave up you need three or "
         .. "four wind instruments - but in the top register two flutes will suffice.","RK p.58"},
       {"Woodwind above, not below","If trumpets and trombones take part in a chord, put "
         .. "flutes, oboes and clarinets in the harmonic part above the trumpets.","RK p.93"},
@@ -3206,11 +3206,11 @@ e{ id="trombone", name="Trombone", family="Brass", kind="instrument",
         .. "double a brass bass an octave below, in place of trombone or tuba.","RK p.57 & p.82"},
       {"+ English horn","One of the reed/brass unison combinations sharing the same "
         .. "characteristics; also 3 Trombones + Bass clarinet.","RK p.57"},
-      {"+ 'Cellos / D. basses","With the tuba, for heavy massive effects; \"cello equals "
+      {"+ ’Cellos / D. basses","With the tuba, for heavy massive effects; \"cello equals "
         .. "trombones\" is a serviceable modern rule of thumb.","RK p.61; MOD"},
-      {"+ 2 Fag + Tuba + 'Cellos/D. basses","The standard bass grouping of all three "
+      {"+ 2 Fag + Tuba + ’Cellos/D. basses","The standard bass grouping of all three "
         .. "orchestral groups.","RK p.61"},
-      {"+ divided 'cellos","Trombones + 'Cellos divisi, alongside Horn + Violas divisi, "
+      {"+ divided ’cellos","Trombones + 'Cellos divisi, alongside Horn + Violas divisi, "
         .. "is one of the few string/brass harmonies Rimsky-Korsakov praises.","RK p.95"},
     }},
     {"Doublings in octaves", {
@@ -3286,10 +3286,10 @@ e{ id="tuba", name="Tuba", family="Brass", kind="instrument",
         .. "also 2 Trombones / Trombone + Tuba.","RK p.56"},
       {"2 Horns / Tuba in octaves","As above.","RK p.56"},
       {"+ Bassoon","Tuba + Fag in unison.","RK p.57"},
-      {"+ 'Cellos / D. basses (with trombones)","For heavy massive effects; most "
+      {"+ ’Cellos / D. basses (with trombones)","For heavy massive effects; most "
         .. "commonly the tuba doubles other bass instruments for stability, in unison or "
         .. "an octave below.","RK p.61; MOD"},
-      {"+ 2 Fag + 3 Trombones + 'Cellos/D. basses","The standard bass grouping of all "
+      {"+ 2 Fag + 3 Trombones + ’Cellos/D. basses","The standard bass grouping of all "
         .. "three orchestral groups.","RK p.61"},
       {"+ Contrabassoon","Tuba + C-Fag / D. basses as a reinforced bottom.","RK p.62"},
       {"Tuba + C-Fag / Trombone + Bass cl","Mixed wood-and-brass octaves.","RK p.58"},
@@ -3306,7 +3306,7 @@ e{ id="tuba", name="Tuba", family="Brass", kind="instrument",
       {"Singleton","\"The sound of its voice is solemn, mysterious and lugubrious. It is "
         .. "very rich in its deepest notes.\" Its tone \"might be described as partaking "
         .. "of both the trombone and the organ\".","SIN p.117"},
-      {"Wagner's use","The deep dark caverns under the Rhine, the first heavy roll of "
+      {"Wagner’s use","The deep dark caverns under the Rhine, the first heavy roll of "
         .. "the waves in Das Rheingold, and the dragon Fafner's voice in Siegfried.","SIN p.117-118"},
       {"Not expressive","With the piccolo, contrabassoon and small trumpet, the tuba is "
         .. "not given to playing with any great amount of expression.","RK p.25"},
@@ -3369,7 +3369,7 @@ e{ id="timpani", name="Timpani (Kettledrums)", family="Percussion", kind="instru
       {"Its ringing quality","Along with glockenspiel, bells and xylophone, the timpani's "
         .. "\"ringing, resounding quality\" will easily prevail over other groups in "
         .. "combination - so it needs no reinforcement.","RK p.34"},
-      {"Beethoven's contribution","He changed only how they were tuned - and \"that made "
+      {"Beethoven’s contribution","He changed only how they were tuned - and \"that made "
         .. "all the difference in the world\": a minor sixth in the Seventh Symphony's "
         .. "Scherzo, octaves in the Ninth, and the dominant rather than the tonic in the "
         .. "First.","SIN p.120; SIN p.219"},
@@ -3481,7 +3481,7 @@ e{ id="triangle", name="Triangle", family="Percussion", kind="instrument",
     {"Use", {
       {"Which rhythms","Suits \"an insignificant and playful rhythm\"; it can manage "
         .. "complicated rhythms and even a tremolo.","RK p.117; SIN p.124"},
-      {"Widor's remark","\"At the climax of a crescendo, when the Orchestra would seem to "
+      {"Widor’s remark","\"At the climax of a crescendo, when the Orchestra would seem to "
         .. "have reached the height of intensity, the introduction of the Triangle converts "
         .. "red heat into white heat.\"","SIN p.124"},
       {"With a voice","The percussion instrument most often used to accompany a singer.","RK p.124"},
@@ -3760,13 +3760,13 @@ e{ id="contrast", name="Scale of Timbral Contrast", family="Craft", kind="topic"
        .. "not timbre alone"},
   },
   sec={
-    {"Group 1 - imperceptible or very mild", {
+    {"Group 1 — imperceptible or very mild", {
       {"Same instrument, different register","e.g. low flute to high flute, excepting "
         .. "the most extreme registers.","BEL p.24"},
       {"Between adjacent members of the string family","",  "BEL p.24"},
       {"Between trumpets and trombones","",  "BEL p.24"},
     }},
-    {"Group 2 - mild to moderate", {
+    {"Group 2 — mild to moderate", {
       {"Within the same woodwind sub-family","e.g. flute to alto flute, oboe to "
         .. "English horn.","BEL p.24"},
       {"Within one instrument or sub-family, but into an extreme register","",  "BEL p.24"},
@@ -3776,18 +3776,18 @@ e{ id="contrast", name="Scale of Timbral Contrast", family="Craft", kind="topic"
         .. "horns.","BEL p.24"},
       {"Horn to trumpet, or horn to trombone","",  "BEL p.24"},
     }},
-    {"Group 3 - more marked", {
+    {"Group 3 — more marked", {
       {"Between diverse woodwinds that would not blend in chords","e.g. low oboe to "
         .. "low flute. \"Very often these cases involve the oboe.\"","BEL p.24"},
       {"Between woodwind and brass that do not blend simultaneously","",  "BEL p.24"},
       {"Between woodwind and strings","",  "BEL p.24"},
       {"Between brass and strings","",  "BEL p.24"},
     }},
-    {"Group 4 - contrast outweighs the similarity", {
+    {"Group 4 — contrast outweighs the similarity", {
       {"A completely different nature of sound","e.g. strings arco exchanging with "
         .. "strings pizzicato.","BEL p.24"},
     }},
-    {"Group 5 - extreme", {
+    {"Group 5 — extreme", {
       {"Only one aspect of the phrase survives the exchange","e.g. flute against "
         .. "snare drum: only the rhythm can be imitated.","BEL p.25"},
     }},
@@ -3971,11 +3971,11 @@ e{ id="planes", name="Planes of Tone", family="Craft", kind="topic",
         .. "slightly different forms in different instruments, so as to create general "
         .. "momentum rather than one thickly doubled line\".","BEL p.42"},
     }},
-    {"Resonance - the quietest plane", {
+    {"Resonance — the quietest plane", {
       {"It should not be noticed","\"Resonance, the quietest of all planes, should not "
         .. "be noticed on its own. Therefore it is characterized by the softest "
         .. "timbres, the dullest registers, and the least activity.\"","BEL p.43"},
-      {"Put it in the foreground's register","\"Resonance is usually in the same "
+      {"Put it in the foreground’s register","\"Resonance is usually in the same "
         .. "register as the foreground, so as not to draw attention to itself as "
         .. "something apart.\"","BEL p.43"},
       {"Depth is the mark of a master","\"One sign of a master orchestrator is the "
@@ -4031,7 +4031,7 @@ e{ id="counterpoint", name="Orchestrating Counterpoint", family="Craft", kind="t
        .. "them, marking the entries, and stopping the result from sounding dry.",
   sec={
     {"Balancing the lines", {
-      {"Simplest strategy - one family","\"Assuming all the lines are of equal "
+      {"Simplest strategy — one family","\"Assuming all the lines are of equal "
         .. "importance, the simplest strategy is to give all the lines to the same "
         .. "family, or, if a thicker sound is appropriate, families: Each line is "
         .. "doubled by a similar combination of instruments.\" Beethoven's Seventh, "
@@ -4370,7 +4370,7 @@ e{ id="splendid", name="Splendid, Rich, Triumphant", family="Character", kind="m
       {"Which tutti method","Each family complete but independently written gives \"a "
         .. "rich sound, without grayness\"; literal doubling of everything \"usually "
         .. "sounds heavy and gray\".","BEL p.49 & p.51-52"},
-      {"Rimsky-Korsakov's heavy brass layout","2 horns + tuba on the bass in octaves, "
+      {"Rimsky-Korsakov’s heavy brass layout","2 horns + tuba on the bass in octaves, "
         .. "three trombones above: \"beautiful full resonance\".","RK p.83"},
     }},
   },
@@ -4437,7 +4437,7 @@ e{ id="playful", name="Playful, Funny", family="Character", kind="mood",
         .. "normally be given to the bassoon.\"","BEL p.64"},
     }},
     {"Related craft", {
-      {"The bassoon's comic register","Its medium and lower staccato notes have \"a "
+      {"The bassoon’s comic register","Its medium and lower staccato notes have \"a "
         .. "certain grotesqueness bordering on awkwardness\" (Lavignac); Humperdinck has "
         .. "it comment on the stage action in Hansel und Gretel.","SIN p.95 & p.98"},
       {"Gaps are allowed here","Large registral gaps \"may be effective in one "
@@ -4489,9 +4489,9 @@ e{ id="voice", name="Solo Voice with Orchestra", family="Voices", kind="section"
        .. "tenor, baritone and bass.",
   sec={
     {"Doubling the voice", {
-      {"Women's voices in unison","Violins, violas, clarinets and oboes - \"the most "
+      {"Women’s voices in unison","Violins, violas, clarinets and oboes - \"the most "
         .. "natural duplication\".","RK p.122"},
-      {"Men's voices in unison","Violas, 'cellos, bassoons and horns.","RK p.122"},
+      {"Men’s voices in unison","Violas, 'cellos, bassoons and horns.","RK p.122"},
       {"Octaves","Doubling in octaves is usually done in the upper register.","RK p.122"},
       {"Keep it brief","\"Uninterrupted or too frequent duplication should be avoided\" - "
         .. "it robs the singer of freedom and replaces the rare quality of the human voice "
@@ -4500,7 +4500,7 @@ e{ id="voice", name="Solo Voice with Orchestra", family="Voices", kind="section"
       {"Only in tempo","Doubling in unison or octaves \"is only suitable in tempo; to apply "
         .. "it to a passage ad lib. is both ineffective and dangerous\".","RK p.122-123"},
     }},
-    {"Transparency - what is safe to accompany with", {
+    {"Transparency — what is safe to accompany with", {
       {"The order","\"The group of strings is the most transparent medium and the one least "
         .. "likely to overpower the voice. Then come the wood-wind and the brass, the latter "
         .. "in the following order: horns, trombones, trumpets.\"","RK p.120"},
@@ -4517,7 +4517,7 @@ e{ id="voice", name="Solo Voice with Orchestra", family="Voices", kind="section"
       {"Which instruments","Violin, viola, 'cello; flute, oboe, English horn, clarinet, bass "
         .. "clarinet, bassoon, horn, harp. \"In combination with the voice... a solo "
         .. "instrument is a powerful expedient for musical characterisation.\"","RK p.124"},
-      {"Rimsky-Korsakov's own pairs","Soprano + oboe; contralto + English horn; baritone + "
+      {"Rimsky-Korsakov’s own pairs","Soprano + oboe; contralto + English horn; baritone + "
         .. "bass clarinet; soprano + viola; soprano, 'cello and oboe together.","RK p.124"},
     }},
     {"Duet spacing", {
@@ -4544,7 +4544,7 @@ e{ id="voice", name="Solo Voice with Orchestra", family="Voices", kind="section"
         .. "the orchestra that correspond to it; leave the voice free.","RK p.119"},
     }},
 
-    {"Belkin's practical notes", {
+    {"Belkin’s practical notes", {
       {"Plan the climaxes around singable words","\"Singing, by nature, strongly "
         .. "distorts words in favor of vowels; consonants function mainly as "
         .. "articulation.\" The voice cannot open out on a closed vowel like the French "
@@ -4634,7 +4634,7 @@ e{ id="chorus", name="Chorus with Orchestra", family="Voices", kind="section",
         .. "give the balance you get from voices of distinctive kind.","RK p.145-146"},
       {"Dividing like voices in octaves","8 [Sopr I / Sopr II] etc. is seldom done, except "
         .. "perhaps in the basses where the part-writing demands it.","RK p.146"},
-      {"A female chorus's bass","A women's chorus does not normally carry the real harmonic "
+      {"A female chorus’s bass","A women's chorus does not normally carry the real harmonic "
         .. "bass when that lies low; give the harmony to the three upper parts and let the "
         .. "lowest act as accompanying bass - watching for empty fourths and fifths.","RK p.151"},
     }},
