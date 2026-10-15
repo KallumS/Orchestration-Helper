@@ -855,6 +855,38 @@ After this round: **123 entries, 1,520 cited items, 11 source tags, 174 checks**
 
 ---
 
+## 6f. 14 October 2026 — the window's words, to Apple's writing guidelines
+
+Part of a sweep across all of the user's repositories after Noterator's
+decision 0053. ADR 0013 holds the rules; this is the route.
+
+- **What changed on screen.** `SOURCES` / `INDEX` / `HELP` became **Sources**,
+  **Index**, **Help**; "How to use it" became "How to Use It"; the placeholder
+  lost its three full stops ("Search for an instrument, section, composer or
+  mood"); help lines start with a capital and end with a full stop; "move the
+  caret" became "Move the cursor"; " - " became an em dash and straight quotes
+  curly; the footer reads "Click a family to open it · Ctrl+Right opens all ·
+  …"; the load failure says what to do instead of "Error:".
+- **Keys on a Mac.** The help, the footer and the index summary showed
+  `Ctrl+Right` and `Alt+Left`, which on a Mac are Command and Option. They
+  now come from `KEYNAME`, chosen once from `GetOS`: ⌘→, ⌘←, ⌥←, ↑ ↓, Return on
+  macOS, words elsewhere. Not yet seen in REAPER: whether REAPER's `gfx` font
+  on macOS draws ⌘ and the arrows has only been reasoned about (it draws "·"
+  already, and macOS falls back to a font that has them). If they show as boxes,
+  `KEYNAME`'s Mac half is the only place to change.
+- **Content left alone.** A screen check for spaced hyphens and straight
+  quotes first ran over an entry page and failed on the Horn's quoted
+  Singleton text. That is content, so the check was narrowed to the window's
+  own pages (index, help, no-result). Section headings, fact keys and item
+  labels in the data (156 lines) took em dashes, en dashes in ranges
+  (`3–4 wind`) and curly apostrophes (`’Cellos`, `Belkin’s verdict`); the
+  `--` in the bridge pairs (`Bassoon -- Horn`) became an en dash.
+- **Fit.** The footer grew; its separators were tightened to single spaces so
+  it stays about the length it was.
+- **Verification.** 180 checks pass (174 before, six new). The four new wording
+  checks were run against the old script and all failed, as did the three
+  existing checks whose expected strings changed.
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
