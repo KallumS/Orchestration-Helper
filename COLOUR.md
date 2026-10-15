@@ -32,18 +32,32 @@ the table can be written in the same notation as this file.
 | `frame_hover` | `#22262D` | chip hover, fold-row hover |
 | `panel2` | `#2A2F37` | search box while the pointer is over it |
 | `line` | `#3A404A` | separators, the rule under a section header |
-| `ink` | `#14171C` | text on the header buttons |
+| `ink` | `#14171C` | text on the header buttons, the bar under a chosen one |
 | `text` | `#DDE1E7` | body text, chip labels |
 | `head` | `#BFC5CE` | section headers |
-| `dim` | `#8A919C` | citations, fact keys, closed fold markers |
-| `faint` | `#6D7581` | the quietest text |
-| `title` | `#F2F4F7` | page titles, item labels, anything hovered |
+| `dim` | `#BAC0C9` | secondary text, closed fold markers (8.2:1) |
+| `faint` | `#B0B6C0` | citations, fact keys, the quietest text (7.4:1) |
+| `title` | `#F2F4F7` | page titles, item labels, anything hovered, the Tab ring |
 | `control` | `#A9AFBA` | header button fill |
 | `control_h` | `#C0C6CF` | header button hover |
 | `control_a` | `#8F96A2` | header button held |
 | `grab` | `#585F6B` | scrollbar grab |
 | `accent` | `#FFF200` | the current view's button, the selected match, the caret |
-| `warn` | `#D2483F` | "Use sparingly" headers |
+| `warn` | `#D2483F` | the rule under a "Use sparingly" header |
+| `warn_text` | `#FF9E96` | the "Use sparingly" header's words (7.6:1) |
+
+## Text is 7:1 (ADR 0014)
+
+Every line of text is at least 7:1 on the ground, Apple's target for small text
+in a dark window. That is why `dim` and `faint` are no longer the ramp's
+`#8A919C` and `#6D7581` (4.7:1 and 3.2:1): those stay right for lines and
+fills, not for words. The house red `#D2483F` is 3.4:1, so a warning's words take
+`warn_text` and the red is kept for the rule under it. The suite checks every
+string drawn on five pages, so a new colour for words cannot slip under 7:1.
+
+The Tab ring is `title`, not the accent: yellow means *on*, and a ringed control
+need not be. A chosen control carries an `ink` bar under its label as well as
+its yellow, so it does not rest on colour alone.
 
 ## What the accent is spent on
 
@@ -64,7 +78,7 @@ page title        #F2F4F7   21px bold
 section header    #BFC5CE   12px bold, UPPERCASED, solid rule under it
 item label        #F2F4F7   14px bold
 detail            #DDE1E7   14px, indented under the label
-citation          #8A919C   11px, right-aligned
+citation          #B0B6C0   11px, right-aligned
 ```
 
 A section header is dimmer than the item labels below it, which sounds wrong and
@@ -107,7 +121,7 @@ consequences:
 `tests/run.lua`, section *Colour scheme*, parses the `C` table out of the script
 and checks:
 
-- R < G < B in every role except `accent` and `warn`, the two saturated colours;
+- R < G < B in every role except `accent`, `warn` and `warn_text`, the saturated colours;
 - `accent` is `#FFF200` and `bg` is `#23272E`, so the two windows cannot drift;
 - `warn` is not a shade of the accent (R > G > B), so a warning can never read as
   a selection;

@@ -20,8 +20,10 @@ _H = {}
 local keyqueue = {}
 local drawn = {}        -- every drawstr that happened this frame
 local placed = {}       -- the same calls, with the pen position they used
+local rects = {}       -- every gfx.rect this frame, with the colour set
 local frames = 0
 local MAXFRAMES = 0
+local clock = 0         -- reaper.time_precise: a thirtieth of a second a frame
 
 gfx = {
   r=0,g=0,b=0,a=1,mode=0,w=760,h=680,x=0,y=0,texth=14,
@@ -46,12 +48,16 @@ function gfx.drawstr(s, flags, r, b)
   -- Same call, with where the pen was. Tests that need to click on something
   -- have no other way to find it: gfx.rect is a no-op here, so the only trace a
   -- drawn row leaves is the text and this position.
-  placed[#placed+1] = { s = tostring(s), x = gfx.x, y = gfx.y, frame = frames }
+  placed[#placed+1] = { s = tostring(s), x = gfx.x, y = gfx.y, frame = frames,
+                        r = gfx.r, g = gfx.g, b = gfx.b }
   gfx.x = gfx.x + (gfx.measurestr(s))
 end
 function gfx.drawnumber(n,d) gfx.drawstr(tostring(n)) end
 function gfx.printf(f,...) gfx.drawstr(tostring(f)) end
-function gfx.rect(x,y,w,h,f) end
+function gfx.rect(x,y,w,h,f)
+  rects[#rects+1] = { x = x, y = y, w = w, h = h, fill = f ~= 0,
+                      r = gfx.r, g = gfx.g, b = gfx.b, frame = frames }
+end
 function gfx.roundrect() end
 function gfx.line() end
 function gfx.lineto() end
@@ -61,6 +67,7 @@ function gfx.arc() end
 function gfx.set(r,g,b,a,m,d,a2) gfx.r,gfx.g,gfx.b=r,g,b; gfx.a=a or 1 end
 function gfx.update()
   frames = frames + 1
+  clock = clock + 1 / 30
   if _H and _H.onframe then _H.onframe(frames) end
   if frames >= MAXFRAMES then keyqueue = {-1} end
 end
@@ -73,7 +80,14 @@ function gfx.getchar(c)
   if keyqueue[1] == false then table.remove(keyqueue, 1); return 0 end
   return table.remove(keyqueue, 1)
 end
-function gfx.showmenu() return 0 end
+-- The menu string is recorded; the answer is whatever a test put in
+-- _H.menupick (1-based, as REAPER counts), used once. 0 means dismissed.
+function gfx.showmenu(s)
+  _H.menu = s
+  local pick = _H.menupick or 0
+  _H.menupick = nil
+  return pick
+end
 function gfx.getdropfile() return 0 end
 
 local deferred = nil
@@ -88,6 +102,7 @@ reaper = {
   ShowConsoleMsg = function(m) io.write(m) end,
   atexit = function(f) end,
   defer = function(f) deferred = f end,
+  time_precise = function() return clock end,
 }
 
 -- Public helpers for the test driver.
@@ -106,6 +121,7 @@ function _H.run(maxframes)
   frames = 0
   drawn = {}
   placed = {}
+  rects = {}
   deferred = nil
   local chunk = assert(loadfile(SCRIPT))
   chunk()
@@ -128,7 +144,9 @@ function _H.find(s)
   end
 end
 function _H.frameno() return frames end
-function _H.clear_drawn() drawn = {}; placed = {} end
+function _H.clear_drawn() drawn = {}; placed = {}; rects = {} end
+function _H.rects() return rects end
+function _H.extstate() return extstate end
 function _H.setsize(w,h) gfx.w, gfx.h = w, h end
 function _H.mouse(x,y,capbits) gfx.mouse_x=x; gfx.mouse_y=y; gfx.mouse_cap=capbits or 0 end
 function _H.wheel(v) gfx.mouse_wheel = v end

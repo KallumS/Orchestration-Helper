@@ -25,6 +25,9 @@
     mouse wheel     scroll
     PgUp / PgDn     scroll a page
     F1              help
+    Tab / Shift+Tab move between buttons, families and names (Return or
+                    Space presses the one ringed)
+    Ctrl + = / - / 0  text bigger, smaller, back to 100% (Cmd on a Mac)
 ]]--
 
 ------------------------------------------------------------------------------
@@ -249,15 +252,16 @@ local C = {
   ink         = hex(0x14171C),   -- text on any light control
   text        = hex(0xDDE1E7),   -- body text
   head        = hex(0xBFC5CE),   -- section headers
-  dim         = hex(0x8A919C),   -- dim text, citations
-  faint       = hex(0x6D7581),   -- the quietest text
+  dim         = hex(0xBAC0C9),   -- secondary text: 8.2:1 on the ground
+  faint       = hex(0xB0B6C0),   -- the quietest text, still 7.4:1 (ADR 0014)
   title       = hex(0xF2F4F7),   -- titles, item labels, hovered text
   control     = hex(0xA9AFBA),   -- button fill
   control_h   = hex(0xC0C6CF),   -- button hover
   control_a   = hex(0x8F96A2),   -- button held
   grab        = hex(0x585F6B),   -- scrollbar grab
   accent      = hex(0xFFF200),   -- whatever is switched on
-  warn        = hex(0xD2483F),   -- "use sparingly"; never a shade of the accent
+  warn        = hex(0xD2483F),   -- "use sparingly" rule; never a shade of the accent
+  warn_text   = hex(0xFF9E96),   -- the same warning in words: 7.6:1, the red is 3.4:1
 }
 
 local function setcol(c, a)
@@ -280,13 +284,19 @@ end)()
 local KEYNAME = MAC and {
   updown = "↑ ↓", leftright = "← →", enter = "Return", del = "Delete",
   fwddel = "Forward Delete", altleft = "⌥←", ctrlright = "⌘→", ctrlleft = "⌘←",
+  bigger = "⌘=", smaller = "⌘-", actual = "⌘0", backtab = "⇧Tab",
 } or {
   updown = "Up / Down", leftright = "Left / Right", enter = "Enter",
   del = "Backspace", fwddel = "Delete", altleft = "Alt+Left",
   ctrlright = "Ctrl+Right", ctrlleft = "Ctrl+Left",
+  bigger = "Ctrl+=", smaller = "Ctrl+-", actual = "Ctrl+0", backtab = "Shift+Tab",
 }
 
 local F = { TITLE = 1, HEAD = 2, LABEL = 3, BODY = 4, SMALL = 5, INPUT = 6, SUB = 7 }
+-- Everything is measured through S(), so one number scales the whole window:
+-- the display's pixel density times the Text Size the user chose (ADR 0014).
+local TEXT_SIZES = { 100, 125, 150, 200 }
+local RETINA, TEXTSIZE = 1, 1     -- TEXTSIZE indexes TEXT_SIZES
 local SCALE = 1
 
 local function initfonts()
@@ -302,6 +312,11 @@ local function initfonts()
 end
 
 local function S(n) return math.floor(n * SCALE + 0.5) end
+
+local function rescale()
+  SCALE = RETINA * TEXT_SIZES[TEXTSIZE] / 100
+  initfonts()
+end
 
 ------------------------------------------------------------------------------
 -- STATE
@@ -325,7 +340,27 @@ local st = {
   hot      = {},
   blink    = 0,
   open     = {},         -- index view: family name -> true when expanded
+  focus    = nil,        -- key of the control Tab has ringed, nil when none
+  focusables = {},       -- what Tab can reach, rebuilt every frame
+  menu_closed = -1,      -- when the Text Size menu last closed
 }
+
+local function set_text_size(i)
+  i = math.max(1, math.min(#TEXT_SIZES, i))
+  if i == TEXTSIZE then return end
+  TEXTSIZE = i
+  rescale()
+  st.dirty = true
+  reaper.SetExtState(EXT, "textsize", tostring(TEXT_SIZES[i]), true)
+end
+
+local function load_text_size()
+  local pct = tonumber(reaper.GetExtState(EXT, "textsize"))
+  TEXTSIZE = 1
+  for i, p in ipairs(TEXT_SIZES) do
+    if p == pct then TEXTSIZE = i end
+  end
+end
 
 local function go(view, entry, remember)
   if remember and st.view == "entry" and st.entry then
@@ -459,14 +494,14 @@ end
 -- Chip rows: clickable pills that navigate to another entry.
 local function chips(list, x, maxw, label)
   if #list == 0 then return end
-  gfx.setfont(F.SMALL)
-  local ch = gfx.texth + S(8)
-  local padx = S(9)
-  local gapx = S(6)
+  gfx.setfont(F.SUB)
+  local ch = math.max(S(28), gfx.texth + S(8))   -- Apple's control height
+  local padx = S(12)
+  local gapx = S(12)                              -- and its spacing
   local cx, line = x, {}
   local function flush()
     if #line > 0 then
-      row{ t = "chips", h = ch + S(6), items = line }
+      row{ t = "chips", h = ch + S(12), items = line }
       line = {}
       cx = x
     end
@@ -474,7 +509,8 @@ local function chips(list, x, maxw, label)
   for _, c in ipairs(list) do
     local w = textw(c.label) + padx * 2
     if cx + w > x + maxw and #line > 0 then flush() end
-    line[#line + 1] = { label = c.label, id = c.id, x = cx, w = w, h = ch }
+    line[#line + 1] = { label = c.label, id = c.id, x = cx, w = w, h = ch,
+                        key = "c:" .. (#rows + 1) .. ":" .. c.id }
     cx = cx + w + gapx
   end
   flush()
@@ -484,7 +520,7 @@ local function header(s, maxw, x)
   gap(14)
   gfx.setfont(F.HEAD)
   local warn = s:lower():find("sparingly") ~= nil
-  local col = warn and C.warn or C.head
+  local col = warn and C.warn_text or C.head
   row{ t = "text", s = s:upper(), f = F.HEAD, c = col, x = x, h = gfx.texth + S(4) }
   -- The separator comes off the ramp, not from the header's own colour: a grey
   -- at 28% alpha over the ground is invisible. A warning keeps its red so the
@@ -585,6 +621,11 @@ local function layout(w)
       { KEYNAME.altleft, "Go back to the previous entry." },
       { "Scroll wheel, Page Up, Page Down", "Scroll." },
       { "F1", "Show this page." },
+      { "Tab " .. KEYNAME.backtab, "Move a white ring between the buttons, families " ..
+        "and names; " .. KEYNAME.enter .. " or Space presses the one ringed." },
+      { KEYNAME.bigger .. " " .. KEYNAME.smaller, "Make the text bigger or smaller, " ..
+        "up to twice the size; " .. KEYNAME.actual .. " goes back to 100%. Text Size " ..
+        "at the top does the same, and it is remembered." },
       { "Click a name", "Open that entry." },
       { "Click a family", "On the index, open or close it; what you leave " ..
         "open is remembered." },
@@ -744,6 +785,38 @@ local function hot(x, y, w, h, action)
   st.hot[#st.hot + 1] = { x = x, y = y, w = w, h = h, action = action }
 end
 
+-- The ring Tab draws round a control: near-white, two pixels, outside it.
+-- Not the accent - yellow means switched on, and a ringed control need not be.
+local function ring(key, x, y, w, h)
+  if st.focus ~= key then return end
+  setcol(C.title)
+  local t = math.max(2, S(2))
+  for i = 1, t do
+    gfx.rect(x - S(1) - i, y - S(1) - i, w + 2 * (S(1) + i), h + 2 * (S(1) + i), 0)
+  end
+end
+
+-- A chosen control is not shown by colour alone: it also carries a short ink
+-- bar under its label.
+local function chosen_bar(x, y, w, h)
+  setcol(C.ink)
+  gfx.rect(x + S(8), y + h - S(5), w - S(16), math.max(2, S(2)), 1)
+end
+
+-- The Text Size menu. gfx.showmenu opens at gfx.x, gfx.y and is modal; the
+-- click that chose an item can come back once it closes, so clicks are
+-- ignored for a quarter of a second after (ScaleView for REAPER learned this).
+local function text_size_menu(b)
+  local items = {}
+  for i, p in ipairs(TEXT_SIZES) do
+    items[i] = (i == TEXTSIZE and "!" or "") .. p .. "%"
+  end
+  gfx.x, gfx.y = b.x, b.y + b.h
+  local pick = gfx.showmenu(table.concat(items, "|"))
+  st.menu_closed = reaper.time_precise()
+  if pick and pick > 0 then set_text_size(pick) end
+end
+
 -- The disclosure triangle on a fold row: right-pointing when closed, down when
 -- open. gfx.triangle is confirmed present in the REAPER API reference
 -- ("Draws a filled triangle, or any convex polygon"), so it is used directly.
@@ -767,9 +840,36 @@ local function top_geometry()
   local w = gfx.w
   local g = { pad = S(20) }
 
-  gfx.setfont(F.SMALL)
-  g.btn_h = S(22)
-  g.header_h = g.btn_h + S(14)
+  -- header buttons, right to left, 28 points tall and 12 apart
+  gfx.setfont(F.SUB)
+  g.btn_h = math.max(S(28), gfx.texth + S(8))
+  g.header_h = g.btn_h + S(16)
+  local by = S(8)
+  local specs = {
+    { "b:sources", "Sources", st.view == "sources",
+      function() go("sources", nil, true) end },
+    { "b:index", "Index", st.view == "index", function()
+        st.query, st.caret, st.sugg, st.sel = "", 0, {}, 1
+        go("index", nil, true)
+      end },
+    { "b:help", "Help", st.view == "help", function() go("help", nil, true) end },
+    { "b:size", "Text Size", false, text_size_menu },
+  }
+  g.buttons = {}
+  local rx = w - S(8)
+  for _, sp in ipairs(specs) do
+    local bw = textw(sp[2]) + S(24)
+    rx = rx - bw
+    table.insert(g.buttons, 1, { key = sp[1], label = sp[2], on = sp[3],
+      fn = sp[4], x = rx, y = by, w = bw, h = g.btn_h })
+    rx = rx - S(12)
+  end
+  table.insert(g.buttons, 1, { key = "b:back", label = "<", on = false,
+    fn = back, x = S(8), y = by, w = math.max(S(34), g.btn_h), h = g.btn_h })
+  for _, b in ipairs(g.buttons) do
+    b.action = function() b.fn(b) end
+  end
+  g.title_right = rx
 
   gfx.setfont(F.INPUT)
   g.search_h = gfx.texth + S(14)
@@ -783,12 +883,12 @@ local function top_geometry()
   g.chips = {}
   g.more = nil
   if #st.sugg >= 2 then
-    gfx.setfont(F.SMALL)
-    local ch = gfx.texth + S(9)
+    gfx.setfont(F.SUB)
+    local ch = math.max(S(28), gfx.texth + S(8))
     local x0, maxw = g.pad, w - g.pad * 2
     local cx, line, drawn = x0, 1, 0
     for i, en in ipairs(st.sugg) do
-      local cw = textw(en.name) + S(18)
+      local cw = textw(en.name) + S(24)
       if cx + cw > x0 + maxw and drawn > 0 then
         if line >= 2 then
           g.more = { s = ("+%d more"):format(#st.sugg - drawn), x = cx, y = y }
@@ -796,14 +896,18 @@ local function top_geometry()
         end
         line = line + 1
         cx = x0
-        y = y + ch + S(5)
+        y = y + ch + S(12)
       end
       g.chips[#g.chips + 1] =
-        { label = en.name, x = cx, y = y, w = cw, h = ch, i = i, entry = en }
-      cx = cx + cw + S(5)
+        { label = en.name, x = cx, y = y, w = cw, h = ch, i = i, entry = en,
+          key = "m:" .. en.id, action = function()
+            st.sel = i
+            st.view, st.entry, st.scroll, st.dirty = "entry", en, 0, true
+          end }
+      cx = cx + cw + S(12)
       drawn = drawn + 1
     end
-    y = y + ch + S(8)
+    y = y + ch + S(12)
   end
 
   g.top_h = y
@@ -817,7 +921,8 @@ end
 -- the scheme's control greys - which sit lighter than the ground, and therefore
 -- force dark text on every one of them, not just the chosen one. `on` marks the
 -- current view, and that is what the accent is for.
-local function button(label, bx, by, bw, bh, on, action)
+local function button(b)
+  local label, bx, by, bw, bh, on = b.label, b.x, b.y, b.w, b.h, b.on
   local over = inrect(bx, by, bw, bh)
   local down = over and cap(1)
   if on then
@@ -827,10 +932,12 @@ local function button(label, bx, by, bw, bh, on, action)
   end
   gfx.rect(bx, by, bw, bh, 1)
   setcol(C.ink)
-  gfx.setfont(F.SMALL)
+  gfx.setfont(F.SUB)
   gfx.x, gfx.y = bx, by + math.floor((bh - gfx.texth) / 2)
   gfx.drawstr(label, 1, bx + bw, by + bh)
-  hot(bx, by, bw, bh, action)
+  if on then chosen_bar(bx, by, bw, bh) end
+  ring(b.key, bx, by, bw, bh)
+  hot(bx, by, bw, bh, b.action)
 end
 
 local function draw_top(g)
@@ -846,30 +953,18 @@ local function draw_top(g)
   setcol(C.line)
   gfx.rect(0, g.header_h - 1, w, 1, 1)
 
-  local by = S(7)
-  local bx = S(8)
-  button("<", bx, by, S(34), g.btn_h, false, back)
+  for _, b in ipairs(g.buttons) do button(b) end
 
+  -- the name, between Back and the buttons, if there is room for it
+  local backb = g.buttons[1]
   gfx.setfont(F.HEAD)
   setcol(C.dim)
-  gfx.x, gfx.y = bx + S(34) + S(8), by + math.floor((g.btn_h - gfx.texth) / 2)
-  gfx.drawstr("ORCHESTRATION HELPER", 0, w - S(230), by + g.btn_h)
-
-  gfx.setfont(F.SMALL)
-  local w3 = textw("Sources") + S(18)
-  local w2 = textw("Index") + S(18)
-  local w1 = textw("Help") + S(18)
-  local rx = w - S(8) - w3
-  button("Sources", rx, by, w3, g.btn_h, st.view == "sources",
-         function() go("sources", nil, true) end)
-  rx = rx - S(6) - w2
-  button("Index", rx, by, w2, g.btn_h, st.view == "index", function()
-    st.query, st.caret, st.sugg, st.sel = "", 0, {}, 1
-    go("index", nil, true)
-  end)
-  rx = rx - S(6) - w1
-  button("Help", rx, by, w1, g.btn_h, st.view == "help",
-         function() go("help", nil, true) end)
+  local tx0 = backb.x + backb.w + S(12)
+  local name = "ORCHESTRATION HELPER"
+  if textw(name) <= g.title_right - tx0 then
+    gfx.x, gfx.y = tx0, backb.y + math.floor((g.btn_h - gfx.texth) / 2)
+    gfx.drawstr(name, 0, g.title_right, backb.y + g.btn_h)
+  end
 
   -- search box
   local sx, sy, sw, sh = g.search_x, g.search_y, g.search_w, g.search_h
@@ -910,7 +1005,7 @@ local function draw_top(g)
   hot(sx, sy, sw, sh, function() st.caret = #st.query end)
 
   -- match chips
-  gfx.setfont(F.SMALL)
+  gfx.setfont(F.SUB)
   for _, c in ipairs(g.chips) do
     local sel = (c.i == st.sel)
     local over = inrect(c.x, c.y, c.w, c.h)
@@ -921,10 +1016,9 @@ local function draw_top(g)
     setcol(sel and C.ink or (over and C.title or C.text))
     gfx.x, gfx.y = c.x, c.y + math.floor((c.h - gfx.texth) / 2)
     gfx.drawstr(c.label, 1, c.x + c.w, c.y + c.h)
-    hot(c.x, c.y, c.w, c.h, function()
-      st.sel = c.i
-      st.view, st.entry, st.scroll, st.dirty = "entry", c.entry, 0, true
-    end)
+    if sel then chosen_bar(c.x, c.y, c.w, c.h) end
+    ring(c.key, c.x, c.y, c.w, c.h)
+    hot(c.x, c.y, c.w, c.h, c.action)
   end
   if g.more then
     setcol(C.faint)
@@ -996,6 +1090,7 @@ local function draw_body(top, bottom)
         setcol(over and C.title or C.head)
         gfx.x, gfx.y = r.x + S(18), y + math.floor((rh - gfx.texth) / 2)
         gfx.drawstr(r.name:upper(), 256)
+        ring("f:" .. r.name, r.x, y, r.w, rh)
         gfx.setfont(F.SMALL)
         setcol(C.faint)
         local cn = tostring(r.n)
@@ -1008,7 +1103,7 @@ local function draw_body(top, bottom)
           hot(r.x, y, r.w, rh, function() toggle_family(r.name) end)
         end
       elseif r.t == "chips" then
-        gfx.setfont(F.SMALL)
+        gfx.setfont(F.SUB)
         for _, c in ipairs(r.items) do
           local visible = (y >= top and y + c.h <= bottom)
           local over = visible and inrect(c.x, y, c.w, c.h)
@@ -1017,6 +1112,7 @@ local function draw_body(top, bottom)
           setcol(over and C.title or C.text)
           gfx.x, gfx.y = c.x, y + math.floor((c.h - gfx.texth) / 2)
           gfx.drawstr(c.label, 1, c.x + c.w, y + c.h)
+          ring(c.key, c.x, y, c.w, c.h)
           if visible then
             hot(c.x, y, c.w, c.h, function() openid(c.id) end)
           end
@@ -1034,6 +1130,63 @@ local function draw_body(top, bottom)
     local knoby = top + math.floor((viewh - knobh) * (st.scroll / st.maxscroll))
     setcol(C.grab)
     gfx.rect(tx, knoby, S(4), knobh, 1)
+  end
+end
+
+-- Everything Tab can reach, in reading order: the header's buttons, the
+-- matches, then the page's families and names. Body items keep their place on
+-- the page (y), so one scrolled out of sight can be brought into view.
+local function build_focus(g)
+  local list = {}
+  for _, b in ipairs(g.buttons) do
+    list[#list + 1] = { key = b.key, action = b.action }
+  end
+  for _, c in ipairs(g.chips) do
+    list[#list + 1] = { key = c.key, action = c.action }
+  end
+  for _, r in ipairs(st.rows) do
+    if r.t == "fold" then
+      local name = r.name
+      list[#list + 1] = { key = "f:" .. name, y = r.y, h = r.h,
+                          action = function() toggle_family(name) end }
+    elseif r.t == "chips" then
+      for _, c in ipairs(r.items) do
+        local id = c.id
+        list[#list + 1] = { key = c.key, y = r.y, h = c.h,
+                            action = function() openid(id) end }
+      end
+    end
+  end
+  st.focusables = list
+  st.view_top, st.view_bottom = g.top_h, gfx.h - g.footer_h
+end
+
+local function focused()
+  for i, f in ipairs(st.focusables) do
+    if f.key == st.focus then return f, i end
+  end
+end
+
+local function move_focus(back_wards)
+  local L = st.focusables
+  if #L == 0 then return end
+  local _, cur = focused()
+  local n
+  if back_wards then
+    n = (not cur or cur <= 1) and #L or cur - 1
+  else
+    n = cur and (cur % #L + 1) or 1
+  end
+  local f = L[n]
+  st.focus = f.key
+  -- bring a page item into view
+  if f.y and st.view_top then
+    local viewh = st.view_bottom - st.view_top
+    if f.y < st.scroll then
+      st.scroll = math.max(0, f.y - S(12))
+    elseif f.y + f.h > st.scroll + viewh then
+      st.scroll = f.y + f.h - viewh + S(12)
+    end
   end
 end
 
@@ -1074,7 +1227,9 @@ local mouse_was_down = false
 
 local function handle_mouse()
   local down = cap(1)
-  if down and not mouse_was_down then
+  local settled = reaper.time_precise() - st.menu_closed > 0.25
+  if down and not mouse_was_down and settled then
+    st.focus = nil
     -- last hotspot registered is the topmost one, so walk backwards
     for i = #st.hot, 1, -1 do
       local hs = st.hot[i]
@@ -1111,8 +1266,21 @@ local function handle_keys()
 
     local ctrl = cap(4)
     local alt  = cap(16)
+    local f = st.focus and focused()
 
-    if c == 27 then                                    -- Esc
+    if ctrl and (c == 61 or c == 43) then              -- Ctrl/Cmd + = (or +)
+      set_text_size(TEXTSIZE + 1)
+    elseif ctrl and c == 45 then                       -- Ctrl/Cmd + -
+      set_text_size(TEXTSIZE - 1)
+    elseif ctrl and c == 48 then                       -- Ctrl/Cmd + 0
+      set_text_size(1)
+    elseif c == 9 then                                 -- Tab, Shift+Tab
+      move_focus(cap(8))
+    elseif f and (c == 13 or c == 32) then             -- press the ringed one
+      f.action()
+    elseif c == 27 and st.focus then                   -- Esc: drop the ring first
+      st.focus = nil
+    elseif c == 27 then                                -- Esc
       if st.query ~= "" then
         clear_query()
         requery()
@@ -1169,6 +1337,7 @@ local function handle_keys()
     elseif c == KEY.f1 then
       go("help", nil, true)
     elseif c >= 32 and c <= 126 then
+      st.focus = nil                                   -- typing goes to the box
       insert(string.char(c))
     end
   end
@@ -1189,11 +1358,12 @@ local win_y = num(reaper.GetExtState(EXT, "y"), 110)
 local win_d = num(reaper.GetExtState(EXT, "dock"), 0)
 
 load_open()
+load_text_size()
 
 gfx.ext_retina = 1
 gfx.init("Orchestration Helper", win_w, win_h, win_d, win_x, win_y)
-if gfx.ext_retina and gfx.ext_retina > 1 then SCALE = gfx.ext_retina end
-initfonts()
+if gfx.ext_retina and gfx.ext_retina > 1 then RETINA = gfx.ext_retina end
+rescale()
 
 reaper.atexit(function()
   local d, wx, wy, ww, wh = gfx.dock(-1, 0, 0, 0, 0)
@@ -1217,8 +1387,8 @@ local function loop()
   -- follow the window between displays of different pixel density
   if gfx.ext_retina and gfx.ext_retina ~= last_retina then
     last_retina = gfx.ext_retina
-    SCALE = (gfx.ext_retina > 1) and gfx.ext_retina or 1
-    initfonts()
+    RETINA = (gfx.ext_retina > 1) and gfx.ext_retina or 1
+    rescale()
     st.dirty = true
   end
 
@@ -1232,6 +1402,7 @@ local function loop()
   draw_body(g.top_h, gfx.h - g.footer_h)
   draw_top(g)
   draw_footer(g)
+  build_focus(g)
 
   handle_mouse()
   gfx.update()

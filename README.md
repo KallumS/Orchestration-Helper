@@ -54,10 +54,18 @@ script still runs, and composers are simply absent.
 | Click a name | Open that entry — any name, chip or *See also* link. |
 | Click a family | On the index, open or close it. |
 | `⌘→` / `⌘←` (Windows: `Ctrl+Right` / `Ctrl+Left`) | On the index, open or close every family. |
+| `Tab` / `⇧Tab` (Windows: `Shift+Tab`) | Move a white ring round the buttons, families and names; `Return` or `Space` presses the one ringed. |
+| `⌘=` / `⌘-` / `⌘0` (Windows: `Ctrl+=` / `Ctrl+-` / `Ctrl+0`) | Text bigger, smaller, back to 100%. |
 
 The window names the keys the way your computer does: with the Mac's symbols
-on a Mac, in words elsewhere. The buttons along the top are **Help**,
-**Index** and **Sources**.
+on a Mac, in words elsewhere. The buttons along the top are **Text Size**,
+**Help**, **Index** and **Sources**.
+
+The window follows Apple's design guidelines for Mac apps
+([what that covers](docs/apple-hig-review.md)): every line of text is easy to
+read against the dark ground, **Text Size** makes everything up to twice the
+size, the buttons are full-size, the keyboard alone reaches everything, and the
+page you are on is marked by a dark bar under its button as well as by yellow.
 
 Searching is forgiving. Aliases are indexed (`tbn`, `cor anglais`, `kettledrums`,
 `contrabass`, `french horn`, `tschaikowsky`), spelling is tolerated within two
@@ -73,8 +81,8 @@ Reference, Composers, Film Composers — each showing how many entries it holds.
 Click one to open it: Strings gives Double Bass, Pizzicato, String Section,
 Viola, Violin and Violoncello. Whatever you leave open is still open next time.
 
-Window size, position, dock state and the open families are remembered between
-runs.
+Window size, position, dock state, the open families and the text size are
+remembered between runs.
 
 ---
 
@@ -288,7 +296,7 @@ instances of, including where the sources disagree. `docs/SESSION-LOG.md` record
 the project was built: the sources and how they were mined, the bugs already found and
 fixed, and what is still unverified.
 
-`docs/adr/` holds twelve architecture decision records — one per choice that would be
+`docs/adr/` holds fourteen architecture decision records — one per choice that would be
 expensive to reverse, each stating what it cost and what it rules out. Read the
 relevant one before changing anything structural or editorial; they are cross-linked
 from the sections of `CLAUDE.md` they explain. The ones most worth knowing before you
@@ -334,11 +342,15 @@ handling to be exercised without launching REAPER. The checks covered:
 - the wording (Apple's writing guidelines) — title-style header buttons, keys
   named with the Mac's symbols on a Mac and in words elsewhere, and no three
   full stops, spaced hyphens or straight quotes on the window's own pages;
+- Apple's HIG Foundations — every string on five pages at 7:1 contrast, Text
+  Size (keys, menu, limits, remembered), 28-point controls 12 apart, the bar
+  under the chosen button, and the Tab ring (Shift+Tab, Return, Space, Esc,
+  scrolling a name into view);
 - citation precision — no bare `BEL`, `IDIO`, `HUG`, `BERL` or `ACTOR` tag, every
   declared source actually cited, no source missing from the Sources page, and no
   `BERL`-only item quoting the copyrighted translation at length.
 
-180 checks; run them with `lua5.4 tests/run.lua`.
+207 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has
