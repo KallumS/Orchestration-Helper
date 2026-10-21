@@ -36,3 +36,4 @@ Each record is `NNNN-short-title.md` and carries:
 | [0010](0010-index-folds-closed-by-default.md) | Index folds, closed by default, persisted by name | Accepted |
 | [0011](0011-shared-colour-scheme.md) | Colour scheme shared with Starting Blocks | Accepted |
 | [0012](0012-headless-harness.md) | A headless harness instead of manual testing in REAPER | Accepted |
+| [0013](0013-window-text-follows-apples-writing-guidelines.md) | The window's text follows Apple's writing guidelines | Accepted |

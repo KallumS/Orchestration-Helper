@@ -17,7 +17,7 @@ project, and its least obvious rule is the easiest to break.
 Read `MUSIC-THEORY.md` for the theory the data files are instances of — the
 principles, the disagreements between sources, and the wider harmony, counterpoint
 and form vocabulary those sources assume.
-Read `docs/adr/` **before changing anything structural or editorial.** Twelve
+Read `docs/adr/` **before changing anything structural or editorial.** Thirteen
 decision records, one per choice that would be expensive to reverse or that someone
 would otherwise undo by accident because the reason is not visible in the code. Each
 says what it cost and what it rules out. The session log is the narrative; an ADR
@@ -32,7 +32,7 @@ new row. A decision reversible in an afternoon with no consequences does not nee
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (174 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (180 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
@@ -208,6 +208,18 @@ ids must be unique **across both files**.
 - **No widget library, so every state is drawn by hand.** `inrect()` is tested at
   draw time and the fill chosen there; `button()` reads `cap(1)` itself for the
   held state. There is no style stack to push.
+
+### Words on screen (ADR 0013)
+
+The window's own text follows Apple's writing guidelines (after Noterator's
+0053): title-style buttons and page titles (**Help**, **Index**, **Sources**,
+"How to Use It"), sentence-case help, hints and footer, em dashes and curly
+quotes, "cursor" not "caret", and keys named through `KEYNAME` - the Mac's
+symbols (⌘→, ⌥←) when `GetOS` says macOS, words elsewhere. Section headings,
+fact keys and item labels in the data take the same typography; summaries,
+details and quoted sources are content and stay as written. Search folds
+punctuation away, so a curly apostrophe changes no match. The harness's
+`GetOS` returns "Other", so tests see the words; the Mac test sets it.
 
 ### Colour (ADR 0011)
 

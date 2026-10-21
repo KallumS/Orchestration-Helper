@@ -43,17 +43,21 @@ script still runs, and composers are simply absent.
 
 | Key | Does |
 | --- | --- |
-| *type* | searches as you type; the best match is shown immediately |
-| `Up` / `Down` | step through the other matches |
-| `Enter` | keep the highlighted match, collapse the match list |
-| `Esc` | clear the box; press again for the index |
-| `Left` / `Right`, `Backspace`, `Delete` | edit the query |
-| `Alt`+`Left` | back to the previous entry |
-| wheel, `PgUp` / `PgDn`, `Ctrl`+`Home` / `Ctrl`+`End` | scroll |
-| `F1` | help |
-| click | any name, chip or *See also* link opens that entry |
-| click a family | on the index, opens and closes it |
-| `Ctrl`+`Right` / `Ctrl`+`Left` | on the index, open or close every family |
+| *type* | Search as you type; the best match is shown straight away. |
+| `↑` `↓` (Windows: `Up` / `Down`) | Move through the other matches. |
+| `Return` (Windows: `Enter`) | Keep the highlighted match and close the list of matches. |
+| `Esc` | Clear the box; press it again to go to the index. |
+| `←` `→`, `Delete` (Windows: `Left` / `Right`, `Backspace`, `Delete`) | Move the cursor and edit what you typed. |
+| `⌥←` (Windows: `Alt+Left`) | Go back to the previous entry. |
+| Scroll wheel, `Page Up` / `Page Down`, `⌘Home` / `⌘End` (Windows: `Ctrl+Home` / `Ctrl+End`) | Scroll. |
+| `F1` | Show the help page. |
+| Click a name | Open that entry — any name, chip or *See also* link. |
+| Click a family | On the index, open or close it. |
+| `⌘→` / `⌘←` (Windows: `Ctrl+Right` / `Ctrl+Left`) | On the index, open or close every family. |
+
+The window names the keys the way your computer does: with the Mac's symbols
+on a Mac, in words elsewhere. The buttons along the top are **Help**,
+**Index** and **Sources**.
 
 Searching is forgiving. Aliases are indexed (`tbn`, `cor anglais`, `kettledrums`,
 `contrabass`, `french horn`, `tschaikowsky`), spelling is tolerated within two
@@ -322,16 +326,19 @@ handling to be exercised without launching REAPER. The checks covered:
 - extreme window sizes down to 60×400 and up to 3000×200.
 
 - the index folding — closed on a first run, click to open one family, click
-  again to close it, Ctrl+Right and Ctrl+Left for all of them, and the open set
+  again to close it, Ctrl+Right and Ctrl+Left (⌘→ and ⌘← on a Mac) for all of them, and the open set
   surviving a restart;
 - the colour scheme's mechanical rules (see `COLOUR.md`): every grey cool, the
   accent used no more than four times, no second accent.
 
+- the wording (Apple's writing guidelines) — title-style header buttons, keys
+  named with the Mac's symbols on a Mac and in words elsewhere, and no three
+  full stops, spaced hyphens or straight quotes on the window's own pages;
 - citation precision — no bare `BEL`, `IDIO`, `HUG`, `BERL` or `ACTOR` tag, every
   declared source actually cited, no source missing from the Sources page, and no
   `BERL`-only item quoting the copyrighted translation at length.
 
-174 checks; run them with `lua5.4 tests/run.lua`.
+180 checks; run them with `lua5.4 tests/run.lua`.
 
 Caveat worth stating plainly: the stand-in approximates font metrics, so it
 verifies structure and behaviour, not pixel-accurate appearance. The layout has
