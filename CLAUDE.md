@@ -32,7 +32,7 @@ new row. A decision reversible in an afternoon with no consequences does not nee
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (180 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (219 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
@@ -56,17 +56,26 @@ print(table.concat(drawn, " | "))
 Helpers it provides: `_H.type`, `_H.press`, `_H.keys`, `_H.raw`, `_H.frame`,
 `_H.run`, `_H.drawn`, `_H.clear_drawn`, `_H.frameno`, `_H.setsize`,
 `_H.mouse(x,y,capbits)`, `_H.wheel`, `_H.K`, `_H.datapath`, `_H.composerspath`,
-`_H.placed`, `_H.find`.
+`_H.placed` (each string with its pen position, colour and width), `_H.find`,
+`_H.rects`, `_H.extstate`, `_H.menupick` / `_H.menu`, `_H.title` (the window's
+title) and `_H.systemfonts` / `_H.faces` (the faces "the system has", the first
+standing in for any other as an OS does, and the face each font slot got).
 `_H.onframe` is not provided but *called if you assign it* — a per-frame hook, the
 way to inject a click or resize partway through a run. A `false` in the key queue
 is a frame boundary, which is what `_H.type` and `_H.press` append; without it
 every queued key is consumed in a single frame.
 
 `_H.find("STRINGS")` returns the pen position of the last `drawstr` of exactly
-that string, which is how a test clicks something: `gfx.rect` is a no-op in the
-harness, so a drawn row leaves no trace but its text and that position. Park the
-pointer off the window afterwards (`_H.mouse(-100, -100, 0)`) or the next frame
-keeps the hover state.
+that string, which is how a test clicks something. `gfx.rect` draws nothing in
+the harness but is recorded (`_H.rects()`: position, fill and the colour set),
+which is how the Tab ring, the chosen bar and the control sizes are checked;
+`_H.placed()` carries the colour of each string too. `gfx.showmenu` answers
+`_H.menupick` once and records the menu in `_H.menu`; `reaper.time_precise` is a
+clock that moves a thirtieth of a second a frame; `_H.extstate()` is the saved
+settings. **Each `_H.run` starts the script afresh** (the ExtState survives), so
+a test that presses Tab queues `_H.frame()` first: Tab needs a drawn frame to
+know what it can reach. Park the pointer off the window afterwards
+(`_H.mouse(-100, -100, 0)`) or the next frame keeps the hover state.
 
 **The harness approximates font metrics** (character count × size factor). It
 verifies structure and behaviour, never appearance. Nothing in this repo has been
@@ -220,6 +229,49 @@ fact keys and item labels in the data take the same typography; summaries,
 details and quoted sources are content and stay as written. Search folds
 punctuation away, so a curly apostrophe changes no match. The harness's
 `GetOS` returns "Other", so tests see the words; the Mac test sets it.
+
+### Apple's HIG Foundations (ADR 0014)
+
+After Transient Shuffler and the ReaImGui family's 0009, drawn by hand because
+this is `gfx` (`docs/apple-hig-review.md` is the page-by-page review):
+
+- **Every line of text 7:1 on the ground.** `dim` `#BAC0C9`, `faint` `#B0B6C0`,
+  `warn_text` `#FF9E96` for a warning's words (the red `warn` is for its rule
+  only). A new text colour must clear 7:1; the suite checks every string drawn.
+- **Text Size** 100/125/150/200%: `TEXTSIZE` indexes `TEXT_SIZES`, and
+  `rescale()` sets `SCALE = RETINA * size` and remakes the fonts. Everything is
+  measured through `S()`, so **every new size goes through `S()`** or it will not
+  grow. Ctrl/Cmd with `=` `-` `0` in `handle_keys`, and the **Text Size** button's
+  `gfx.showmenu`. Saved as a percentage under `textsize`.
+- **Controls 28 tall, 12 apart**: header buttons (laid out in `top_geometry`,
+  `g.buttons`), match chips and name chips. Their labels are `F.SUB` (13).
+- **Tab / Shift+Tab** move `st.focus` (a key: `b:help`, `m:<id>`, `f:<family>`,
+  `c:<row>:<id>`) through `st.focusables`, which `build_focus` rebuilds after
+  each frame in reading order; `ring(key, ...)` draws it where the control is
+  drawn. A new clickable thing gets a key, a `ring` call and a place in
+  `build_focus`, or Tab cannot reach it. Return or Space presses; Esc and typing
+  drop the ring; a click clears it.
+- **A chosen control** gets `chosen_bar` as well as the accent.
+- **Clicks wait 0.25 s after the menu closes** (`st.menu_closed`): a modal
+  menu's click can come back late.
+
+The final sweep (16 October, ADR 0014's dated section) added, and new code keeps:
+
+- **The system face**, picked once by `pick_font()` after `gfx.init` and kept
+  only if `gfx.getfont()` says it was given; the old face otherwise.
+- **Shapes 3:1.** A chip or a field has an `edge` outline (`#6D7581`, 3.2:1); a
+  fill of `sunken` alone is 1.1:1 and shows nothing. The scrollbar's grab is 3:1
+  on its track.
+- **Nothing past the window's edge at 200%**: rows of buttons wrap (the header
+  takes a second row), lines of text wrap (the footer), a hint too long for its
+  box is replaced by a shorter one, never clipped. The suite checks every string
+  on three pages at 200% in a 460-point window.
+- **The page is a centred reading column** of about a hundred body characters
+  (`layout()`, `COL_R` for the citations' right edge). Narrower costs ADR 0010's
+  closed index fitting the default window.
+- **Buttons say what they do in words** (`Back`, not `<`): a `gfx` window has no
+  tooltips to name a symbol.
+- **The title names the page** (`retitle()`, `gfx.init(name)` alone).
 
 ### Colour (ADR 0011)
 

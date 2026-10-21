@@ -556,13 +556,15 @@ do
   check("the colour table is where the suite expects it", body ~= nil)
 
   local roles, warm, nroles = {}, {}, 0
-  for name, hex in (body or ""):gmatch("(%w+)%s*=%s*hex%(0x(%x+)%)") do
+  for name, hex in (body or ""):gmatch("([%w_]+)%s*=%s*hex%(0x(%x+)%)") do
     local v = tonumber(hex, 16)
     local r, g, b = math.floor(v / 65536) % 256, math.floor(v / 256) % 256, v % 256
     roles[name] = { r = r, g = g, b = b, hex = hex:upper() }
     nroles = nroles + 1
-    -- the accent and the warning are the two saturated colours, and are exempt
-    if name ~= "accent" and name ~= "warn" and not (r < g and g < b) then
+    -- the accent and the warning (as a rule and in words) are the saturated
+    -- colours, and are exempt
+    if name ~= "accent" and name ~= "warn" and name ~= "warn_text"
+       and not (r < g and g < b) then
       warm[#warm + 1] = name .. "=#" .. hex:upper()
     end
   end
@@ -629,6 +631,401 @@ do
   check("no ... on screen", not text:find("...", 1, true))
   check("no spaced hyphen as a dash on screen", not text:find(" - ", 1, true))
   check("no straight double quotes on screen", not text:find('"', 1, true))
+end
+
+------------------------------------------------------------------------------
+section("Apple's HIG Foundations (ADR 0014)")
+------------------------------------------------------------------------------
+do
+  local function lin(c)
+    return c <= 0.03928 and c / 12.92 or ((c + 0.055) / 1.055) ^ 2.4
+  end
+  local function lum(r, g, b) return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b) end
+  local function ratio(a, b)
+    local x, y = lum(a[1], a[2], a[3]), lum(b[1], b[2], b[3])
+    if x < y then x, y = y, x end
+    return (x + 0.05) / (y + 0.05)
+  end
+  local function rgb(v)
+    return { math.floor(v / 65536) % 256 / 255, math.floor(v / 256) % 256 / 255,
+             v % 256 / 255 }
+  end
+  local GROUND, INK = rgb(0x23272E), rgb(0x14171C)
+  local function same(p, c)
+    return math.abs(p.r - c[1]) < 1e-6 and math.abs(p.g - c[2]) < 1e-6
+       and math.abs(p.b - c[3]) < 1e-6
+  end
+
+  -- Every line of text, on every page, at 7:1 on the ground - Apple's target
+  -- for small text in a dark window. Text on a control is dark ink, checked
+  -- against the control instead. Named by the string, so a failure says which.
+  local pages = {
+    function() _H.raw{ _H.K("rght") }; _H.frame() end,   -- index, all open
+    function() _H.press(_H.K("f1"), 1) end,
+    function() _H.type("zzzqqqx") end,
+    function() _H.type("string section"); _H.press(_H.K("pgdn"), 8) end,
+    function() _H.type("horn") end,                       -- several matches
+  }
+  local low, seen, sparing = {}, 0, false
+  for i, feed in ipairs(pages) do
+    dofile(HARNESS)
+    if i == 1 then _H.mouse(-100, -100, 4) end
+    feed()
+    _H.run(8)
+    for _, p in ipairs(_H.placed()) do
+      seen = seen + 1
+      if p.s == "USE SPARINGLY" then sparing = true end
+      local r
+      if same(p, INK) then r = ratio(INK, rgb(0xA9AFBA))
+      else r = ratio({ p.r, p.g, p.b }, GROUND) end
+      if r < 7 and #low < 5 then low[#low + 1] = ("%q %.1f:1"):format(p.s, r) end
+    end
+  end
+  check("every line of text is 7:1 or more", #low == 0 and seen > 500,
+        table.concat(low, ", "))
+  check("the contrast sweep reached a warning header", sparing)
+
+  -- Text Size: Cmd/Ctrl with = - 0, clamped, remembered, and it scales the page.
+  dofile(HARNESS)
+  _H.run(4)
+  local helpx = _H.find("Help").x
+  _H.mouse(-100, -100, 4)
+  _H.press(61, 1)
+  _H.run(4)
+  check("Ctrl+= makes the text bigger", _H.extstate()["OrchestrationHelper/textsize"] == "125")
+  check("bigger text widens the buttons", _H.find("Help").x < helpx)
+  _H.press(61, 6)
+  _H.run(10)
+  check("Text Size stops at 200%", _H.extstate()["OrchestrationHelper/textsize"] == "200")
+  _H.mouse(-100, -100, 0)
+  _H.run(4)
+  check("Text Size is remembered", _H.extstate()["OrchestrationHelper/textsize"] == "200"
+        and _H.find("Help").x < helpx)
+  _H.mouse(-100, -100, 4)
+  _H.press(45, 1)
+  _H.run(4)
+  check("Ctrl+- makes it smaller", _H.extstate()["OrchestrationHelper/textsize"] == "150")
+  _H.press(48, 1)
+  _H.run(4)
+  check("Ctrl+0 goes back to 100%", _H.extstate()["OrchestrationHelper/textsize"] == "100"
+        and _H.find("Help").x == helpx)
+  _H.mouse(-100, -100, 0)
+  _H.type("=")
+  _H.run(4)
+  check("= on its own still types", _H.find("=") ~= nil)
+
+  dofile(HARNESS)
+  reaper.SetExtState("OrchestrationHelper", "textsize", "999", true)
+  _H.run(4)
+  check("a nonsense Text Size loads as 100%", _H.find("Help").x == helpx)
+
+  -- The Text Size button opens a menu with the current size ticked.
+  dofile(HARNESS)
+  _H.run(3)
+  local tsb = _H.find("Text Size")
+  _H.menupick = 3
+  _H.onframe = function(n)
+    if n == 1 then _H.mouse(tsb.x + 4, tsb.y + 4, 1)
+    elseif n == 2 then _H.mouse(-100, -100, 0) end
+  end
+  _H.run(6)
+  check("the Text Size menu lists the sizes, the current one ticked",
+        _H.menu == "!100%|125%|150%|200%", _H.menu)
+  check("choosing 150% from the menu sets it",
+        _H.extstate()["OrchestrationHelper/textsize"] == "150")
+
+  -- A click arriving just after the menu closes is the menu's own, not a new one.
+  dofile(HARNESS)
+  _H.run(3)
+  tsb = _H.find("Text Size")
+  local src = _H.find("Sources")
+  _H.onframe = function(n)
+    if n == 1 then _H.mouse(tsb.x + 4, tsb.y + 4, 1)
+    elseif n == 2 then _H.mouse(-100, -100, 0)
+    elseif n == 3 then _H.mouse(src.x + 4, src.y + 4, 1)
+    elseif n == 4 then _H.mouse(-100, -100, 0) end
+  end
+  _H.clear_drawn()
+  _H.run(8)
+  check("a click straight after the menu is ignored",
+        table.concat(_H.drawn(), "|"):find("Every statement", 1, true) == nil)
+  _H.onframe = function(n)
+    if n == 2 then _H.mouse(src.x + 4, src.y + 4, 1)
+    elseif n == 3 then _H.mouse(-100, -100, 0) end
+  end
+  _H.run(8)
+  check("a click a moment later works",
+        table.concat(_H.drawn(), "|"):find("Every statement", 1, true) ~= nil)
+  _H.onframe = nil
+
+  -- Controls are 28 points tall, 12 apart; the chosen one carries an ink bar.
+  local function rectsOf(colour)
+    local out, last = {}, 0
+    for _, r in ipairs(_H.rects()) do last = math.max(last, r.frame) end
+    for _, r in ipairs(_H.rects()) do
+      if r.frame == last and r.fill and same(r, rgb(colour)) then out[#out + 1] = r end
+    end
+    return out
+  end
+  dofile(HARNESS)
+  _H.mouse(-100, -100, 4)
+  _H.raw{ _H.K("rght") }; _H.frame()
+  _H.run(4)
+  local btns = {}
+  for _, c in ipairs{ 0xA9AFBA, 0xFFF200 } do
+    for _, r in ipairs(rectsOf(c)) do
+      if r.w > 4 and r.y < 60 then btns[#btns + 1] = r end   -- not the caret
+    end
+  end
+  table.sort(btns, function(a, b) return a.x < b.x end)
+  local short, close = {}, {}
+  for i, r in ipairs(btns) do
+    if r.h < 28 then short[#short + 1] = r.h end
+    if i > 1 and r.x - (btns[i - 1].x + btns[i - 1].w) < 12 then close[#close + 1] = i end
+  end
+  check("five header buttons, each 28 tall", #btns == 5 and #short == 0,
+        #btns .. " buttons, short: " .. table.concat(short, ","))
+  check("header buttons 12 apart", #close == 0)
+  local chipsShort, nchips = 0, 0
+  for _, r in ipairs(rectsOf(0x1A1D23)) do
+    if r.w > 10 and r.h < 200 then
+      nchips = nchips + 1
+      if r.h < 28 then chipsShort = chipsShort + 1 end
+    end
+  end
+  check("every name on the index is a 28-point control", nchips > 20 and chipsShort == 0,
+        nchips .. " chips, " .. chipsShort .. " short")
+  local bars = rectsOf(0x14171C)
+  local idx
+  for _, r in ipairs(rectsOf(0xFFF200)) do if r.w > 4 then idx = r end end
+  check("the chosen button carries an ink bar, and only it", #bars == 1 and idx
+        and bars[1].x > idx.x and bars[1].x + bars[1].w < idx.x + idx.w
+        and bars[1].y > idx.y and bars[1].y < idx.y + idx.h, #bars .. " bars")
+
+  -- Tab rings a control; Return or Space presses it; Esc or typing drops it.
+  local RING = rgb(0xF2F4F7)
+  local function rings()
+    local out, last = {}, 0
+    for _, r in ipairs(_H.rects()) do last = math.max(last, r.frame) end
+    for _, r in ipairs(_H.rects()) do
+      if r.frame == last and not r.fill and same(r, RING) then out[#out + 1] = r end
+    end
+    return out
+  end
+  dofile(HARNESS)
+  _H.run(3)
+  local back = _H.find("Back")
+  check("no ring before the keyboard is used", #rings() == 0)
+  _H.frame()
+  _H.press(9, 1)
+  _H.run(3)
+  local rg = rings()
+  check("Tab rings the first button", #rg > 0 and rg[1].x < back.x and rg[1].y < back.y + 4)
+  _H.frame()
+  _H.press(9, 3)
+  _H.press(32, 1)
+  _H.run(6)
+  check("Space presses the ringed button",
+        table.concat(_H.drawn(), "|"):find("How to Use It", 1, true) ~= nil)
+
+  dofile(HARNESS)
+  _H.frame()
+  _H.press(9, 6)                         -- Back, Text Size, Help, Index, Sources, Strings
+  _H.press(13, 1)
+  _H.run(10)
+  local d = table.concat(_H.drawn(), "|")
+  check("Tab reaches a family and Return opens it", d:find("Violin", 1, true) ~= nil
+        and _H.extstate()["OrchestrationHelper/open"] == "Strings")
+
+  dofile(HARNESS)
+  _H.frame()
+  _H.press(9, 1)
+  _H.onframe = function(n) _H.mouse(-100, -100, n == 2 and 8 or 0) end
+  _H.press(9, 1)
+  _H.run(5)
+  _H.onframe = nil
+  rg = rings()
+  check("Shift+Tab goes back round to the last", #rg > 0 and rg[1].y > 100)
+
+  dofile(HARNESS)
+  _H.mouse(-100, -100, 4)
+  _H.raw{ _H.K("rght") }; _H.frame()
+  _H.run(2)
+  _H.mouse(-100, -100, 0)
+  _H.press(9, 90)
+  _H.run(100)
+  rg = rings()
+  check("Tab scrolls a name below the window into view", #rg > 0
+        and rg[1].y > 60 and rg[1].y + rg[1].h < 680,
+        #rg > 0 and ("ring at " .. rg[1].y) or "no ring")
+
+  dofile(HARNESS)
+  _H.frame()
+  _H.press(9, 2)
+  _H.press(27, 1)
+  _H.run(6)
+  check("Esc drops the ring first", #rings() == 0
+        and table.concat(_H.drawn(), "|"):find("Orchestration Helper", 1, true) ~= nil)
+  dofile(HARNESS)
+  _H.frame()
+  _H.press(9, 2)
+  _H.type("ho")
+  _H.run(6)
+  check("typing drops the ring and goes to the box", #rings() == 0 and _H.find("ho") ~= nil)
+
+  -- The help page says how.
+  local h = scenario(function() _H.press(_H.K("f1"), 1) end, 6)
+  check("help names Tab and the Text Size keys",
+        h:find("Tab Shift+Tab", 1, true) and h:find("Ctrl+= Ctrl+-", 1, true))
+end
+
+------------------------------------------------------------------------------
+section("Apple's HIG Foundations: the final sweep (ADR 0014, 16 October)")
+------------------------------------------------------------------------------
+do
+  local function lin(c)
+    return c <= 0.03928 and c / 12.92 or ((c + 0.055) / 1.055) ^ 2.4
+  end
+  local function lum(c) return 0.2126 * lin(c[1]) + 0.7152 * lin(c[2]) + 0.0722 * lin(c[3]) end
+  local function ratio(a, b)
+    local x, y = lum(a), lum(b)
+    if x < y then x, y = y, x end
+    return (x + 0.05) / (y + 0.05)
+  end
+  local function rgb(v)
+    return { math.floor(v / 65536) % 256 / 255, math.floor(v / 256) % 256 / 255,
+             v % 256 / 255 }
+  end
+  local GROUND, TRACK = rgb(0x23272E), rgb(0x1A1D23)
+  local function col(r) return { r.r, r.g, r.b } end
+  local function lastframe(list)
+    local last, out = 0, {}
+    for _, r in ipairs(list) do last = math.max(last, r.frame) end
+    for _, r in ipairs(list) do if r.frame == last then out[#out + 1] = r end end
+    return out
+  end
+
+  -- The system's own face, checked with gfx.getfont, else the old one.
+  local function face(os, have)
+    dofile(HARNESS)
+    reaper.GetOS = function() return os end
+    _H.systemfonts = have
+    _H.run(2)
+    return _H.faces[4]                   -- the body font's slot
+  end
+  check("San Francisco on a Mac that has it",
+        face("macOS-arm64", { "Helvetica", ".AppleSystemUIFont" }) == ".AppleSystemUIFont")
+  check("Helvetica on a Mac where the system face is not given",
+        face("OSX64", { "Helvetica" }) == "Helvetica")
+  check("Segoe UI on Windows, Arial without it",
+        face("Win64", { "Arial", "Segoe UI" }) == "Segoe UI"
+          and face("Win64", { "Arial" }) == "Arial")
+  check("DejaVu Sans elsewhere", face("Other", { "DejaVu Sans" }) == "DejaVu Sans")
+
+  -- Non-text contrast, 3:1 or more: every chip and the search box carry an
+  -- outline that can be seen on the ground, and the scrollbar's grab on its
+  -- track (WCAG 1.4.11, which Apple's Accessibility page points to).
+  dofile(HARNESS)
+  _H.type("horn")                        -- several matches, and name chips below
+  _H.press(_H.K("pgdn"), 12)
+  _H.run(18)
+  local R = lastframe(_H.rects())
+  local fills, edges, weak = 0, 0, {}
+  for _, r in ipairs(R) do
+    if r.fill and r.h >= 28 and r.w > 30 and r.w < 600 and ratio(col(r), GROUND) < 1.3 then
+      fills = fills + 1
+      local found = false
+      for _, e in ipairs(R) do
+        if not e.fill and e.x == r.x and e.y == r.y and e.w == r.w and e.h == r.h then
+          found = true
+          if ratio(col(e), GROUND) < 3 then weak[#weak + 1] = ("%.1f:1"):format(ratio(col(e), GROUND)) end
+        end
+      end
+      if found then edges = edges + 1 end
+    end
+  end
+  check("every chip and the search box has an edge 3:1 on the ground",
+        fills >= 4 and edges == fills and #weak == 0,
+        ("%d fills, %d edges %s"):format(fills, edges, table.concat(weak, " ")))
+  local grab
+  for _, r in ipairs(R) do
+    if r.fill and r.x == 760 - 6 and r.h >= 30 and ratio(col(r), TRACK) > 1.3 then grab = r end
+  end
+  check("the scrollbar's grab is 3:1 on its track",
+        grab and ratio(col(grab), TRACK) >= 3,
+        grab and ("%.1f:1"):format(ratio(col(grab), TRACK)) or "no grab")
+
+  -- The window's title names the page.
+  dofile(HARNESS)
+  _H.type("trombone")
+  _H.run(4)
+  check("the title names the entry", _H.title == "Orchestration Helper — Trombone",
+        tostring(_H.title))
+  dofile(HARNESS)
+  _H.press(_H.K("f1"), 1)
+  _H.press(27, 1)
+  _H.run(4)
+  check("the title follows the page back to the index",
+        _H.title == "Orchestration Helper", tostring(_H.title))
+
+  -- At 200% in a narrow window nothing runs off the edge or over another
+  -- button: the header wraps to a second row, the footer to a second line, and
+  -- the search box's hint is shortened rather than cut.
+  local over = {}
+  local function narrow(feed, w)
+    w = w or 460
+    dofile(HARNESS)
+    reaper.SetExtState("OrchestrationHelper", "textsize", "200", true)
+    feed()
+    _H.onframe = function(n) if n == 1 then _H.setsize(w, 900) end end
+    _H.run(8)
+    _H.onframe = nil
+    for _, p in ipairs(lastframe(_H.placed())) do
+      if p.x < 0 or p.x + p.w > w + 1 then over[#over + 1] = p.s end
+    end
+  end
+  narrow(function() end)
+  local B = {}
+  for _, n in ipairs{ "Back", "Text Size", "Help", "Index", "Sources" } do
+    B[#B + 1] = _H.find(n)
+  end
+  local clash = false
+  for i = 1, #B do for j = i + 1, #B do
+    local a, b = B[i], B[j]
+    if math.abs(a.y - b.y) < 20 and a.x < b.x + b.w and b.x < a.x + a.w then clash = true end
+  end end
+  check("at 200% in a narrow window every header button shows, none over another",
+        #B == 5 and not clash)
+  narrow(function() _H.type("horn") end)
+  narrow(function() _H.type("horn") end, 500)   -- "+3 more" at the row's end
+  narrow(function() _H.press(_H.K("f1"), 1) end)
+  check("at 200% in a narrow window no text runs off the edge", #over == 0,
+        table.concat(over, " / "))
+
+  dofile(HARNESS)
+  reaper.SetExtState("OrchestrationHelper", "textsize", "200", true)
+  reaper.SetExtState("OrchestrationHelper", "w", "500", true)
+  _H.run(2)
+  check("the smallest window that opens grows with the text size", gfx.w >= 920, gfx.w)
+
+  -- In a very wide window the page is a centred column of about a hundred
+  -- characters, citations at its right edge, not at the window's.
+  dofile(HARNESS)
+  _H.type("trombone")
+  _H.onframe = function(n) if n == 1 then _H.setsize(1800, 900) end end
+  _H.run(6)
+  _H.onframe = nil
+  local lo, hi, cites = 1e9, 0, 0
+  for _, p in ipairs(lastframe(_H.placed())) do
+    if p.y > 120 and p.y < 860 then
+      lo, hi = math.min(lo, p.x), math.max(hi, p.x + p.w)
+      if p.s:match("^RK p%.") then cites = cites + 1 end
+    end
+  end
+  local colw = 100 * 14 * 0.52
+  check("a wide window reads as a centred column",
+        cites > 0 and lo >= (1800 - colw) / 2 - 1 and hi <= (1800 + colw) / 2 + 1,
+        ("%d to %d"):format(lo, hi))
 end
 
 ------------------------------------------------------------------------------

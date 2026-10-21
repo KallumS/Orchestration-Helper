@@ -887,6 +887,74 @@ decision 0053. ADR 0013 holds the rules; this is the route.
   checks were run against the old script and all failed, as did the three
   existing checks whose expected strings changed.
 
+## 6g. 15 October 2026 — the rest of Apple's HIG Foundations
+
+The same sweep, after Transient Shuffler: the user sent the 19 Foundations pages
+and asked for every repository to meet them. ADR 0014 holds the rules and
+`docs/apple-hig-review.md` the page-by-page review; this is the route.
+
+- **Contrast first, measured.** `dim` was 4.7:1 on the ground, `faint` about
+  3.2:1 and the "Use sparingly" red 3.4:1. Apple's Dark Mode page asks 7:1 for
+  small text. `dim` is `#BAC0C9` now, `faint` `#B0B6C0`, and a warning's words
+  `#FF9E96`; the red keeps the rule under it. The colour test read role names
+  with `%w+`, so `warn_text` showed up as a role called `text` failing R < G < B;
+  it reads `[%w_]+` now.
+- **Text Size was nearly free.** Every measure already went through `S()` for
+  Retina, so the size is one more factor in `SCALE`. The work was the button
+  (a `gfx.showmenu`, settled for a quarter of a second after it closes, as
+  ScaleView learned) and the keys, which have to be tested before the search box
+  takes `=`, `-` and `0` as text.
+- **Tab, by hand.** ReaImGui gives the sister scripts a focus ring for one flag;
+  `gfx` has nothing. Hotspots are only registered for what is on screen, so Tab
+  could not be built from them: `build_focus` walks the layout's rows instead,
+  every family and name with its place on the page, and Tab scrolls to one out
+  of sight.
+- **The harness learned to see rectangles.** `gfx.rect` was a no-op, so a ring,
+  a bar or a 28-point button left no trace. It now records each with its colour,
+  and `drawstr` records its colour too, which is what let the contrast check run
+  over every string on five pages rather than over the colour table.
+- **Two test mistakes, both instructive.** Each `_H.run` starts the script
+  afresh, so a Tab queued before the first frame met an empty focus list; the
+  tests queue a frame first. And the text cursor is a yellow rectangle, which the
+  first button count took for a sixth button.
+- **Verification.** 207 checks pass (180 before, 27 new). Each of 21 rules was
+  broken on purpose with a copy of the repository, and the suite failed every
+  time.
+
+## 6h. 16 October 2026 — the final HIG sweep
+
+The user asked for a last pass over the 19 Foundations pages, to be sure nothing
+a custom window can do was left out. The review's *Final sweep* table has every
+verdict; ADR 0014 a dated section. The route:
+
+- **The system font, after all.** The first pass said `gfx` could not name it
+  reliably. It can be asked for and checked: `gfx.getfont()` returns the face
+  really used, so `.AppleSystemUIFont` (or `SF Pro Text`) and `Segoe UI` are
+  tried and kept only if they come back, as Transient Shuffler's JSFX does. The
+  harness now has a list of faces "the system has" and substitutes the first for
+  any other, the way an OS does.
+- **Edges no one could see.** A chip's fill is 1.1:1 on the ground, so its shape
+  was invisible and only its words said "click me"; the search box's edge was
+  1.4:1; the scrollbar's grab 2.6:1 on its track. All three take `#6D7581`.
+- **200% in a narrow window found three real faults** that 100% hid: the footer
+  ran off the right edge, "+N more" could be drawn past it, and the search box's
+  hint was clipped mid-word. The header's buttons, which already crowded below
+  about 500 points, now take a second row. A check that no string ends past the
+  edge, on three pages, holds all of it; the harness records each string's width
+  to make that possible.
+- **The reading column was measured, not assumed.** Seventy characters is the
+  usual figure; in the 760-point default window it pushed the last family band
+  under the footer, undoing ADR 0010's point. A hundred leaves the default window
+  as it was and still stops a 1800-point window running lines of 250 characters.
+- **The title is retitled with `gfx.init(name)`**, which REAPER documents for an
+  open window. The harness's `gfx.init` had reset the size on every call; it now
+  keeps it, as REAPER does.
+- **Verification.** 219 checks pass (12 new). Eleven rules were broken on purpose
+  in a copy of the repository and the suite failed each time - after one miss:
+  taking away the room kept for "+N more" passed at first, because at 460 points
+  the matches for "horn" happen to end short of the edge. A scan of widths found
+  500 points puts it past the edge, and the check now looks there too.
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
