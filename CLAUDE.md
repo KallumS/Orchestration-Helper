@@ -32,7 +32,7 @@ new row. A decision reversible in an afternoon with no consequences does not nee
 There is no build step and no linter.
 
 ```bash
-lua5.4 tests/run.lua              # the whole suite (207 checks); exits non-zero on failure
+lua5.4 tests/run.lua              # the whole suite (219 checks); exits non-zero on failure
 lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
@@ -56,7 +56,10 @@ print(table.concat(drawn, " | "))
 Helpers it provides: `_H.type`, `_H.press`, `_H.keys`, `_H.raw`, `_H.frame`,
 `_H.run`, `_H.drawn`, `_H.clear_drawn`, `_H.frameno`, `_H.setsize`,
 `_H.mouse(x,y,capbits)`, `_H.wheel`, `_H.K`, `_H.datapath`, `_H.composerspath`,
-`_H.placed`, `_H.find`, `_H.rects`, `_H.extstate`, and `_H.menupick` / `_H.menu`.
+`_H.placed` (each string with its pen position, colour and width), `_H.find`,
+`_H.rects`, `_H.extstate`, `_H.menupick` / `_H.menu`, `_H.title` (the window's
+title) and `_H.systemfonts` / `_H.faces` (the faces "the system has", the first
+standing in for any other as an OS does, and the face each font slot got).
 `_H.onframe` is not provided but *called if you assign it* — a per-frame hook, the
 way to inject a click or resize partway through a run. A `false` in the key queue
 is a frame boundary, which is what `_H.type` and `_H.press` append; without it
@@ -251,6 +254,24 @@ this is `gfx` (`docs/apple-hig-review.md` is the page-by-page review):
 - **A chosen control** gets `chosen_bar` as well as the accent.
 - **Clicks wait 0.25 s after the menu closes** (`st.menu_closed`): a modal
   menu's click can come back late.
+
+The final sweep (16 October, ADR 0014's dated section) added, and new code keeps:
+
+- **The system face**, picked once by `pick_font()` after `gfx.init` and kept
+  only if `gfx.getfont()` says it was given; the old face otherwise.
+- **Shapes 3:1.** A chip or a field has an `edge` outline (`#6D7581`, 3.2:1); a
+  fill of `sunken` alone is 1.1:1 and shows nothing. The scrollbar's grab is 3:1
+  on its track.
+- **Nothing past the window's edge at 200%**: rows of buttons wrap (the header
+  takes a second row), lines of text wrap (the footer), a hint too long for its
+  box is replaced by a shorter one, never clipped. The suite checks every string
+  on three pages at 200% in a 460-point window.
+- **The page is a centred reading column** of about a hundred body characters
+  (`layout()`, `COL_R` for the citations' right edge). Narrower costs ADR 0010's
+  closed index fitting the default window.
+- **Buttons say what they do in words** (`Back`, not `<`): a `gfx` window has no
+  tooltips to name a symbol.
+- **The title names the page** (`retitle()`, `gfx.init(name)` alone).
 
 ### Colour (ADR 0011)
 

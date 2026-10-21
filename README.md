@@ -58,14 +58,17 @@ script still runs, and composers are simply absent.
 | `⌘=` / `⌘-` / `⌘0` (Windows: `Ctrl+=` / `Ctrl+-` / `Ctrl+0`) | Text bigger, smaller, back to 100%. |
 
 The window names the keys the way your computer does: with the Mac's symbols
-on a Mac, in words elsewhere. The buttons along the top are **Text Size**,
-**Help**, **Index** and **Sources**.
+on a Mac, in words elsewhere. The buttons along the top are **Back**,
+**Text Size**, **Help**, **Index** and **Sources**.
 
 The window follows Apple's design guidelines for Mac apps
 ([what that covers](docs/apple-hig-review.md)): every line of text is easy to
 read against the dark ground, **Text Size** makes everything up to twice the
 size, the buttons are full-size, the keyboard alone reaches everything, and the
 page you are on is marked by a dark bar under its button as well as by yellow.
+It uses the Mac's own font (Segoe UI on Windows), every name and the search box
+has an outline you can see, the window's title says which page is open, and in a
+very wide window the page stays a readable column in the middle.
 
 Searching is forgiving. Aliases are indexed (`tbn`, `cor anglais`, `kettledrums`,
 `contrabass`, `french horn`, `tschaikowsky`), spelling is tolerated within two

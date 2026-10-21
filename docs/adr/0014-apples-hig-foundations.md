@@ -88,3 +88,34 @@ button carries the ink bar; Tab rings the first button, Space and Return press,
 Shift+Tab goes back round, Tab scrolls a name into view, Esc and typing drop the
 ring; Help names the keys. Each of 21 rules was broken on purpose and the suite
 failed.
+
+## 16 October 2026: the final sweep
+
+Every page was gone through again
+([`docs/apple-hig-review.md`](../apple-hig-review.md), *Final sweep*). What changed:
+
+- **The system font.** Asked for by name and confirmed with `gfx.getfont()`:
+  `.AppleSystemUIFont` (or `SF Pro Text`) on a Mac, `Segoe UI` on Windows. When
+  what comes back is not the face asked for, the old one stays - Helvetica, Arial,
+  DejaVu Sans. Picked once, after `gfx.init`. The consequence above that said it
+  stays Helvetica is superseded.
+- **Edges 3:1 on the ground** for the chips and the search box (`edge`,
+  `#6D7581`, 3.2:1), and the scrollbar's grab 3.6:1 on its track (was 2.6:1).
+- **Back says Back.** A bare "<" is an icon without a name.
+- **The title names the page**, by calling `gfx.init` again with a name alone.
+- **Nothing runs off the window or over another control at 200%**: the header's
+  buttons take a second row, the footer wraps, "+N more" keeps its room, the
+  search box's hint shortens to "Search". The smallest window that opens grows
+  with the text size. This replaces the consequence above that said the buttons
+  crowd in a narrow window.
+- **A reading column** of about a hundred characters, centred in a wide window.
+  Not seventy: that narrows the default 760-point window too, and the closed
+  index then needs scrolling, which ADR 0010 exists to prevent.
+
+Ruled out: tooltips for cut-short text (nothing is cut short now); dimming the
+chosen match when the window is not in front (no selection here that the system
+would dim, and no request for it); ⌘[ for Back (⌥← and the Back button already go
+back, and how `gfx.getchar` reports Command with punctuation is not documented).
+
+Enforcement: `tests/run.lua`, section *the final sweep*, twelve checks; each
+of the eleven rules was broken on purpose in a copy and the suite failed.

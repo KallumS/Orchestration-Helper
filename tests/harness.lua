@@ -32,12 +32,35 @@ gfx = {
 }
 local curfont = 0
 local fontsz = {}
-function gfx.init(name,w,h,d,x,y) gfx.w=w or 760; gfx.h=h or 680; return 1 end
+-- As REAPER documents it: called again with a name alone, an open window is
+-- retitled and keeps its size. The title is kept in _H.title.
+function gfx.init(name,w,h,d,x,y)
+  if name and name ~= "" then _H.title = name end
+  if w and w > 0 then gfx.w = w elseif not _H.opened then gfx.w = 760 end
+  if h and h > 0 then gfx.h = h elseif not _H.opened then gfx.h = 680 end
+  _H.opened = true
+  return 1
+end
+-- The faces "the system has": a face not in the list is quietly replaced by
+-- the first, as the OS does, and gfx.getfont reports what was really used.
+-- _H.faces[idx] is the face each font slot ended up with.
+local fontface = {}
 function gfx.setfont(idx, face, sz, flags)
   curfont = idx
   if sz then fontsz[idx] = sz end
+  if face then
+    local have = _H.systemfonts or { "DejaVu Sans" }
+    local got = have[1]
+    for _, f in ipairs(have) do
+      if f:lower() == face:lower() then got = f end
+    end
+    fontface[idx] = got
+    _H.faces = _H.faces or {}
+    _H.faces[idx] = got
+  end
   gfx.texth = (fontsz[idx] or 14) + 3
 end
+function gfx.getfont() return curfont, fontface[curfont] end
 function gfx.measurestr(s)
   local sz = fontsz[curfont] or 14
   return #tostring(s) * sz * 0.52, gfx.texth
@@ -49,7 +72,8 @@ function gfx.drawstr(s, flags, r, b)
   -- have no other way to find it: gfx.rect is a no-op here, so the only trace a
   -- drawn row leaves is the text and this position.
   placed[#placed+1] = { s = tostring(s), x = gfx.x, y = gfx.y, frame = frames,
-                        r = gfx.r, g = gfx.g, b = gfx.b }
+                        r = gfx.r, g = gfx.g, b = gfx.b,
+                        w = (gfx.measurestr(s)) }
   gfx.x = gfx.x + (gfx.measurestr(s))
 end
 function gfx.drawnumber(n,d) gfx.drawstr(tostring(n)) end
@@ -123,6 +147,7 @@ function _H.run(maxframes)
   placed = {}
   rects = {}
   deferred = nil
+  _H.opened, _H.title, _H.faces = false, nil, {}
   local chunk = assert(loadfile(SCRIPT))
   chunk()
   local guard = 0

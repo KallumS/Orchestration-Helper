@@ -28,7 +28,7 @@ the table can be written in the same notation as this file.
 | --- | --- | --- |
 | `bg` | `#23272E` | the ground; also `gfx.clear` |
 | `panel` | `#1B1F25` | header bar, footer |
-| `sunken` | `#1A1D23` | chip rest, search box, scrollbar track |
+| `sunken` | `#1A1D23` | chip rest, search box, scrollbar track (1.1:1 on the ground, so never a shape on its own: see `edge`) |
 | `frame_hover` | `#22262D` | chip hover, fold-row hover |
 | `panel2` | `#2A2F37` | search box while the pointer is over it |
 | `line` | `#3A404A` | separators, the rule under a section header |
@@ -41,7 +41,8 @@ the table can be written in the same notation as this file.
 | `control` | `#A9AFBA` | header button fill |
 | `control_h` | `#C0C6CF` | header button hover |
 | `control_a` | `#8F96A2` | header button held |
-| `grab` | `#585F6B` | scrollbar grab |
+| `grab` | `#6D7581` | scrollbar grab (3.6:1 on its track; `#585F6B` was 2.6:1) |
+| `edge` | `#6D7581` | the outline of every chip and of the search box (3.2:1 on the ground) |
 | `accent` | `#FFF200` | the current view's button, the selected match, the caret |
 | `warn` | `#D2483F` | the rule under a "Use sparingly" header |
 | `warn_text` | `#FF9E96` | the "Use sparingly" header's words (7.6:1) |
@@ -54,6 +55,12 @@ in a dark window. That is why `dim` and `faint` are no longer the ramp's
 fills, not for words. The house red `#D2483F` is 3.4:1, so a warning's words take
 `warn_text` and the red is kept for the rule under it. The suite checks every
 string drawn on five pages, so a new colour for words cannot slip under 7:1.
+
+**Shapes are 3:1 (16 October).** What marks a control's shape - a chip's or
+the search box's outline, the scrollbar's grab - is at least 3:1 on what it sits
+on, the WCAG figure Apple's Accessibility page points to. `sunken` is 1.1:1 on the
+ground, so a chip's fill alone shows nothing; `edge` outlines it. The suite checks
+every chip and the search box for an edge, and the grab on its track.
 
 The Tab ring is `title`, not the accent: yellow means *on*, and a ringed control
 need not be. A chosen control carries an `ink` bar under its label as well as

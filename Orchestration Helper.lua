@@ -258,7 +258,8 @@ local C = {
   control     = hex(0xA9AFBA),   -- button fill
   control_h   = hex(0xC0C6CF),   -- button hover
   control_a   = hex(0x8F96A2),   -- button held
-  grab        = hex(0x585F6B),   -- scrollbar grab
+  grab        = hex(0x6D7581),   -- scrollbar grab: 3.6:1 on its track (#585F6B was 2.6:1)
+  edge        = hex(0x6D7581),   -- chip and search-box outline: 3.2:1 on the ground
   accent      = hex(0xFFF200),   -- whatever is switched on
   warn        = hex(0xD2483F),   -- "use sparingly" rule; never a shade of the accent
   warn_text   = hex(0xFF9E96),   -- the same warning in words: 7.6:1, the red is 3.4:1
@@ -268,12 +269,36 @@ local function setcol(c, a)
   gfx.set(c[1], c[2], c[3], a or 1)
 end
 
-local FONTFACE = (function()
+-- The system's own face where it can be had (Apple's Typography page): San
+-- Francisco on a Mac, Segoe UI on Windows. gfx takes a face by name and quietly
+-- substitutes another when the name is unknown, so each is asked for and
+-- gfx.getfont() says what was really given; if it is not the one asked for,
+-- the old face stays (Transient Shuffler's pick_font, in Lua). Picked once,
+-- after gfx.init, because getfont needs the window.
+local FONTFACE
+local function pick_font()
   local os = reaper.GetOS() or ""
-  if os:match("^Win") then return "Arial" end
-  if os:match("OSX") or os:match("macOS") then return "Helvetica" end
-  return "DejaVu Sans"
-end)()
+  local tries, fallback
+  if os:match("^Win") then
+    tries, fallback = { { "Segoe UI", "segoe ui" } }, "Arial"
+  elseif os:match("OSX") or os:match("macOS") then
+    -- the system face reports itself under several names
+    tries = { { ".AppleSystemUIFont", "system", "sf", "applesystemui" },
+              { "SF Pro Text", "sf pro" } }
+    fallback = "Helvetica"
+  else
+    tries, fallback = {}, "DejaVu Sans"
+  end
+  for _, t in ipairs(tries) do
+    gfx.setfont(1, t[1], 14)
+    local _, got = gfx.getfont()
+    got = tostring(got or ""):lower()
+    for i = 2, #t do
+      if got:find(t[i], 1, true) then return t[1] end
+    end
+  end
+  return fallback
+end
 
 -- Keys are named the way each system writes them: the Mac's symbols there
 -- (Ctrl is Command on a Mac, see CLAUDE.md), words elsewhere.
@@ -301,6 +326,7 @@ local SCALE = 1
 
 local function initfonts()
   local s = SCALE
+  FONTFACE = FONTFACE or pick_font()
   gfx.setfont(F.TITLE, FONTFACE, math.floor(21 * s), string.byte("b"))
   gfx.setfont(F.HEAD,  FONTFACE, math.floor(12 * s), string.byte("b"))
   gfx.setfont(F.LABEL, FONTFACE, math.floor(14 * s), string.byte("b"))
@@ -443,6 +469,7 @@ end
 ------------------------------------------------------------------------------
 
 local rows        -- being built
+local COL_R = 0   -- the right edge of the reading column, for citations
 local function row(t) rows[#rows + 1] = t end
 
 local function textw(s) return (gfx.measurestr(s)) end
@@ -482,7 +509,7 @@ local function para(s, font, col, x, maxw, cite)
   local lines = wrap(s, maxw)
   for i, ln in ipairs(lines) do
     row{ t = "text", s = ln, f = font, c = col, x = x, h = lh,
-         cite = (i == 1) and cite or nil }
+         cite = (i == 1) and cite or nil, right = COL_R }
   end
 end
 
@@ -542,9 +569,18 @@ end
 local function layout(w)
   rows = {}
   local PAD = S(20)
-  local x = PAD
-  local maxw = w - PAD * 2
+  -- A reading column of about a hundred characters, centred in a wide window
+  -- (Apple's Layout page: restrict the width of text for readability). It is
+  -- measured in the body font, so it grows with Text Size. A hundred rather
+  -- than the typographer's seventy: seventy narrows the default window's page
+  -- too, and its closed index then no longer fits without scrolling (ADR 0010).
+  gfx.setfont(F.BODY)
+  local col = textw("Doublings and pairings that the standard literature agrees on, " ..
+                    "each one with the page of its source.")
+  local maxw = math.min(w - PAD * 2, col)
   if maxw < S(120) then maxw = S(120) end
+  local x = math.max(PAD, math.floor((w - maxw) / 2))
+  COL_R = x + maxw
 
   if st.view == "index" then
     para("Orchestration Helper", F.TITLE, C.title, x, maxw)
@@ -844,7 +880,7 @@ local function top_geometry()
   gfx.setfont(F.SUB)
   g.btn_h = math.max(S(28), gfx.texth + S(8))
   g.header_h = g.btn_h + S(16)
-  local by = S(8)
+  local by, top_by = S(8), S(8)
   local specs = {
     { "b:sources", "Sources", st.view == "sources",
       function() go("sources", nil, true) end },
@@ -855,21 +891,39 @@ local function top_geometry()
     { "b:help", "Help", st.view == "help", function() go("help", nil, true) end },
     { "b:size", "Text Size", false, text_size_menu },
   }
+  -- Back is named in words, not drawn as a bare "<" that would need a tooltip.
+  local backw = math.max(textw("Back") + S(24), g.btn_h)
+  local leftmost = S(8) + backw + S(12)
   g.buttons = {}
-  local rx = w - S(8)
+  local rx, inrow = w - S(8), 0
+  g.title_right = nil
   for _, sp in ipairs(specs) do
     local bw = textw(sp[2]) + S(24)
+    -- a narrow window (or large text) puts the rest on a row of their own,
+    -- so no button is ever drawn over another (Apple's Layout: nothing
+    -- becomes unreachable as the window narrows)
+    if rx - bw < leftmost and inrow > 0 then
+      g.title_right = g.title_right or rx
+      by = by + g.btn_h + S(12)
+      rx, inrow = w - S(8), 0
+    end
     rx = rx - bw
     table.insert(g.buttons, 1, { key = sp[1], label = sp[2], on = sp[3],
       fn = sp[4], x = rx, y = by, w = bw, h = g.btn_h })
     rx = rx - S(12)
+    inrow = inrow + 1
   end
-  table.insert(g.buttons, 1, { key = "b:back", label = "<", on = false,
-    fn = back, x = S(8), y = by, w = math.max(S(34), g.btn_h), h = g.btn_h })
+  g.title_right = g.title_right or rx
+  table.insert(g.buttons, 1, { key = "b:back", label = "Back", on = false,
+    fn = back, x = S(8), y = top_by, w = backw, h = g.btn_h })
   for _, b in ipairs(g.buttons) do
     b.action = function() b.fn(b) end
   end
-  g.title_right = rx
+  g.header_h = by + g.btn_h + S(8)
+  table.sort(g.buttons, function(a, b)       -- Tab goes in reading order
+    if a.y ~= b.y then return a.y < b.y end
+    return a.x < b.x
+  end)
 
   gfx.setfont(F.INPUT)
   g.search_h = gfx.texth + S(14)
@@ -883,20 +937,29 @@ local function top_geometry()
   g.chips = {}
   g.more = nil
   if #st.sugg >= 2 then
+    gfx.setfont(F.SMALL)
+    local morew = textw(("+%d more"):format(#st.sugg)) + S(12)
     gfx.setfont(F.SUB)
     local ch = math.max(S(28), gfx.texth + S(8))
     local x0, maxw = g.pad, w - g.pad * 2
     local cx, line, drawn = x0, 1, 0
     for i, en in ipairs(st.sugg) do
       local cw = textw(en.name) + S(24)
-      if cx + cw > x0 + maxw and drawn > 0 then
-        if line >= 2 then
+      -- on the last row, leave room for "+N more" so it stays in the window
+      local function fits()
+        local room = (line >= 2 and i < #st.sugg) and morew or 0
+        return cx + cw + room <= x0 + maxw
+      end
+      if not fits() and drawn > 0 then
+        if line == 1 then
+          line = 2
+          cx = x0
+          y = y + ch + S(12)
+        end
+        if not fits() then
           g.more = { s = ("+%d more"):format(#st.sugg - drawn), x = cx, y = y }
           break
         end
-        line = line + 1
-        cx = x0
-        y = y + ch + S(12)
       end
       g.chips[#g.chips + 1] =
         { label = en.name, x = cx, y = y, w = cw, h = ch, i = i, entry = en,
@@ -912,8 +975,16 @@ local function top_geometry()
 
   g.top_h = y
 
+  -- the footer wraps rather than running off the window's edge
   gfx.setfont(F.SMALL)
-  g.footer_h = gfx.texth + S(8)
+  g.footer_lines = wrap(st.view == "index"
+    and ("Click a family to open it · " .. KEYNAME.ctrlright .. " opens all · " ..
+         KEYNAME.ctrlleft .. " closes all · F1 for help · Works offline")
+     or (KEYNAME.updown .. " matches · " .. KEYNAME.enter .. " opens · " ..
+         "Esc clears · " .. KEYNAME.altleft .. " goes back · F1 for help · " ..
+         "Works offline"), w - S(40))
+  g.footer_lh = gfx.texth + S(2)
+  g.footer_h = #g.footer_lines * g.footer_lh + S(6)
   return g
 end
 
@@ -970,7 +1041,7 @@ local function draw_top(g)
   local sx, sy, sw, sh = g.search_x, g.search_y, g.search_w, g.search_h
   setcol(inrect(sx, sy, sw, sh) and C.panel2 or C.sunken)
   gfx.rect(sx, sy, sw, sh, 1)
-  setcol(C.line)
+  setcol(C.edge)                        -- an input's edge, 3:1 or more
   gfx.rect(sx, sy, sw, sh, 0)
 
   gfx.setfont(F.INPUT)
@@ -979,8 +1050,10 @@ local function draw_top(g)
   if st.query == "" then
     setcol(C.faint)
     gfx.x, gfx.y = tx, ty
-    gfx.drawstr("Search for an instrument, section, composer or mood", 0,
-                sx + sw - S(100), sy + sh)
+    -- never cut short: the long hint where it fits, else the plain word
+    local hint = "Search for an instrument, section, composer or mood"
+    if textw(hint) > sw - S(112) then hint = "Search" end
+    gfx.drawstr(hint, 0, sx + sw - S(100), sy + sh)
   else
     setcol(C.text)
     gfx.x, gfx.y = tx, ty
@@ -1013,6 +1086,10 @@ local function draw_top(g)
     -- filled, which means dark ink on it
     setcol(sel and C.accent or (over and C.frame_hover or C.sunken))
     gfx.rect(c.x, c.y, c.w, c.h, 1)
+    if not sel then
+      setcol(C.edge)
+      gfx.rect(c.x, c.y, c.w, c.h, 0)
+    end
     setcol(sel and C.ink or (over and C.title or C.text))
     gfx.x, gfx.y = c.x, c.y + math.floor((c.h - gfx.texth) / 2)
     gfx.drawstr(c.label, 1, c.x + c.w, c.y + c.h)
@@ -1055,7 +1132,7 @@ local function draw_body(top, bottom)
         if r.cite then
           gfx.setfont(F.SMALL)
           setcol(C.faint)
-          gfx.x, gfx.y = w - S(20) - textw(r.cite), y + S(3)
+          gfx.x, gfx.y = r.right - textw(r.cite), y + S(3)
           gfx.drawstr(r.cite, 256)
         end
       elseif r.t == "kv" then
@@ -1109,6 +1186,8 @@ local function draw_body(top, bottom)
           local over = visible and inrect(c.x, y, c.w, c.h)
           setcol(over and C.frame_hover or C.sunken)
           gfx.rect(c.x, y, c.w, c.h, 1)
+          setcol(C.edge)                -- its fill alone is 1.1:1 on the ground
+          gfx.rect(c.x, y, c.w, c.h, 0)
           setcol(over and C.title or C.text)
           gfx.x, gfx.y = c.x, y + math.floor((c.h - gfx.texth) / 2)
           gfx.drawstr(c.label, 1, c.x + c.w, y + c.h)
@@ -1198,13 +1277,10 @@ local function draw_footer(g)
   gfx.rect(0, y, gfx.w, 1, 1)
   setcol(C.faint)
   gfx.setfont(F.SMALL)
-  gfx.x, gfx.y = S(20), y + S(4)
-  gfx.drawstr(st.view == "index"
-    and ("Click a family to open it · " .. KEYNAME.ctrlright .. " opens all · " ..
-         KEYNAME.ctrlleft .. " closes all · F1 for help · Works offline")
-     or (KEYNAME.updown .. " matches · " .. KEYNAME.enter .. " opens · " ..
-         "Esc clears · " .. KEYNAME.altleft .. " goes back · F1 for help · " ..
-         "Works offline"), 256)
+  for i, ln in ipairs(g.footer_lines) do
+    gfx.x, gfx.y = S(20), y + S(4) + (i - 1) * g.footer_lh
+    gfx.drawstr(ln, 256)
+  end
 end
 
 ------------------------------------------------------------------------------
@@ -1351,14 +1427,17 @@ local function num(s, dflt)
   return tonumber(s) or dflt
 end
 
-local win_w = math.max(460, num(reaper.GetExtState(EXT, "w"), 760))
-local win_h = math.max(360, num(reaper.GetExtState(EXT, "h"), 680))
+load_text_size()
+-- The smallest window that opens grows with the text size, so the header's
+-- buttons and a few lines of the page always fit when it first appears.
+local grow = TEXT_SIZES[TEXTSIZE] / 100
+local win_w = math.max(math.floor(460 * grow), num(reaper.GetExtState(EXT, "w"), 760))
+local win_h = math.max(math.floor(360 * grow), num(reaper.GetExtState(EXT, "h"), 680))
 local win_x = num(reaper.GetExtState(EXT, "x"), 150)
 local win_y = num(reaper.GetExtState(EXT, "y"), 110)
 local win_d = num(reaper.GetExtState(EXT, "dock"), 0)
 
 load_open()
-load_text_size()
 
 gfx.ext_retina = 1
 gfx.init("Orchestration Helper", win_w, win_h, win_d, win_x, win_y)
@@ -1380,6 +1459,20 @@ end)
 requery()
 
 local last_retina = gfx.ext_retina
+
+-- The window's title says what is open (gfx.init with a name alone retitles an
+-- open window), so the Window menu and the Dock name the page, not just the app.
+local shown_title = "Orchestration Helper"
+local function retitle()
+  local t = "Orchestration Helper"
+  if st.view == "entry" and st.entry then t = t .. " — " .. st.entry.name
+  elseif st.view == "help" then t = t .. " — Help"
+  elseif st.view == "sources" then t = t .. " — Sources" end
+  if t ~= shown_title then
+    shown_title = t
+    gfx.init(t)
+  end
+end
 
 local function loop()
   if not handle_keys() then return end
@@ -1403,6 +1496,7 @@ local function loop()
   draw_top(g)
   draw_footer(g)
   build_focus(g)
+  retitle()
 
   handle_mouse()
   gfx.update()
