@@ -46,11 +46,8 @@ jobs:
           open "build/Orchestration Helper.app"
           sleep 6
           pgrep -x "Orchestration Helper"
-          shot() {   # the window, as a small JPEG printed into the log
-            screencapture -x -R150,110,760,708 "build/$1.png" || return 0
-            sips -s format jpeg -s formatOptions 55 "build/$1.png" --out "build/$1.jpg" >/dev/null
-            echo "SHOT-BEGIN $1"; base64 -i "build/$1.jpg" | fold -w 2000; echo "SHOT-END $1"
-          }
+          mkdir -p build/shots
+          shot() { screencapture -x -R150,110,760,708 "build/shots/$1.png" || true; }
           shot index
           # type a search, as a user would (needs the runner's accessibility access)
           osascript -e 'tell application "System Events" to keystroke "trombone"' || true
@@ -69,8 +66,18 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: build/*.png
+          path: build/shots/*.png
           if-no-files-found: ignore
+      # While the app is being built, the screenshots also go to a throwaway
+      # branch, where they can be fetched with git and looked at.
+      - name: Screenshots to the ci-screenshots branch
+        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
+        run: |
+          cd build/shots
+          git init -q && git checkout -q -b ci-screenshots
+          git -c user.name=ci -c user.email=ci@localhost add .
+          git -c user.name=ci -c user.email=ci@localhost commit -qm "Screenshots of $GITHUB_SHA"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" ci-screenshots
       - name: Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
