@@ -38,3 +38,4 @@ Each record is `NNNN-short-title.md` and carries:
 | [0012](0012-headless-harness.md) | A headless harness instead of manual testing in REAPER | Accepted |
 | [0013](0013-window-text-follows-apples-writing-guidelines.md) | The window's text follows Apple's writing guidelines | Accepted |
 | [0014](0014-apples-hig-foundations.md) | Apple's HIG Foundations are the standard for the window | Accepted |
+| [0015](0015-mac-app-around-the-unchanged-script.md) | The Mac app runs the unchanged script | Accepted |
