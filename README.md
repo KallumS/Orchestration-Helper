@@ -1,5 +1,9 @@
 # Orchestration Helper
 
+> **This is the `mac-app` branch: the Mac app.** The REAPER version lives on
+> `main` and does not include any of this. Changes to the REAPER version are
+> made on `main` and merged into `mac-app`; `mac-app` is never merged into `main`.
+
 A ReaScript that turns REAPER into an offline orchestration encyclopaedia.
 
 Type the name of an instrument, a section, a composer — or a mood — into the box:

@@ -1,5 +1,10 @@
 # CLAUDE.md
 
+**Branches.** `main` is the REAPER version only. `mac-app` (this branch) adds
+the Mac app on top of it. Work on the REAPER version goes on `main` and is merged
+into `mac-app` (`git merge main`); `mac-app` is never merged into `main`, so the
+REAPER version never carries the build files, workflows or plugin-only code.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
