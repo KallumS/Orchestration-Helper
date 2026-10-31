@@ -14,7 +14,26 @@ It draws with REAPER's built-in `gfx` API, so a stock install runs it.
 
 ---
 
-## Install
+## The Mac app
+
+Orchestration Helper also runs on its own, without REAPER, as a Mac app (Apple
+Silicon and Intel). It is the same script and the same two databases, so it
+says exactly what the ReaScript says.
+
+1. Download `Orchestration-Helper-macOS.zip` from the repository's **Releases**
+   (or, for the latest build, from **Actions → Mac app → the newest run →
+   Artifacts**) and double-click it.
+2. Drag **Orchestration Helper** into **Applications**.
+3. The first time only: the app is not signed with an Apple developer
+   certificate, so macOS will refuse to open it with a double-click. Control-click
+   it, choose **Open**, then **Open** again. (On macOS 15 or later: try to open
+   it once, then **System Settings → Privacy & Security → Open Anyway**.)
+
+Everything works as in REAPER, plus a menu bar: **View → Bigger Text / Smaller
+Text / Actual Size** (⌘= ⌘- ⌘0), **Edit → Paste** into the search box, and
+**Help** (⌘?). The app remembers its size, place and text size.
+
+## Install in REAPER
 
 1. Copy the files into your REAPER Scripts folder, keeping them together:
 
@@ -291,6 +310,13 @@ rest, and its entry count comes from the data.
 ---
 
 ## Development
+
+The Mac app is in `macos/`: `host.c` gives the script REAPER's `gfx` and
+`reaper` calls around an embedded Lua 5.4, `mac.m` draws them with the Mac's
+own frameworks, and `build.sh` makes the app (on a Mac). The workflow in
+`.github/workflows/macos-app.yml` runs the test suite, builds the app on
+GitHub's Macs for every push, opens it, types a search, and attaches the zip to
+the run; pushing a tag such as `v1.0` publishes it as a release.
 
 `CLAUDE.md` holds the architecture notes, the data schema and the editorial rules
 — read it before changing anything. `COLOUR.md` is the colour scheme, shared with

@@ -29,7 +29,7 @@ new row. A decision reversible in an afternoon with no consequences does not nee
 
 ## Commands
 
-There is no build step and no linter.
+The script has no build step and no linter (the Mac app has one, below).
 
 ```bash
 lua5.4 tests/run.lua              # the whole suite (219 checks); exits non-zero on failure
@@ -37,7 +37,15 @@ lua5.4 tests/audit-aliases.lua    # report search keys claimed by >1 entry
 lua5.4 tests/audit-sources.lua    # citation coverage per source tag
 luac5.4 -p 'Orchestration Helper.lua'   # syntax check without running
 luac5.4 -p orchestration_data.lua
+macos/build.sh                    # the Mac app, on a Mac (CI does this: .github/workflows/macos-app.yml)
 ```
+
+The Mac app (ADR 0015) runs this same script: `macos/host.c` implements the
+`gfx`/`reaper` calls it uses around an embedded Lua, `macos/mac.m` draws them.
+**A new `gfx` or `reaper` call in the script needs a function in `host.c`**
+(and `backend.h`, `mac.m`, `sim.c` if it draws), or the app stops with an
+error. To run the core on Linux: build `macos/sim.c` as the workflow's `test`
+job does, then `sim "$PWD/Orchestration Helper.lua" 8 trombone "" @close ""`.
 
 A fresh container has no Lua: `apt-get install -y lua5.4`.
 

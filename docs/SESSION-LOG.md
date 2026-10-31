@@ -955,6 +955,41 @@ verdict; ADR 0014 a dated section. The route:
   the matches for "horn" happen to end short of the edge. A scan of widths found
   500 points puts it past the edge, and the check now looks there too.
 
+## 6i. 24 October 2026 — the Mac app
+
+Asked for: Orchestration Helper as a native Mac app for Apple Silicon, built by
+GitHub Actions. Built as a host for the unchanged script (ADR 0015) rather than a
+rewrite.
+
+- `macos/host.c` (portable C) gives the script `gfx` and `reaper` around Lua
+  5.4: about twenty calls, the list `grep -o "gfx\.[a-z_]*"` gives. `gfx` is a
+  plain Lua table, as in REAPER, so the script's own reads and writes of
+  `gfx.x`, `gfx.clear` and `gfx.mouse_wheel` need nothing.
+- `macos/mac.m` draws into a CoreGraphics bitmap at the screen's density and
+  hands a snapshot to the view on `gfx.update`; text is CoreText, the system
+  face when the script asks for `.AppleSystemUIFont`. Lua's site is not
+  reachable from the build container, so Lua comes from its GitHub mirror
+  (tag `v5.4.7`, built from `onelua.c`).
+- **First bug, found by `sim.c` before any Mac build:** `drawstr` read its
+  flags after `luaL_tolstring` had pushed the string, so a one-argument call
+  read the string as the flags. Arguments are read first now.
+- The screen is cleared lazily, on the first drawing of a frame, with that
+  frame's `gfx.clear`; REAPER clears after `gfx.update`, which gives the same
+  picture but a black first frame here, since the script sets `gfx.clear`
+  inside its loop.
+- A click that goes down and up between two frames stays down until a frame
+  has seen it; the 30 Hz timer would otherwise drop fast clicks.
+- `gfx.showmenu` is modal (`popUpMenuPositioningItem`), and the timer keeps
+  firing inside it; `host_frame` returns at once while a frame is running.
+- The workflow builds it on a `macos-14` runner, opens it, types `trombone`
+  through System Events and takes two screenshots. Artifacts and logs cannot
+  be downloaded from the container, so while this was built the screenshots
+  were also pushed to a throwaway `ci-screenshots` branch and fetched with
+  git. They showed the index and the Trombone page as the harness predicts,
+  in San Francisco, with the Mac's key symbols in the footer.
+- Not done: signing and notarising (needs an Apple developer account), and
+  nothing has been seen on a Retina screen (the runner's display is 1x).
+
 ## 7. What is not done
 
 - **Never run inside REAPER.** The harness approximates font metrics, so spacing,
