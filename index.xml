@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ReaPack index for Orchestration Helper.
+
+  Add this repository in REAPER with Extensions > ReaPack > Import repositories,
+  pasting the raw URL of this file on the default branch:
+
+    https://raw.githubusercontent.com/KallumS/Orchestration-Helper/main/index.xml
+
+  That URL only resolves once this file is on the default branch.
+
+  Each <source> is pinned to a commit rather than a branch, so an installed
+  version is the exact set of files that was tested and cannot change
+  underneath anyone. Publishing a new version means adding a <version> block
+  with a fresh commit hash - never editing an existing one.
+
+  One package: the script and the two databases it loads from beside itself.
+
+  ReaPack keys an installed package by its NAME, so renaming a file is not an
+  upgrade. Rename sparingly.
+-->
+<index version="1" name="Orchestration Helper">
+  <category name="Composition">
+
+    <reapack name="Orchestration Helper.lua" type="script" desc="Orchestration Helper">
+      <version name="1.0" author="kallums" time="2026-10-31T23:13:22Z">
+        <changelog><![CDATA[First release through ReaPack. An offline orchestration encyclopaedia: type an instrument, a section, a composer or a mood and get the doublings, pairings and combinations the standard literature agrees on, each with its citation.]]></changelog>
+        <source main="main" file="Orchestration Helper.lua">https://raw.githubusercontent.com/KallumS/Orchestration-Helper/8fd13a37b2a7493a3ed64d40c2a8db6ed6dec593/Orchestration%20Helper.lua</source>
+        <source file="orchestration_data.lua">https://raw.githubusercontent.com/KallumS/Orchestration-Helper/8fd13a37b2a7493a3ed64d40c2a8db6ed6dec593/orchestration_data.lua</source>
+        <source file="orchestration_composers.lua">https://raw.githubusercontent.com/KallumS/Orchestration-Helper/8fd13a37b2a7493a3ed64d40c2a8db6ed6dec593/orchestration_composers.lua</source>
+      </version>
+      <metadata>
+        <description><![CDATA[{\pard Orchestration Helper\par
+Turns REAPER into an offline orchestration encyclopaedia. Type an instrument, a section, a composer or a mood - trombone, string section, Bernard Herrmann, mysterious - and get the doublings, pairings and combinations the standard orchestration literature agrees on, each with a citation.\par
+Needs no extensions and never touches the network.\par
+}]]></description>
+        <link rel="website">https://github.com/KallumS/Orchestration-Helper</link>
+      </metadata>
+    </reapack>
+
+  </category>
+</index>

@@ -35,6 +35,14 @@ Text / Actual Size** (⌘= ⌘- ⌘0), **Edit → Paste** into the search box, a
 
 ## Install in REAPER
 
+**With ReaPack** (easiest, and it keeps it up to date): Extensions ->
+ReaPack -> Import repositories, paste
+`https://raw.githubusercontent.com/KallumS/Orchestration-Helper/main/index.xml`,
+then Browse packages, find Orchestration Helper and Install. That link only works
+once this has been merged into the main branch.
+
+**By hand:**
+
 1. Copy the files into your REAPER Scripts folder, keeping them together:
 
    ```
