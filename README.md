@@ -33,6 +33,8 @@ Everything works as in REAPER, plus a menu bar: **View → Bigger Text / Smaller
 Text / Actual Size** (⌘= ⌘- ⌘0), **Edit → Paste** into the search box, and
 **Help** (⌘?). The app remembers its size, place and text size.
 
+**In Ableton Live:** `ableton/` has Orchestration Helper as a Max for Live MIDI effect. See [`ableton/README.md`](ableton/README.md).
+
 ## Install in REAPER
 
 **With ReaPack** (easiest, and it keeps it up to date): Extensions ->

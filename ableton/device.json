@@ -1,0 +1,19 @@
+{
+  "name": "Orchestration Helper",
+  "slug": "OrchestrationHelper",
+  "kind": "midi",
+  "template": "jsfx_midi",
+  "width": 260,
+  "window": [760, 680],
+  "hello": "Show Window opens the orchestration guide.",
+  "description": "An offline orchestration encyclopaedia: doublings, pairings and combinations for an instrument, a section, a composer or a mood.",
+  "device": { "main": "Orchestration Helper.lua", "size": [760, 680] },
+  "files": {
+    "Orchestration Helper.lua": "../Orchestration Helper.lua",
+    "orchestration_data.lua": "../orchestration_data.lua",
+    "orchestration_composers.lua": "../orchestration_composers.lua"
+  },
+  "buttons": [],
+  "scripts": ["kit/runtime/polyfill.js", "kit/runtime/lua_parse.js", "kit/runtime/lua_runtime.js", "kit/runtime/lua_compile.js",
+              "kit/gfx.js", "kit/lua_device.js"]
+}

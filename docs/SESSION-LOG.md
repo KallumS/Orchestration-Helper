@@ -1131,3 +1131,7 @@ rewrite.
   API reference has "243 `gfx.` matches"; ADR 0001 said 59 entries. Both are correct
   — 243 occurrences of the string, 59 distinct functions. Stated explicitly now,
   because the next reader would reasonably assume one was stale.
+
+## 2026-11-10 - Ableton Live device
+
+The user is switching to Ableton and asked for each REAPER project as Max for Live, one branch per repository (branch `ableton`). `ableton/` runs the script unchanged on Middaw's Lua with REAPER's gfx and reaper tables supplied (`ableton/kit/lua_device.js`). Middaw's Lua had no `package.config`, which the script reads for the path separator; the host supplies it. Four tests in Node, and `ableton/window.png`. Not done: opening it in Live.
