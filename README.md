@@ -35,6 +35,8 @@ Text / Actual Size** (⌘= ⌘- ⌘0), **Edit → Paste** into the search box, a
 
 **In Ableton Live:** `ableton/` has Orchestration Helper as a Max for Live MIDI effect. See [`ableton/README.md`](ableton/README.md).
 
+![Orchestration Helper in Ableton Live](ableton/window.png)
+
 ## Install in REAPER
 
 **With ReaPack** (easiest, and it keeps it up to date): Extensions ->

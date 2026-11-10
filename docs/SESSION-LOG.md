@@ -1135,3 +1135,5 @@ rewrite.
 ## 2026-11-10 - Ableton Live device
 
 The user is switching to Ableton and asked for each REAPER project as Max for Live, one branch per repository (branch `ableton`). `ableton/` runs the script unchanged on Middaw's Lua with REAPER's gfx and reaper tables supplied (`ableton/kit/lua_device.js`). Middaw's Lua had no `package.config`, which the script reads for the path separator; the host supplies it. Four tests in Node, and `ableton/window.png`. Not done: opening it in Live.
+
+Later the same day the user asked for the docs to be brought up to date and a current picture in each repository. `ableton/window.png` is now drawn at Retina's 2x with text measured as Arial measures it, and `node ableton/window.js` redraws it from the repository (it was a scratch script), showing "trom" typed into the search. The root README shows it under the Ableton paragraph, and CLAUDE.md has a section on the device: building, testing, the picture, the shared kit.

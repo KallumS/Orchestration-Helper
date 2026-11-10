@@ -454,3 +454,15 @@ tool is for. Rules 2, 3, 4 and 6 have decision records — ADRs 0004, 0006, 0005
   *wrapped line*, so a phrase spanning a line break will not be found by a
   substring search, and section headers are drawn upper-cased. Cap the output of
   any dump: accumulating 70 frames of a long page prints thousands of lines.
+
+## The Ableton device (branch `ableton`)
+
+`ableton/` is Orchestration Helper as a Max for Live MIDI effect, for Live 12.1 or later (it runs on Max 9's JavaScript, in a `[v8ui]`). It is on this branch only: `ableton` is `main` with the device added, so REAPER work goes on `main` and is merged in (`git merge main`). `ableton/README.md` is the musician's guide to it.
+
+- **Build**: `python3 ableton/kit/build.py ableton/device.json` writes the `.amxd`, the `.maxpat` and the bundle `OrchestrationHelper.js`; with `--check` it fails if they are stale. Rebuild after any change to the code it carries, the kit or `device.json`, and commit what it writes: the user copies those files straight into Live.
+- **Test**: `node --test ableton/tests/test_device.js`, on a pretend Max and a pretend Live set (`ableton/kit/test/max.js`).
+- **Picture**: `node ableton/window.js` redraws `ableton/window.png` ("trom" typed into the search), the picture in both READMEs, from the device's own drawing code on that pretend Max; it needs Playwright's Chromium. Redraw it after any change to what the device shows, and look at it.
+- **The kit is shared.** `ableton/kit/` is the same in all eighteen family repositories with a device: change it in one, copy it to all, rebuild and test each. `ableton/kit/runtime/` is Middaw's `runtime/`, copied unchanged - fix Middaw, then copy. `ableton/kit/VENDORED.md` has the commits.
+- **Not yet opened in Live.** Everything is tested against stand-ins for Max and the Live Object Model; say so rather than claim it works in Live.
+- **The device runs `Orchestration Helper.lua` and its two data files unchanged** on Middaw's Lua, with REAPER's `gfx` and `reaper` tables supplied by `ableton/kit/lua_device.js`. Same rule as the Mac app's `host.c`: **a new `gfx` or `reaper` call in the script needs a function there too** (in every kit), or the device stops with an error.
+- Keys reach the script only while the device's window has focus, through Max's `[key]`.

@@ -31,7 +31,7 @@ Text Size and the rest of what the script remembers (its ExtState) are kept with
 ableton/device.json` writes the `.amxd`, the `.maxpat` and the script bundle
 `OrchestrationHelper.js`. The bundle is Middaw's Lua 5.4 runtime, the script and `orchestration_data.lua` and `orchestration_composers.lua` (read with dofile, as in REAPER), and the shared host (`ableton/kit/lua_device.js`, `gfx.js`). See `ableton/kit/VENDORED.md`.
 
-`node --test ableton/tests/test_device.js` runs the device on a pretend Max and Live: the guide opens with its data, typing finds instruments and Return opens one, a composer and a mood are found, and the Text Size menu works and is kept with the set.
+`node --test ableton/tests/test_device.js` runs the device on a pretend Max and Live: the guide opens with its data, typing finds instruments and Return opens one, a composer and a mood are found, and the Text Size menu works and is kept with the set. `node ableton/window.js` redraws the picture above from the device's own drawing code (it needs Playwright's Chromium).
 
 ## Limits
 
