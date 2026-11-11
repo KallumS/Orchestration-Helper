@@ -1137,3 +1137,11 @@ rewrite.
 The user is switching to Ableton and asked for each REAPER project as Max for Live, one branch per repository (branch `ableton`). `ableton/` runs the script unchanged on Middaw's Lua with REAPER's gfx and reaper tables supplied (`ableton/kit/lua_device.js`). Middaw's Lua had no `package.config`, which the script reads for the path separator; the host supplies it. Four tests in Node, and `ableton/window.png`. Not done: opening it in Live.
 
 Later the same day the user asked for the docs to be brought up to date and a current picture in each repository. `ableton/window.png` is now drawn at Retina's 2x with text measured as Arial measures it, and `node ableton/window.js` redraws it from the repository (it was a scratch script), showing "trom" typed into the search. The root README shows it under the Ableton paragraph, and CLAUDE.md has a section on the device: building, testing, the picture, the shared kit.
+
+## 2026-11-11 - Live's colours
+
+The user asked for the Ableton versions to look like Ableton, using the Ableton-inspired scheme tried before, and whether the generators could be MIDI Tools in Live's Generate and Transform panels.
+
+- **Colours**: the scheme is Starting Blocks' Live 8 theme of 18 September (commit 2765b0a3, found in its history, not on any branch), now `ableton/kit/palette.js`. Two changes to it for 7:1 words: the chrome a step darker (#3E3E3E) and light buttons with dark ink. The window's own colours are translated as it draws (`Palette.tone`), so the script is unchanged. AutoCC paints its window in its ink colour, which made it near-black at first; the ink is #1A1A1A now, dark enough for words on a button and light enough to be a ground.
+- `kit/test/palette_suite.js`: every word 7:1 on every surface, edges 3:1, the greys neutral, the house scheme translated without losing a contrast. Each rule was broken on purpose; the yellow-shade rule was missed at first (the check only asked that the shade was lighter) and now asks that it is amber.
+- Not done: opening it in Live.

@@ -14,6 +14,6 @@
     "orchestration_composers.lua": "../orchestration_composers.lua"
   },
   "buttons": [],
-  "scripts": ["kit/runtime/polyfill.js", "kit/runtime/lua_parse.js", "kit/runtime/lua_runtime.js", "kit/runtime/lua_compile.js",
+  "scripts": ["kit/palette.js", "kit/runtime/polyfill.js", "kit/runtime/lua_parse.js", "kit/runtime/lua_runtime.js", "kit/runtime/lua_compile.js",
               "kit/gfx.js", "kit/lua_device.js"]
 }
